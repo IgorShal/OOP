@@ -1,6 +1,9 @@
 import org.example.Solution;
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * Класс с тестами.
+ */
 public class SampleTest {
     @org.junit.jupiter.api.Test
     void test1() {

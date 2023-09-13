@@ -2,12 +2,12 @@
 package org.example;
 
 /**
- * Класс решения
+ * Класс решения.
  */
 
 public class Solution {
     /**
-     * Функция для смены элементов массива по индексам
+     * Функция для смены элементов массива по индексам.
      */
 
     public static void swap(int index1, int index2, int[] arr) {
@@ -18,7 +18,7 @@ public class Solution {
     }
 
     /**
-     * Фуенкция для прохода по куче с просеиванием
+     * Фуенкция для прохода по куче с просеиванием.
      */
     public static void heapify(int[] arr, int length, int i) {
 
@@ -39,7 +39,7 @@ public class Solution {
 
     /**
      * Функция самого heap sort в которой мы сначала создаём из исходного массива кучу
-     * а потом вытесняем максимальные элементы
+     * а потом вытесняем максимальные элементы.
      */
     public static String heapsort(int[] arr) {
 
@@ -52,7 +52,7 @@ public class Solution {
             heapify(arr, i, 0);
         }
 
-        // Возвращаем результат как строку
+        // Возвращаем результат как строку.
         String result = "[";
         for (int i = 0; i < length - 1; i++) {
             result = result.concat(arr[i] + ", ");
