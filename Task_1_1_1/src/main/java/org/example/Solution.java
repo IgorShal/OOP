@@ -1,7 +1,7 @@
 
 package org.example;
 
-//  Класс решения
+// Класс решения
 public class Solution {
     public static void swap(int index1, int index2, int[] arr) {
         int temp = arr[index1];
