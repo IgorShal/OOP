@@ -1,5 +1,6 @@
 
 package org.example;
+
 /**
  * Класс решения
  */
@@ -15,6 +16,7 @@ public class Solution {
         arr[index1] = arr[index2];
         arr[index2] = temp;
     }
+
     /**
      * Фуенкция для прохода по куче с просеиванием
      */
@@ -34,6 +36,7 @@ public class Solution {
             heapify(arr, length, mx);
         }
     }
+
     /**
      * Функция самого heap sort в которой мы сначала создаём из исходного массива кучу
      * а потом вытесняем максимальные элементы
@@ -57,9 +60,7 @@ public class Solution {
         result += (arr[length - 1] + "]");
         return result;
     }
-    /**
-     * main функция
-     */
+
     public static void main(String[] args) {
         heapsort(new int[]{5, 4, 3, 2, 1});
     }
