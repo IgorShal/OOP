@@ -1,17 +1,25 @@
 package org.example;
 
+import java.util.Arrays;
+
 /**
  * Класс полиномов.
  */
 public class Polynomial {
-    private final int[] coefs;
+    private final double[] coefs;
     private final int length;
 
     /**
      * Создание элемента класса полиномов.
      */
-    public Polynomial(int[] arr) {
+    public Polynomial(double[] arr) {
+
         coefs = arr;
+        length = arr.length;
+    }
+    public Polynomial(int[] arr) {
+
+        coefs = Arrays.stream(arr).asDoubleStream().toArray();
         length = arr.length;
     }
 
@@ -19,7 +27,7 @@ public class Polynomial {
      * Сумма двух полиномов.
      */
     public Polynomial plus(Polynomial p2) {
-        int[] resCoefs;
+        double[] resCoefs;
         if (length > p2.length) {
             resCoefs = coefs.clone();
             for (int i = 0; i < p2.length; i++) {
@@ -52,7 +60,7 @@ public class Polynomial {
     public double evaluate(double point) {
         double res = 0;
         for (int i = 0; i < length; i++) {
-            res += ((double) coefs[length - i - 1] * Math.pow(point, i));
+            res += (coefs[length - i - 1] * Math.pow(point, i));
         }
         return res;
     }
@@ -78,10 +86,10 @@ public class Polynomial {
      * Взятие i-ой производной.
      */
     public Polynomial differentiate(int k) {
-        int[] newCoefs = coefs.clone();
+        double[] newCoefs = coefs.clone();
         for (int i = 0; (i < k && i < length - 1); i++) {
             int curLength = length - i - 1;
-            int[] arr = new int[curLength];
+            double[] arr = new double[curLength];
 
             for (int j = 0; j < curLength; j++) {
                 arr[curLength - j - 1] = newCoefs[curLength - j - 1] * (j + 1);
@@ -89,7 +97,7 @@ public class Polynomial {
             newCoefs = arr.clone();
         }
         if (k >= length) {
-            return new Polynomial(new int[]{0});
+            return new Polynomial(new double[]{0});
         }
         return new Polynomial(newCoefs);
     }
@@ -100,10 +108,10 @@ public class Polynomial {
     public String toString() {
         String result = "";
         for (int i = length - 1; i >= 2; i--) {
-            if (coefs[length - 1 - i] != 0 && (!result.isEmpty())) {
+            if (Math.abs(coefs[length - 1 - i]) > 0.0000001 && (!result.isEmpty())) {
                 if (coefs[length - 1 - i] > 0) {
                     result = result.concat(" + ");
-                    if (coefs[length - 1 - i] != 1) {
+                    if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
                         result += (coefs[length - 1 - i] + "x^" + i);
                     } else {
                         result += ("x^" + i);
@@ -111,7 +119,7 @@ public class Polynomial {
 
                 } else {
                     result = result.concat(" + ");
-                    if ((-coefs[length - 1 - i]) != 1) {
+                    if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
                         result += ((-coefs[length - 1 - i]) + "x^" + i);
                     } else {
                         result += ("x^" + i);
@@ -119,39 +127,39 @@ public class Polynomial {
 
                 }
 
-            } else if (coefs[length - 1 - i] != 0) {
-                if (coefs[length - 1 - i] != 1) {
+            } else if (Math.abs(coefs[length - 1 - i]) > 0.0000001) {
+                if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
                     result = result.concat(coefs[length - 1 - i] + "x^" + i);
                 } else {
                     result = result.concat("x^" + i);
                 }
             }
         }
-        if ((length > 1) && (!result.isEmpty()) && coefs[length - 2] != 0) {
+        if ((length > 1) && (!result.isEmpty()) && Math.abs(coefs[length - 2]) > 0.0000001) {
             if (coefs[length - 2] > 0) {
                 result += " + ";
-                if (coefs[length - 2] != 1) {
+                if (Math.abs(coefs[length - 2]) > 1.00000001) {
                     result += (coefs[length - 2] + "x");
                 } else {
                     result += ("x");
                 }
             } else {
                 result += " - ";
-                if ((-coefs[length - 2]) != 1) {
+                if (Math.abs(coefs[length - 2]) > 1.00000001) {
                     result += ((-coefs[length - 2]) + "x");
                 } else {
                     result += ("x");
                 }
 
             }
-        } else if (length > 1 && coefs[length - 2] != 0) {
-            if (coefs[length - 2] != 1) {
+        } else if (length > 1 && Math.abs(coefs[length - 2]) > 0.0000001) {
+            if (Math.abs(coefs[length - 2]) > 1.00000001) {
                 result += (coefs[length - 2] + "x");
             } else {
                 result += ("x");
             }
         }
-        if ((coefs[length - 1] != 0) && (!result.isEmpty())) {
+        if ((Math.abs(coefs[length - 1]) > 0.0000001) && (!result.isEmpty())) {
             if (coefs[length - 1] > 0) {
                 result += " + ";
                 result += coefs[length - 1];
@@ -171,9 +179,9 @@ public class Polynomial {
      */
     public Polynomial times(Polynomial p2) {
         int len = length + p2.length - 1;
-        Polynomial res = new Polynomial(new int[len]);
+        Polynomial res = new Polynomial(new double[len]);
         for (int i = 0; i < length; i++) {
-            int[] arr = new int[len];
+            double[] arr = new double[len];
             for (int j = 0; j < p2.length; j++) {
                 arr[i + j] = p2.coefs[j] * coefs[i];
             }
