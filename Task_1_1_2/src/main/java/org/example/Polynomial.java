@@ -19,31 +19,31 @@ public class Polynomial {
      * Сумма двух полиномов.
      */
     public Polynomial plus(Polynomial p2) {
-        int[] resultCoefs;
+        int[] resCoefs;
         if (length > p2.length) {
-            resultCoefs = coefs.clone();
+            resCoefs = coefs.clone();
             for (int i = 0; i < p2.length; i++) {
-                resultCoefs[length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
+                resCoefs[length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
             }
         } else {
-            resultCoefs = p2.coefs.clone();
+            resCoefs = p2.coefs.clone();
             for (int i = 0; i < length; i++) {
-                resultCoefs[p2.length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
+                resCoefs[p2.length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
             }
         }
-        return new Polynomial(resultCoefs);
+        return new Polynomial(resCoefs);
     }
 
     /**
      * Разность.
      */
     public Polynomial minus(Polynomial p2) {
-        Polynomial P3 = new Polynomial(p2.coefs.clone());
+        Polynomial p3 = new Polynomial(p2.coefs.clone());
         for (int i = 0; i < p2.length; i++) {
-            P3.coefs[i] = -p2.coefs[i];
+            p3.coefs[i] = -p2.coefs[i];
         }
-        P3 = this.plus(P3);
-        return P3;
+        p3 = this.plus(p3);
+        return p3;
     }
 
     /**
