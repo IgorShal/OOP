@@ -8,7 +8,7 @@ public class Polynomial {
     private final int length;
 
     /**
-     * Создание элемента класса полиномов
+     * Создание элемента класса полиномов.
      */
     public Polynomial(int[] arr) {
         coefs = arr;
@@ -16,38 +16,38 @@ public class Polynomial {
     }
 
     /**
-     * Сумма двух полиномов
+     * Сумма двух полиномов.
      */
-    public Polynomial plus(Polynomial P2) {
-        int[] result_coefs;
-        if (length > P2.length) {
-            result_coefs = coefs.clone();
-            for (int i = 0; i < P2.length; i++) {
-                result_coefs[length - i - 1] = P2.coefs[P2.length - i - 1] + coefs[length - i - 1];
+    public Polynomial plus(Polynomial p2) {
+        int[] resultCoefs;
+        if (length > p2.length) {
+            resultCoefs = coefs.clone();
+            for (int i = 0; i < p2.length; i++) {
+                resultCoefs[length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
             }
         } else {
-            result_coefs = P2.coefs.clone();
+            resultCoefs = p2.coefs.clone();
             for (int i = 0; i < length; i++) {
-                result_coefs[P2.length - i - 1] = P2.coefs[P2.length - i - 1] + coefs[length - i - 1];
+                resultCoefs[p2.length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
             }
         }
-        return new Polynomial(result_coefs);
+        return new Polynomial(resultCoefs);
     }
 
     /**
      * Разность.
      */
-    public Polynomial minus(Polynomial P2) {
-        Polynomial P3 = new Polynomial(P2.coefs.clone());
-        for (int i = 0; i < P2.length; i++) {
-            P3.coefs[i] = -P2.coefs[i];
+    public Polynomial minus(Polynomial p2) {
+        Polynomial P3 = new Polynomial(p2.coefs.clone());
+        for (int i = 0; i < p2.length; i++) {
+            P3.coefs[i] = -p2.coefs[i];
         }
         P3 = this.plus(P3);
         return P3;
     }
 
     /**
-     * Значение в точке
+     * Значение в точке.
      */
     public double evaluate(double point) {
         double res = 0;
@@ -58,42 +58,44 @@ public class Polynomial {
     }
 
     /**
-     * Сравнение на равенство
+     * Сравнение на равенство.
      */
-    public boolean equal(Polynomial P2) {
-        if (length != P2.length)
+    public boolean equal(Polynomial p2) {
+        if (length != p2.length) {
             return false;
-        else {
+        } else {
             for (int i = 0; i < length; i++) {
-                if (coefs[i] != P2.coefs[i])
+                if (coefs[i] != p2.coefs[i]) {
                     return false;
+                }
+
             }
         }
         return true;
     }
 
     /**
-     * Взятие i-ой производной
+     * Взятие i-ой производной.
      */
     public Polynomial differentiate(int k) {
-        int[] new_coefs = coefs.clone();
+        int[] newCoefs = coefs.clone();
         for (int i = 0; (i < k && i < length - 1); i++) {
-            int cur_length = length - i - 1;
-            int[] arr = new int[cur_length];
+            int curLength = length - i - 1;
+            int[] arr = new int[curLength];
 
-            for (int j = 0; j < cur_length; j++) {
-                arr[cur_length - j - 1] = new_coefs[cur_length - j - 1] * (j + 1);
+            for (int j = 0; j < curLength; j++) {
+                arr[curLength - j - 1] = newCoefs[curLength - j - 1] * (j + 1);
             }
-            new_coefs = arr.clone();
+            newCoefs = arr.clone();
         }
         if (k >= length) {
             return new Polynomial(new int[]{0});
         }
-        return new Polynomial(new_coefs);
+        return new Polynomial(newCoefs);
     }
 
     /**
-     * Перевод в строку
+     * Перевод в строку.
      */
     public String toString() {
         String result = "";
@@ -165,15 +167,15 @@ public class Polynomial {
     }
 
     /**
-     * Произведение многочленов
+     * Произведение многочленов.
      */
-    public Polynomial times(Polynomial P2) {
-        int len = length + P2.length - 1;
+    public Polynomial times(Polynomial p2) {
+        int len = length + p2.length - 1;
         Polynomial res = new Polynomial(new int[len]);
         for (int i = 0; i < length; i++) {
             int[] arr = new int[len];
-            for (int j = 0; j < P2.length; j++) {
-                arr[i + j] = P2.coefs[j] * coefs[i];
+            for (int j = 0; j < p2.length; j++) {
+                arr[i + j] = p2.coefs[j] * coefs[i];
             }
             Polynomial cur = new Polynomial(arr);
             res = res.plus(cur);
@@ -182,7 +184,7 @@ public class Polynomial {
     }
 
     /**
-     * Main функция
+     * Main функция.
      */
     public static void main(String[] args) {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
