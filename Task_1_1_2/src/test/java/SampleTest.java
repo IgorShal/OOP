@@ -30,31 +30,31 @@ public class SampleTest {
     void test4() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
         Polynomial p2 = new Polynomial(new int[]{1, -1});
-        Assertions.assertEquals(p1.times(p2).toString(), "x^3 - 1");
+        Assertions.assertEquals(p1.times(p2).toString(), "x^3 - 1.0");
     }
 
     @org.junit.jupiter.api.Test
     void test5() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
-        Assertions.assertEquals(p1.differentiate(1).toString(), "2x + 1");
+        Assertions.assertEquals(p1.differentiate(1).toString(), "2.0x + 1.0");
     }
 
     @org.junit.jupiter.api.Test
     void test6() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
-        Assertions.assertEquals(p1.differentiate(2).toString(), "2");
+        Assertions.assertEquals(p1.differentiate(2).toString(), "2.0");
     }
 
     @org.junit.jupiter.api.Test
     void test7() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
-        Assertions.assertEquals(p1.differentiate(50).toString(), "0");
+        Assertions.assertEquals(p1.differentiate(50).toString(), "0.0");
     }
 
     @org.junit.jupiter.api.Test
     void test8() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
-        Assertions.assertEquals(p1.differentiate(50).toString(), "0");
+        Assertions.assertEquals(p1.differentiate(50).toString(), "0.0");
     }
 
     @org.junit.jupiter.api.Test
