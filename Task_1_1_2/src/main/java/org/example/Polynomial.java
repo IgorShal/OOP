@@ -1,16 +1,23 @@
 package org.example;
 
-
+/**
+ * Класс полиномов.
+ */
 public class Polynomial {
     private final int[] coefs;
     private final int length;
 
-
+    /**
+     * Создание элемента класса полиномов
+     */
     public Polynomial(int[] arr) {
         coefs = arr;
         length = arr.length;
     }
 
+    /**
+     * Сумма двух полиномов
+     */
     public Polynomial plus(Polynomial P2) {
         int[] result_coefs;
         if (length > P2.length) {
@@ -27,6 +34,9 @@ public class Polynomial {
         return new Polynomial(result_coefs);
     }
 
+    /**
+     * Разность.
+     */
     public Polynomial minus(Polynomial P2) {
         Polynomial P3 = new Polynomial(P2.coefs.clone());
         for (int i = 0; i < P2.length; i++) {
@@ -36,6 +46,9 @@ public class Polynomial {
         return P3;
     }
 
+    /**
+     * Значение в точке
+     */
     public double evaluate(double point) {
         double res = 0;
         for (int i = 0; i < length; i++) {
@@ -44,6 +57,9 @@ public class Polynomial {
         return res;
     }
 
+    /**
+     * Сравнение на равенство
+     */
     public boolean equal(Polynomial P2) {
         if (length != P2.length)
             return false;
@@ -56,6 +72,9 @@ public class Polynomial {
         return true;
     }
 
+    /**
+     * Взятие i-ой производной
+     */
     public Polynomial differentiate(int k) {
         int[] new_coefs = coefs.clone();
         for (int i = 0; (i < k && i < length - 1); i++) {
@@ -67,13 +86,15 @@ public class Polynomial {
             }
             new_coefs = arr.clone();
         }
-        if (k >= length)
-        {
+        if (k >= length) {
             return new Polynomial(new int[]{0});
         }
         return new Polynomial(new_coefs);
     }
 
+    /**
+     * Перевод в строку
+     */
     public String toString() {
         String result = "";
         for (int i = length - 1; i >= 2; i--) {
@@ -143,6 +164,9 @@ public class Polynomial {
         return result;
     }
 
+    /**
+     * Произведение многочленов
+     */
     public Polynomial times(Polynomial P2) {
         int len = length + P2.length - 1;
         Polynomial res = new Polynomial(new int[len]);
@@ -157,6 +181,9 @@ public class Polynomial {
         return res;
     }
 
+    /**
+     * Main функция
+     */
     public static void main(String[] args) {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
         Polynomial p2 = new Polynomial(new int[]{8, 2, 3});
