@@ -20,21 +20,27 @@ public class Solution {
     /**
      * Фуенкция для прохода по куче с просеиванием.
      */
-    public static void heapify(int[] arr, int length, int i) {
+    public static void makeHeapFromArr(int[] arr, int length, int i) {
+        while (true)
+        {
+            int mx = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            if (left < length && arr[left] > arr[mx]) {
+                mx = left;
+            }
+            if (right < length && arr[right] > arr[mx]) {
+                mx = right;
+            }
+            if (mx != i) {
+                swap(i, mx, arr);
+                i = mx;
+            }
+            else{
+                break;
+            }
+        }
 
-        int mx = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-        if (left < length && arr[left] > arr[mx]) {
-            mx = left;
-        }
-        if (right < length && arr[right] > arr[mx]) {
-            mx = right;
-        }
-        if (mx != i) {
-            swap(i, mx, arr);
-            heapify(arr, length, mx);
-        }
     }
 
     /**
@@ -44,12 +50,14 @@ public class Solution {
     public static String heapsort(int[] arr) {
 
         int length = arr.length;
+        if (length == 0)
+            return "[]";
         for (int i = length / 2 - 1; i >= 0; i--) {
-            heapify(arr, arr.length, i);
+            makeHeapFromArr(arr, arr.length, i);
         }
         for (int i = length - 1; i >= 0; i--) {
             swap(0, i, arr);
-            heapify(arr, i, 0);
+            makeHeapFromArr(arr, i, 0);
         }
 
         // Возвращаем результат как строку.
