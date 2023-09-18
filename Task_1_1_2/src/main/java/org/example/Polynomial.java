@@ -17,6 +17,7 @@ public class Polynomial {
         coefs = arr;
         length = arr.length;
     }
+
     public Polynomial(int[] arr) {
 
         coefs = Arrays.stream(arr).asDoubleStream().toArray();
