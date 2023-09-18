@@ -6,21 +6,21 @@ import org.junit.jupiter.api.Assertions;
  */
 public class SampleTest {
     @org.junit.jupiter.api.Test
-    void SumTest() {
+    void sumTest() {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
         Polynomial p2 = new Polynomial(new int[]{8, 2, 3});
         Assertions.assertTrue(p1.plus(p2).equal(new Polynomial(new int[]{7, 14, 5, 7})));
     }
 
     @org.junit.jupiter.api.Test
-    void MinusTest() {
+    void minusTest() {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
         Polynomial p2 = new Polynomial(new int[]{8, 2, 3});
         Assertions.assertTrue(p1.minus(p2).equal(new Polynomial(new int[]{7, -2, 1, 1})));
     }
 
     @org.junit.jupiter.api.Test
-    void MultTest() {
+    void multTest() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
         Polynomial p2 = new Polynomial(new int[]{1, -1});
         Assertions.assertTrue(p1.times(p2).equal(new Polynomial(new int[]{1, 0, 0, -1})));
