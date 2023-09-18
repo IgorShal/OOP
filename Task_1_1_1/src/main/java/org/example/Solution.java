@@ -22,18 +22,18 @@ public class Solution {
      */
     public static void makeHeapFromArr(int[] arr, int length, int i) {
         while (true) {
-            int max_index = i;
-            int left_elem_tree = 2 * i + 1;
-            int right_elem_tree = 2 * i + 2;
-            if (left_elem_tree < length && arr[left_elem_tree] > arr[max_index]) {
-                max_index = left_elem_tree;
+            int maxIndex = i;
+            int leftElemTree = 2 * i + 1;
+            int rightElemTree = 2 * i + 2;
+            if (leftElemTree < length && arr[leftElemTree] > arr[maxIndex]) {
+                maxIndex = leftElemTree;
             }
-            if (right_elem_tree < length && arr[right_elem_tree] > arr[max_index]) {
-                max_index = right_elem_tree;
+            if (rightElemTree < length && arr[rightElemTree] > arr[maxIndex]) {
+                maxIndex = rightElemTree;
             }
-            if (max_index != i) {
-                swap(i, max_index, arr);
-                i = max_index;
+            if (maxIndex != i) {
+                swap(i, maxIndex, arr);
+                i = maxIndex;
             } else {
                 break;
             }
