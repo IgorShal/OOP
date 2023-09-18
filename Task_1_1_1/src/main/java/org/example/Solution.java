@@ -21,8 +21,7 @@ public class Solution {
      * Фуенкция для прохода по куче с просеиванием.
      */
     public static void makeHeapFromArr(int[] arr, int length, int i) {
-        while (true)
-        {
+        while (true) {
             int mx = i;
             int left = 2 * i + 1;
             int right = 2 * i + 2;
@@ -35,8 +34,7 @@ public class Solution {
             if (mx != i) {
                 swap(i, mx, arr);
                 i = mx;
-            }
-            else{
+            } else {
                 break;
             }
         }
@@ -50,8 +48,9 @@ public class Solution {
     public static String heapsort(int[] arr) {
 
         int length = arr.length;
-        if (length == 0)
+        if (length == 0) {
             return "[]";
+        }
         for (int i = length / 2 - 1; i >= 0; i--) {
             makeHeapFromArr(arr, arr.length, i);
         }
