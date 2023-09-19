@@ -78,4 +78,9 @@ public class SampleTest {
         Solution.makeHeapFromArr(arr, 3, 0);
         Assertions.assertArrayEquals(arr, new int[]{3, 2, 1});
     }
+
+    @org.junit.jupiter.api.Test
+    void mainTest() {
+        Solution.main(new String[]{""});
+    }
 }
