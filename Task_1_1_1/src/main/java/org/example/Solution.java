@@ -46,23 +46,24 @@ public class Solution {
      * а потом вытесняем максимальные элементы.
      */
     public static int[] heapsort(int[] arr) {
-        int[] result_arr = arr.clone();
-        int length = result_arr.length;
+        int[] resultArr = arr.clone();
+        int length = resultArr.length;
         if (length == 0) {
-            return result_arr;
+            return resultArr;
         }
         for (int i = length / 2 - 1; i >= 0; i--) {
-            makeHeapFromArr(result_arr, result_arr.length, i);
+            makeHeapFromArr(resultArr, resultArr.length, i);
         }
         for (int i = length - 1; i >= 0; i--) {
-            swap(0, i, result_arr);
-            makeHeapFromArr(result_arr, i, 0);
+            swap(0, i, resultArr);
+            makeHeapFromArr(resultArr, i, 0);
         }
-
-
-        return result_arr;
+        return resultArr;
     }
 
+    /**
+     * Main функция для запуска программы.
+     */
     public static void main(String[] args) {
         int[] arr = new int[]{5, 4, 3, 2, 1};
         arr = heapsort(arr);
