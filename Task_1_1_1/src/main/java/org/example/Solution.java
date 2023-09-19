@@ -45,30 +45,30 @@ public class Solution {
      * Функция самого heap sort в которой мы сначала создаём из исходного массива кучу
      * а потом вытесняем максимальные элементы.
      */
-    public static String heapsort(int[] arr) {
-
-        int length = arr.length;
+    public static int[] heapsort(int[] arr) {
+        int[] result_arr = arr.clone();
+        int length = result_arr.length;
         if (length == 0) {
-            return "[]";
+            return result_arr;
         }
         for (int i = length / 2 - 1; i >= 0; i--) {
-            makeHeapFromArr(arr, arr.length, i);
+            makeHeapFromArr(result_arr, result_arr.length, i);
         }
         for (int i = length - 1; i >= 0; i--) {
-            swap(0, i, arr);
-            makeHeapFromArr(arr, i, 0);
+            swap(0, i, result_arr);
+            makeHeapFromArr(result_arr, i, 0);
         }
 
-        // Возвращаем результат как строку.
-        String result = "[";
-        for (int i = 0; i < length - 1; i++) {
-            result = result.concat(arr[i] + ", ");
-        }
-        result += (arr[length - 1] + "]");
-        return result;
+
+        return result_arr;
     }
 
     public static void main(String[] args) {
-        System.out.println(heapsort(new int[]{5, 4, 3, 2, 1}));
+        int[] arr = new int[]{5, 4, 3, 2, 1};
+        arr = heapsort(arr);
+        for (int j : arr) {
+            System.out.println(j);
+        }
+
     }
 }
