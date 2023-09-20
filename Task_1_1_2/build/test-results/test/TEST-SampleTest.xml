@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SampleTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2023-09-14T15:06:01" hostname="DESKTOP-GQK5CU4" time="0.067">
+  <properties/>
+  <testcase name="test10()" classname="SampleTest" time="0.026"/>
+  <testcase name="test1()" classname="SampleTest" time="0.003"/>
+  <testcase name="test2()" classname="SampleTest" time="0.001"/>
+  <testcase name="test3()" classname="SampleTest" time="0.001"/>
+  <testcase name="test4()" classname="SampleTest" time="0.009"/>
+  <testcase name="test5()" classname="SampleTest" time="0.002"/>
+  <testcase name="test6()" classname="SampleTest" time="0.001"/>
+  <testcase name="test7()" classname="SampleTest" time="0.001"/>
+  <testcase name="test8()" classname="SampleTest" time="0.001"/>
+  <testcase name="test9()" classname="SampleTest" time="0.011"/>
+  <system-out><![CDATA[7.0x^3 + 6.0x^2 + 19.0x + 6.0
+3510.0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
