@@ -46,7 +46,7 @@ public class SampleTest {
     }
 
     @org.junit.jupiter.api.Test
-    void verybigcountDifferenciate() {
+    void veryBigCountDifferenciate() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
         Assertions.assertEquals(p1.differentiate(50).toString(), "0.0");
     }
