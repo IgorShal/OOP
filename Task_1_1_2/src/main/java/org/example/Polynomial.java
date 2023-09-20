@@ -84,7 +84,7 @@ public class Polynomial {
     }
 
     /**
-     * Взятие i-ой производной.
+     * Взятие i-ой производной.Если и больше n,то 0.
      */
     public Polynomial differentiate(int k) {
         double[] newCoefs = coefs.clone();
