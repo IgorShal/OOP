@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 /**
  * Класс с тестами.
  */
-public class SampleTest {
+public class SampleTests {
     @org.junit.jupiter.api.Test
     void summTest() {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
