@@ -8,7 +8,6 @@ import java.util.Arrays;
 public class Polynomial {
     private final double[] coefs;
     private final int length;
-
     /**
      * Создание элемента класса полиномов.
      */
@@ -44,7 +43,7 @@ public class Polynomial {
     }
 
     /**
-     * Разность.
+     * Разность полиномов.
      */
     public Polynomial minus(Polynomial p2) {
         Polynomial p3 = new Polynomial(p2.coefs.clone());
