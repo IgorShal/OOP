@@ -91,7 +91,7 @@ public class Polynomial {
         return true;
     }
 
-    /*
+    /**
        Уменьшает размер полинома вида {0,0,....,0,x1,x2,...,xn} до {x1,x2,....,xn}
      */
     public Polynomial reduce() {
