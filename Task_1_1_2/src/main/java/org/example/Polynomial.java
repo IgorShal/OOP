@@ -10,7 +10,7 @@ public class Polynomial {
     private final int length;
 
     /**
-     * Создание элемента класса полиномов.
+     * Создание элемента класса полиномов для даблов.
      */
     public Polynomial(double[] arr) {
 
@@ -18,6 +18,9 @@ public class Polynomial {
         length = arr.length;
     }
 
+    /**
+     * Создание элемента класса полиномов для интов.
+     */
     public Polynomial(int[] arr) {
 
         coefs = Arrays.stream(arr).asDoubleStream().toArray();
@@ -40,7 +43,8 @@ public class Polynomial {
                 resCoefs[p2.length - i - 1] = p2.coefs[p2.length - i - 1] + coefs[length - i - 1];
             }
         }
-        return new Polynomial(resCoefs);
+        Polynomial res = new Polynomial(resCoefs);
+        return res.reduce();
     }
 
     /**
@@ -52,7 +56,9 @@ public class Polynomial {
             p3.coefs[i] = -p2.coefs[i];
         }
         p3 = this.plus(p3);
-        return p3;
+        return p3.reduce();
+
+
     }
 
     /**
@@ -69,7 +75,9 @@ public class Polynomial {
     /**
      * Сравнение на равенство.
      */
-    public boolean equal(Polynomial p2) {
+    @Override
+    public boolean equals(Object o) {
+        Polynomial p2 = (Polynomial) o;
         if (length != p2.length) {
             return false;
         } else {
@@ -81,6 +89,29 @@ public class Polynomial {
             }
         }
         return true;
+    }
+
+    /*
+       Уменьшает размер полинома вида {0,0,....,0,x1,x2,...,xn} до {x1,x2,....,xn}
+     */
+    public Polynomial reduce() {
+
+        int size = 0;
+        double[] arr = new double[0];
+        for (int i = 0; i < this.length; i++) {
+            if (this.coefs[i] != 0 && size == 0) {
+                size = this.length - i;
+                arr = new double[size];
+            }
+            if (size != 0) {
+                arr[i - (this.length - size)] = this.coefs[i];
+            }
+        }
+        if (size == 0) {
+            return new Polynomial(new double[]{0});
+        } else {
+            return new Polynomial(arr);
+        }
     }
 
     /**
@@ -106,6 +137,7 @@ public class Polynomial {
     /**
      * Перевод в строку.
      */
+    @Override
     public String toString() {
         String result = "";
         for (int i = length - 1; i >= 2; i--) {
@@ -189,6 +221,7 @@ public class Polynomial {
             Polynomial cur = new Polynomial(arr);
             res = res.plus(cur);
         }
+        res = res.reduce();
         return res;
     }
 
