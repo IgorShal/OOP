@@ -78,8 +78,9 @@ public class Polynomial {
      */
     @Override
     public boolean equals(Object o) {
-        if (getClass() != o.getClass())
+        if (getClass() != o.getClass()) {
             return false;
+        }
         Polynomial p2 = (Polynomial) o;
         if (length != p2.length) {
             return false;
