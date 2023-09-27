@@ -103,17 +103,17 @@ public class SampleTest {
         coef[0] = 5;
         Assertions.assertEquals(p1, new Polynomial(new double[]{1, 2, 3}));
     }
+
     @org.junit.jupiter.api.Test
-    void reduceTest()
-    {
+    void reduceTest() {
         double[] coef = new double[]{0};
         Polynomial p1 = new Polynomial(coef);
         Assertions.assertEquals(p1, new Polynomial(new double[]{0}));
     }
+
     @org.junit.jupiter.api.Test
-    void equalsTest()
-    {
-        double[] coef = new double[]{1,2,3,4};
+    void equalsTest() {
+        double[] coef = new double[]{1, 2, 3, 4};
         Polynomial p1 = new Polynomial(coef);
         double[] coefs = new double[]{1};
         Polynomial p2 = new Polynomial(coefs);
