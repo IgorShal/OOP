@@ -9,7 +9,7 @@ public class SampleTest {
     void sumTest() {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
         Polynomial p2 = new Polynomial(new int[]{8, 2, 3});
-        Assertions.assertTrue(p1.plus(p2).equals(new Polynomial(new int[]{7, 14, 5, 7})));
+        Assertions.assertTrue(p2.plus(p1).equals(new Polynomial(new int[]{7, 14, 5, 7})));
     }
 
     @org.junit.jupiter.api.Test
@@ -98,10 +98,26 @@ public class SampleTest {
 
     @org.junit.jupiter.api.Test
     void requestedTest() {
-        int[] coef = new int[]{1, 2, 3};
+        double[] coef = new double[]{1, 2, 3};
         Polynomial p1 = new Polynomial(coef);
         coef[0] = 5;
-        Assertions.assertEquals(p1, new Polynomial(new int[]{1, 2, 3}));
+        Assertions.assertEquals(p1, new Polynomial(new double[]{1, 2, 3}));
+    }
+    @org.junit.jupiter.api.Test
+    void reduceTest()
+    {
+        double[] coef = new double[]{0};
+        Polynomial p1 = new Polynomial(coef);
+        Assertions.assertEquals(p1, new Polynomial(new double[]{0}));
+    }
+    @org.junit.jupiter.api.Test
+    void equalsTest()
+    {
+        double[] coef = new double[]{1,2,3,4};
+        Polynomial p1 = new Polynomial(coef);
+        double[] coefs = new double[]{1};
+        Polynomial p2 = new Polynomial(coefs);
+        Assertions.assertFalse(p1.equals(p2));
     }
 
 

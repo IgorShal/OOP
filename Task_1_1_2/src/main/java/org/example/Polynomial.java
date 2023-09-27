@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Класс полиномов.
@@ -14,7 +15,7 @@ public class Polynomial {
      */
     public Polynomial(double[] arr) {
 
-        coefs = arr;
+        coefs = arr.clone();
         length = arr.length;
     }
 
@@ -77,6 +78,8 @@ public class Polynomial {
      */
     @Override
     public boolean equals(Object o) {
+        if (getClass() != o.getClass())
+            return false;
         Polynomial p2 = (Polynomial) o;
         if (length != p2.length) {
             return false;
@@ -92,7 +95,16 @@ public class Polynomial {
     }
 
     /**
-       Уменьшает размер полинома вида {0,0,....,0,x1,x2,...,xn} до {x1,x2,....,xn}
+     * Получаем хеш код класса.
+     */
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        return prime * Objects.hash(Arrays.hashCode(coefs), length);
+    }
+
+    /**
+     * Уменьшает размер полинома вида {0,0,....,0,x1,x2,...,xn} до {x1,x2,....,xn}
      */
     public Polynomial reduce() {
 
@@ -139,72 +151,85 @@ public class Polynomial {
      */
     @Override
     public String toString() {
-        String result = "";
+
+        StringBuilder sb = new StringBuilder();
         for (int i = length - 1; i >= 2; i--) {
-            if (Math.abs(coefs[length - 1 - i]) > 0.0000001 && (!result.isEmpty())) {
+            if (Math.abs(coefs[length - 1 - i]) > 0.0000001 && (!sb.isEmpty())) {
                 if (coefs[length - 1 - i] > 0) {
-                    result = result.concat(" + ");
+                    sb.append(" + ");
                     if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
-                        result += (coefs[length - 1 - i] + "x^" + i);
+                        sb.append(coefs[length - 1 - i]);
+                        sb.append("x^");
+                        sb.append(i);
                     } else {
-                        result += ("x^" + i);
+                        sb.append("x^");
+                        sb.append(i);
                     }
 
                 } else {
-                    result = result.concat(" + ");
+                    sb.append(" + ");
                     if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
-                        result += ((-coefs[length - 1 - i]) + "x^" + i);
+                        sb.append((-coefs[length - 1 - i]));
+                        sb.append("x^");
+                        sb.append(i);
                     } else {
-                        result += ("x^" + i);
+                        sb.append("x^");
+                        sb.append(i);
                     }
 
                 }
 
             } else if (Math.abs(coefs[length - 1 - i]) > 0.0000001) {
                 if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
-                    result = result.concat(coefs[length - 1 - i] + "x^" + i);
+                    sb.append(coefs[length - 1 - i]);
+                    sb.append("x^");
+                    sb.append(i);
                 } else {
-                    result = result.concat("x^" + i);
+                    sb.append("x^");
+                    sb.append(i);
                 }
             }
         }
-        if ((length > 1) && (!result.isEmpty()) && Math.abs(coefs[length - 2]) > 0.0000001) {
+        if ((length > 1) && (!sb.isEmpty()) && Math.abs(coefs[length - 2]) > 0.0000001) {
             if (coefs[length - 2] > 0) {
-                result += " + ";
+                sb.append(" + ");
                 if (Math.abs(coefs[length - 2]) > 1.00000001) {
-                    result += (coefs[length - 2] + "x");
+                    sb.append(coefs[length - 2]);
+                    sb.append("x");
                 } else {
-                    result += ("x");
+                    sb.append("x");
                 }
             } else {
-                result += " - ";
+                sb.append(" - ");
                 if (Math.abs(coefs[length - 2]) > 1.00000001) {
-                    result += ((-coefs[length - 2]) + "x");
+                    sb.append(-coefs[length - 2]);
+                    sb.append("x");
                 } else {
-                    result += ("x");
+                    sb.append("x");
                 }
 
             }
         } else if (length > 1 && Math.abs(coefs[length - 2]) > 0.0000001) {
             if (Math.abs(coefs[length - 2]) > 1.00000001) {
-                result += (coefs[length - 2] + "x");
+                sb.append(coefs[length - 2]);
+                sb.append("x");
             } else {
-                result += ("x");
+                sb.append("x");
             }
         }
-        if ((Math.abs(coefs[length - 1]) > 0.0000001) && (!result.isEmpty())) {
+        if ((Math.abs(coefs[length - 1]) > 0.0000001) && (!sb.isEmpty())) {
             if (coefs[length - 1] > 0) {
-                result += " + ";
-                result += coefs[length - 1];
+                sb.append(" + ");
+                sb.append(coefs[length - 1]);
             } else {
-                result += " - ";
-                result += (-coefs[length - 1]);
+                sb.append(" - ");
+                sb.append(-coefs[length - 1]);
             }
 
-        } else if (result.isEmpty()) {
-            result += coefs[length - 1];
+        } else if (sb.isEmpty()) {
+            sb.append(coefs[length - 1]);
         }
-        return result;
+        return sb.toString();
     }
 
     /**
@@ -230,8 +255,6 @@ public class Polynomial {
      */
     public static void main(String[] args) {
         Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
-        Polynomial p2 = new Polynomial(new int[]{8, 2, 3});
-        System.out.println(p1.plus(p2.differentiate(1)).toString());
-        System.out.println(p1.times(p2).evaluate(2));
+        System.out.println(p1.plus(p1.differentiate(1)).toString());
     }
 }
