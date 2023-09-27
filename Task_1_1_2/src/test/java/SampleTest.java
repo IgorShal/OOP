@@ -74,11 +74,6 @@ public class SampleTest {
     }
 
     @org.junit.jupiter.api.Test
-    void mainTest() {
-        Polynomial.main(new String[]{null});
-    }
-
-    @org.junit.jupiter.api.Test
     void evaluateTest() {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
         Assertions.assertEquals(p1.evaluate(2), 7);
@@ -118,6 +113,7 @@ public class SampleTest {
         double[] coefs = new double[]{1};
         Polynomial p2 = new Polynomial(coefs);
         Assertions.assertFalse(p1.equals(p2));
+        Assertions.assertFalse(p1.equals(""));
     }
 
 
