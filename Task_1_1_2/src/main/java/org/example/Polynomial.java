@@ -154,7 +154,7 @@ public class Polynomial {
 
         StringBuilder sb = new StringBuilder();
         for (int i = length - 1; i >= 2; i--) {
-            if (Math.abs(coefs[length - 1 - i]) > 0.0000001 && (!sb.isEmpty())) {
+            if (Math.abs(coefs[length - 1 - i]) > 0.0000001 && (!(sb.length() == 0))) {
                 if (coefs[length - 1 - i] > 0) {
                     sb.append(" + ");
                     if (Math.abs(coefs[length - 1 - i]) > 1.00000001) {
@@ -190,7 +190,7 @@ public class Polynomial {
                 }
             }
         }
-        if ((length > 1) && (!sb.isEmpty()) && Math.abs(coefs[length - 2]) > 0.0000001) {
+        if ((length > 1) && (!(sb.length() == 0)) && Math.abs(coefs[length - 2]) > 0.0000001) {
             if (coefs[length - 2] > 0) {
                 sb.append(" + ");
                 if (Math.abs(coefs[length - 2]) > 1.00000001) {
@@ -217,7 +217,7 @@ public class Polynomial {
                 sb.append("x");
             }
         }
-        if ((Math.abs(coefs[length - 1]) > 0.0000001) && (!sb.isEmpty())) {
+        if ((Math.abs(coefs[length - 1]) > 0.0000001) && (!(sb.length() == 0))) {
             if (coefs[length - 1] > 0) {
                 sb.append(" + ");
                 sb.append(coefs[length - 1]);
@@ -226,7 +226,7 @@ public class Polynomial {
                 sb.append(-coefs[length - 1]);
             }
 
-        } else if (sb.isEmpty()) {
+        } else if ((sb.length() == 0)) {
             sb.append(coefs[length - 1]);
         }
         return sb.toString();
