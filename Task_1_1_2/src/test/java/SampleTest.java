@@ -84,7 +84,11 @@ public class SampleTest {
         Polynomial p1 = new Polynomial(new int[]{1, 1, 1});
         Assertions.assertEquals(p1.evaluate(0), 1);
     }
-
+    @org.junit.jupiter.api.Test
+    void toString2test() {
+        Polynomial p1 = new Polynomial(new int[]{7, 6, 3, 4});
+        Assertions.assertEquals((p1.plus(p1.differentiate(1)).toString()),"7.0x^3 + 27.0x^2 + 15.0x + 7.0");
+    }
     @org.junit.jupiter.api.Test
     void evaluateZeroFunc() {
         Polynomial p1 = new Polynomial(new int[]{0});
