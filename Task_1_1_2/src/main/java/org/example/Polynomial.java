@@ -78,7 +78,7 @@ public class Polynomial {
      */
     @Override
     public boolean equals(Object o) {
-        if (getClass() != o.getClass()) {
+        if (Objects.nonNull(o) || getClass() != o.getClass()) {
             return false;
         }
         Polynomial p2 = (Polynomial) o;
