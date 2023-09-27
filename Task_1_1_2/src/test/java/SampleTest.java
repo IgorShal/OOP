@@ -57,6 +57,14 @@ public class SampleTest {
     void toString3Test() {
         Polynomial p1 = new Polynomial(new int[]{1, 0, 0, 0, 0, 1, 1});
         Assertions.assertEquals(p1.toString(), "x^6 + x + 1.0");
+        Polynomial p2 = new Polynomial(new int[]{0, 0, 0, 0, 1, 1});
+        Assertions.assertEquals(p2.toString(), "x + 1.0");
+        Polynomial p3 = new Polynomial(new int[]{-1, 0, 0, 0, -1, -1});
+        Assertions.assertEquals(p3.toString(), "-x^5 - x - 1.0");
+        Polynomial p4 = new Polynomial(new int[]{1});
+        Assertions.assertEquals(p4.toString(), "1.0");
+        Polynomial p5 = new Polynomial(new int[]{-1});
+        Assertions.assertEquals(p5.toString(), "-1.0");
     }
 
     @org.junit.jupiter.api.Test

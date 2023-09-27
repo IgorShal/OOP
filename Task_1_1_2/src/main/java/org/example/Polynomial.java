@@ -189,6 +189,9 @@ public class Polynomial {
                     sb.append("x^");
                     sb.append(i);
                 } else {
+                    if (coefs[length - 1 - i] == -1 && sb.length() == 0) {
+                        sb.append("-");
+                    }
                     sb.append("x^");
                     sb.append(i);
                 }
