@@ -13,12 +13,13 @@ import java.util.NoSuchElementException;
  */
 public class Tree<T> implements Iterable<Tree> {
     public final T value;
-
+    final int iteratorType;
     Tree<T> father;
     public ArrayList<Tree<T>> sons = new ArrayList<Tree<T>>();
 
-    public Tree(T value) {
+    public Tree(T value, int iterator) {
         this.value = value;
+        this.iteratorType = iterator;
     }
 
     /**
@@ -27,8 +28,12 @@ public class Tree<T> implements Iterable<Tree> {
     @Override
     public Iterator<Tree> iterator() {
         TreeIterator iterator = new TreeIterator(this);
-        //iterator.dfs(this);
-        iterator.bfs();
+        if (this.iteratorType == 1) {
+            iterator.dfs(this);
+        } else {
+            iterator.bfs();
+        }
+
         return (Iterator<Tree>) iterator;
     }
 
@@ -36,7 +41,7 @@ public class Tree<T> implements Iterable<Tree> {
      * Добавляем детей к вершине.
      */
     public Tree<T> addChild(T value) {
-        Tree<T> son = new Tree<>(value);
+        Tree<T> son = new Tree<>(value, 0);
         son.father = this;
         this.sons.add(son);
         return son;
@@ -109,9 +114,9 @@ public class Tree<T> implements Iterable<Tree> {
      * Меин.
      */
     public static void main(String[] args) {
-        Tree<String> tree = new Tree<>("R1");
+        Tree<String> tree = new Tree<>("R1", 1);
         var a = tree.addChild("A");
-        Tree<String> tree2 = new Tree<>("R1");
+        Tree<String> tree2 = new Tree<>("R1", 1);
         System.out.println(tree.equals(tree2));
 
     }

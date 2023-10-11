@@ -1,8 +1,9 @@
 import org.example.Tree;
+
 import java.util.Iterator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +13,7 @@ class TreeTest {
 
     @BeforeEach
     void setUp() {
-        tree = new Tree<>("R1");
+        tree = new Tree<>("R1", 1);
     }
 
     @Test
@@ -37,7 +38,7 @@ class TreeTest {
 
     @Test
     void equalsShouldReturnTrueForEqualTrees() {
-        Tree<String> tree2 = new Tree<>("R1");
+        Tree<String> tree2 = new Tree<>("R1", 0);
         tree.addChild("A");
         tree.addChild("B");
 
@@ -49,7 +50,7 @@ class TreeTest {
 
     @Test
     void equalsShouldReturnFalseForDifferentTrees() {
-        Tree<String> tree2 = new Tree<>("R2");
+        Tree<String> tree2 = new Tree<>("R2", 1);
         tree.addChild("A");
         tree.addChild("B");
 
