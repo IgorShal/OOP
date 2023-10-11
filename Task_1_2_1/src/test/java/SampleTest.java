@@ -1,10 +1,11 @@
 import org.example.Tree;
+import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 
 class TreeTest {
     private Tree<String> tree;
@@ -19,9 +20,9 @@ class TreeTest {
         tree.addChild("A");
         tree.addChild("B");
 
-        assertEquals(2, tree.sons.size());
-        assertEquals("A", tree.sons.get(0).value);
-        assertEquals("B", tree.sons.get(1).value);
+        Assertions.assertEquals(2, tree.sons.size());
+        Assertions.assertEquals("A", tree.sons.get(0).value);
+        Assertions.assertEquals("B", tree.sons.get(1).value);
     }
 
     @Test
@@ -30,8 +31,8 @@ class TreeTest {
         tree.addChild("B");
 
         a.remove();
-        assertEquals(1, tree.sons.size());
-        assertEquals("B", tree.sons.get(0).value);
+        Assertions.assertEquals(1, tree.sons.size());
+        Assertions.assertEquals("B", tree.sons.get(0).value);
     }
 
     @Test
@@ -43,7 +44,7 @@ class TreeTest {
         tree2.addChild("A");
         tree2.addChild("B");
 
-        assertTrue(tree.equals(tree2));
+        Assertions.assertTrue(tree.equals(tree2));
     }
 
     @Test
@@ -55,7 +56,7 @@ class TreeTest {
         tree2.addChild("A");
         tree2.addChild("B");
 
-        assertFalse(tree.equals(tree2));
+        Assertions.assertFalse(tree.equals(tree2));
     }
 
     @Test
@@ -65,16 +66,16 @@ class TreeTest {
 
         Iterator<Tree> iterator = tree.iterator();
 
-        assertTrue(iterator.hasNext());
-        assertEquals("R1", iterator.next().value);
-        assertTrue(iterator.hasNext());
-        assertEquals("A", iterator.next().value);
-        assertTrue(iterator.hasNext());
-        assertEquals("B", iterator.next().value);
-        assertTrue(iterator.hasNext());
-        assertEquals("C", iterator.next().value);
-        assertTrue(iterator.hasNext());
-        assertEquals("D", iterator.next().value);
-        assertFalse(iterator.hasNext());
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("R1", iterator.next().value);
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("A", iterator.next().value);
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("B", iterator.next().value);
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("C", iterator.next().value);
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals("D", iterator.next().value);
+        Assertions.assertFalse(iterator.hasNext());
     }
 }

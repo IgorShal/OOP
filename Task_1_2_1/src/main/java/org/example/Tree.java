@@ -1,9 +1,15 @@
 package org.example;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.NoSuchElementException;
 
 /**
- * Класс деревьев
+ * Класс деревьев.
  */
 public class Tree<T> implements Iterable<Tree> {
     public final T value;
@@ -16,18 +22,18 @@ public class Tree<T> implements Iterable<Tree> {
     }
 
     /**
-     * Делаем метод итератор
+     * Делаем метод итератор.
      */
     @Override
     public Iterator<Tree> iterator() {
         TreeIterator iterator = new TreeIterator(this);
-        //iterator.DFS(this);
-        iterator.BFS();
+        //iterator.dfs(this);
+        iterator.bfs();
         return (Iterator<Tree>) iterator;
     }
 
     /**
-     * Добавляем детей к вершине
+     * Добавляем детей к вершине.
      */
     public Tree<T> addChild(T value) {
         Tree<T> son = new Tree<>(value);
@@ -37,7 +43,7 @@ public class Tree<T> implements Iterable<Tree> {
     }
 
     /**
-     * Добавляем дерево к дереву
+     * Добавляем дерево к дереву.
      */
     public Tree<T> addChild(Tree<T> value) {
         value.father = this;
@@ -47,14 +53,14 @@ public class Tree<T> implements Iterable<Tree> {
     }
 
     /**
-     * Удаляем вершину из дерева
+     * Удаляем вершину из дерева.
      */
     public void remove() {
         this.father.sons.remove(this);
     }
 
     /**
-     * Сравниваем
+     * Сравниваем.
      */
     @Override
     public boolean equals(Object o) {
@@ -77,14 +83,16 @@ public class Tree<T> implements Iterable<Tree> {
         if (treeIterator2.hasNext() || treeIterator1.hasNext()) {
             return false;
         }
-        if (this.hashCode() == second.hashCode())
+        if (this.hashCode() == second.hashCode()) {
             return true;
-        else
+        } else {
             return false;
+        }
+
     }
 
     /**
-     * Хэшкод
+     * Хэшкод.
      */
     @Override
     public int hashCode() {
@@ -98,7 +106,7 @@ public class Tree<T> implements Iterable<Tree> {
     }
 
     /**
-     * Меин
+     * Меин.
      */
     public static void main(String[] args) {
         Tree<String> tree = new Tree<>("R1");
@@ -110,27 +118,27 @@ public class Tree<T> implements Iterable<Tree> {
 }
 
 /**
- * Класс итератора
+ * Класс итератора.
  */
 class TreeIterator implements Iterator<Tree> {
     Tree start;
-    int i;
+    int number;
     ArrayList<Tree> res;
 
     /**
-     * Создаем итератор
+     * Создаем итератор.
      */
     public TreeIterator(Tree start) {
         this.start = start;
 
-        i = 0;
+        number = 0;
         res = new ArrayList<Tree>();
     }
 
     /**
-     * Делаем бфс
+     * Делаем бфс.
      */
-    public void BFS() {
+    public void bfs() {
         res.clear();
         Queue<Tree> queue = new LinkedList<>();
         queue.add(start);
@@ -145,21 +153,21 @@ class TreeIterator implements Iterator<Tree> {
     }
 
     /**
-     * Делаем дфс
+     * Делаем дфс.
      */
-    public void DFS(Tree vert) {
+    public void dfs(Tree vert) {
         res.add(vert);
         for (int i = 0; i < vert.sons.size(); i++) {
-            DFS((Tree) vert.sons.get(i));
+            dfs((Tree) vert.sons.get(i));
         }
     }
 
     /**
-     * Проверяем есть ли элемент
+     * Проверяем есть ли элемент.
      */
     @Override
     public boolean hasNext() {
-        if (i < res.size()) {
+        if (number < res.size()) {
             return true;
         }
 
@@ -167,16 +175,16 @@ class TreeIterator implements Iterator<Tree> {
     }
 
     /**
-     * Получаем следующий
+     * Получаем следующий.
      */
     @Override
     public Tree next() throws NoSuchElementException {
         if (hasNext() == false) {
-            i = 0;
+            number = 0;
             throw new NoSuchElementException("No more elements in result");
         }
-        i += 1;
-        return res.get(i - 1);
+        number += 1;
+        return res.get(number - 1);
 
     }
 
