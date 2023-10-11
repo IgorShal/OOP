@@ -1,12 +1,12 @@
 package org.example;
 
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Iterator;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Queue;
+import java.util.Objects;
+
 
 /**
  * Класс деревьев.
