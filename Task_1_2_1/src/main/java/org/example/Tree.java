@@ -5,8 +5,9 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import java.util.Queue;
 import java.util.Objects;
+import java.util.Queue;
+
 
 /**
  * Класс деревьев.
@@ -18,6 +19,9 @@ public class Tree<T> implements Iterable<Tree> {
     Tree<T> father;
     public ArrayList<Tree<T>> sons = new ArrayList<Tree<T>>();
 
+    /**
+     * Конструктор.
+     */
     public Tree(T value, int iterator) {
         this.value = value;
         isIterationFlag = 0;
@@ -96,8 +100,10 @@ public class Tree<T> implements Iterable<Tree> {
             return false;
         }
         Tree second = (Tree) o;
-        if (this.sons.size() != second.sons.size())
+        if (this.sons.size() != second.sons.size()) {
             return false;
+        }
+
 
         for (int i = 0; i < this.sons.size(); i++) {
             if (!this.sons.get(i).equals(second.sons.get(i))) {
@@ -134,9 +140,11 @@ public class Tree<T> implements Iterable<Tree> {
         var a = tree.addChild("A");
         Tree<String> tree2 = new Tree<>("R1", 1);
         System.out.println(tree.equals(tree2));
-
     }
 
+    /**
+     * Класс итератора по дереву.
+     */
     public class TreeIterator implements Iterator<Tree> {
         Tree start;
         int number;
