@@ -1,13 +1,12 @@
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-
 import org.example.Tree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class SmapleTest {
+class SampleTest {
     private Tree<String> tree;
 
     @BeforeEach
