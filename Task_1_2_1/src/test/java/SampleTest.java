@@ -1,5 +1,6 @@
 import org.example.Tree;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.Assertions;
@@ -107,5 +108,29 @@ class TreeTest {
         Assertions.assertTrue(iterator.hasNext());
         Assertions.assertEquals("D", iterator.next().value);
         Assertions.assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    void exceptionOnAddingTest() {
+        var a = tree.addChild("R2");
+        var b = tree.addChild("R3");
+        var c = b.addChild("R3");
+        Assertions.assertThrows(ConcurrentModificationException.class, () -> {
+            for (Tree node : tree) {
+                tree.addChild("2");
+            }
+        });
+    }
+
+    @Test
+    void exceptionOnRemoveTest() {
+        var a = tree.addChild("R2");
+        var b = tree.addChild("R3");
+        var c = b.addChild("R3");
+        Assertions.assertThrows(ConcurrentModificationException.class, () -> {
+            for (Tree node : tree) {
+                a.addChild("2");
+            }
+        });
     }
 }

@@ -1,25 +1,31 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Objects;
 
-
 /**
  * Класс деревьев.
  */
 public class Tree<T> implements Iterable<Tree> {
     public final T value;
-    final int iteratorType;
+    static int isIterationFlag;
+    public IteratorType iteratorType;
     Tree<T> father;
     public ArrayList<Tree<T>> sons = new ArrayList<Tree<T>>();
 
     public Tree(T value, int iterator) {
         this.value = value;
-        this.iteratorType = iterator;
+        isIterationFlag = 0;
+        if (iterator == 0) {
+            this.iteratorType = IteratorType.BFS;
+        } else {
+            this.iteratorType = IteratorType.DFS;
+        }
     }
 
     /**
@@ -28,19 +34,23 @@ public class Tree<T> implements Iterable<Tree> {
     @Override
     public Iterator<Tree> iterator() {
         TreeIterator iterator = new TreeIterator(this);
-        if (this.iteratorType == 1) {
+        isIterationFlag = 1;
+        if (this.iteratorType == IteratorType.DFS) {
             iterator.dfs(this);
         } else {
             iterator.bfs();
         }
 
-        return (Iterator<Tree>) iterator;
+        return iterator;
     }
 
     /**
      * Добавляем детей к вершине.
      */
     public Tree<T> addChild(T value) {
+        if (isIterationFlag == 1) {
+            throw new ConcurrentModificationException("Changed tree during iteration");
+        }
         Tree<T> son = new Tree<>(value, 0);
         son.father = this;
         this.sons.add(son);
@@ -53,7 +63,9 @@ public class Tree<T> implements Iterable<Tree> {
     public Tree<T> addChild(Tree<T> value) {
         value.father = this;
         this.sons.add(value);
-
+        if (isIterationFlag == 1) {
+            throw new ConcurrentModificationException("Changed tree during iteration");
+        }
         return value;
     }
 
@@ -61,11 +73,19 @@ public class Tree<T> implements Iterable<Tree> {
      * Удаляем вершину из дерева.
      */
     public void remove() {
+        if (isIterationFlag == 1) {
+            throw new ConcurrentModificationException("Changed tree during iteration");
+        }
         this.father.sons.remove(this);
     }
 
     /**
-     * Сравниваем.
+     * Сравниваем деревья по значениям в вершинах.
+     * Сравнение происходит без учёта перестановок сыновей.То есть деревья вида:
+     * ..A           A
+     * /  \    и  /   \
+     * B   C     C     B
+     * Не равны.
      */
     @Override
     public boolean equals(Object o) {
@@ -76,19 +96,15 @@ public class Tree<T> implements Iterable<Tree> {
             return false;
         }
         Tree second = (Tree) o;
-        Iterator treeIterator1 = second.iterator();
-        Iterator<Tree> treeIterator2 = this.iterator();
+        if (this.sons.size() != second.sons.size())
+            return false;
 
-        while (treeIterator1.hasNext() && treeIterator2.hasNext()) {
-            if (((Tree) treeIterator1.next()).value != ((Tree) treeIterator2.next()).value) {
+        for (int i = 0; i < this.sons.size(); i++) {
+            if (!this.sons.get(i).equals(second.sons.get(i))) {
                 return false;
             }
-
         }
-        if (treeIterator2.hasNext() || treeIterator1.hasNext()) {
-            return false;
-        }
-        if (this.hashCode() == second.hashCode()) {
+        if (this.hashCode() == second.hashCode() && this.value == second.value) {
             return true;
         } else {
             return false;
@@ -120,77 +136,89 @@ public class Tree<T> implements Iterable<Tree> {
         System.out.println(tree.equals(tree2));
 
     }
-}
 
-/**
- * Класс итератора.
- */
-class TreeIterator implements Iterator<Tree> {
-    Tree start;
-    int number;
-    ArrayList<Tree> res;
+    public class TreeIterator implements Iterator<Tree> {
+        Tree start;
+        int number;
+        ArrayList<Tree> res;
 
-    /**
-     * Создаем итератор.
-     */
-    public TreeIterator(Tree start) {
-        this.start = start;
+        /**
+         * Создаем итератор.
+         */
+        public TreeIterator(Tree start) {
+            this.start = start;
 
-        number = 0;
-        res = new ArrayList<Tree>();
-    }
+            number = 0;
+            res = new ArrayList<>();
+        }
 
-    /**
-     * Делаем бфс.
-     */
-    public void bfs() {
-        res.clear();
-        Queue<Tree> queue = new LinkedList<>();
-        queue.add(start);
-        res.add(start);
-        while (!queue.isEmpty()) {
-            Tree cur = queue.poll();
-            for (int i = 0; i < cur.sons.size(); i++) {
-                queue.add((Tree) cur.sons.get(i));
-                res.add((Tree) cur.sons.get(i));
+        /**
+         * Делаем бфс.
+         */
+        public void bfs() {
+            res.clear();
+            Queue<Tree> queue = new LinkedList<>();
+            queue.add(start);
+            res.add(start);
+            while (!queue.isEmpty()) {
+                Tree cur = queue.poll();
+
+                for (int i = 0; i < cur.sons.size(); i++) {
+                    queue.add((Tree) cur.sons.get(i));
+                    res.add((Tree) cur.sons.get(i));
+                }
             }
         }
+
+        /**
+         * Делаем дфс.
+         */
+        public void dfs(Tree vert) {
+            res.add(vert);
+            for (int i = 0; i < vert.sons.size(); i++) {
+                dfs((Tree) vert.sons.get(i));
+            }
+        }
+
+        /**
+         * Проверяем есть ли элемент.
+         */
+        @Override
+        public boolean hasNext() {
+
+            if (number < res.size()) {
+                return true;
+            }
+            isIterationFlag = 0;
+            return false;
+        }
+
+        /**
+         * Получаем следующий.
+         */
+        @Override
+        public Tree next() throws NoSuchElementException {
+            if (hasNext() == false) {
+                number = 0;
+
+                throw new NoSuchElementException("No more elements in result");
+            }
+            number += 1;
+            res.get(number - 1).isIterationFlag = 1;
+            return res.get(number - 1);
+
+        }
+
     }
 
     /**
-     * Делаем дфс.
+     * Перечисление типов итератора.
      */
-    public void dfs(Tree vert) {
-        res.add(vert);
-        for (int i = 0; i < vert.sons.size(); i++) {
-            dfs((Tree) vert.sons.get(i));
-        }
-    }
+    public enum IteratorType {
 
-    /**
-     * Проверяем есть ли элемент.
-     */
-    @Override
-    public boolean hasNext() {
-        if (number < res.size()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Получаем следующий.
-     */
-    @Override
-    public Tree next() throws NoSuchElementException {
-        if (hasNext() == false) {
-            number = 0;
-            throw new NoSuchElementException("No more elements in result");
-        }
-        number += 1;
-        return res.get(number - 1);
+        DFS,
+        BFS
 
     }
-
 }
+
