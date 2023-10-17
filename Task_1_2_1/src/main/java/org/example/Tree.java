@@ -12,7 +12,7 @@ import java.util.Queue;
 /**
  * Класс деревьев.
  */
-public class Tree<T> implements Iterable<Tree> {
+public class Tree<T> implements Iterable<Tree<T>> {
     public final T value;
     private boolean isIterationFlag;
     public IteratorType iteratorType;
@@ -36,7 +36,7 @@ public class Tree<T> implements Iterable<Tree> {
      * Делаем метод итератор.
      */
     @Override
-    public Iterator<Tree> iterator() {
+    public Iterator<Tree<T>> iterator() {
         TreeIterator iterator = new TreeIterator(this);
         if (this.iteratorType == IteratorType.DFS) {
             iterator.dfs(this);
@@ -98,7 +98,7 @@ public class Tree<T> implements Iterable<Tree> {
         if (getClass() != o.getClass()) {
             return false;
         }
-        Tree second = (Tree) o;
+        Tree<T> second = (Tree<T>) o;
         if (this.sons.size() != second.sons.size()) {
             return false;
         }
@@ -124,7 +124,7 @@ public class Tree<T> implements Iterable<Tree> {
     public int hashCode() {
         int prime = 31;
         int hash = 0;
-        for (Tree son : sons) {
+        for (Tree<T> son : sons) {
             hash += Objects.hash(son.value);
         }
         hash += Objects.hash(value);
@@ -144,15 +144,15 @@ public class Tree<T> implements Iterable<Tree> {
     /**
      * Класс итератора по дереву.
      */
-    public class TreeIterator implements Iterator<Tree> {
-        Tree start;
+    public class TreeIterator implements Iterator<Tree<T>> {
+        Tree<T> start;
         int number;
-        ArrayList<Tree> res;
+        ArrayList<Tree<T>> res;
 
         /**
          * Создаем итератор.
          */
-        public TreeIterator(Tree start) {
+        public TreeIterator(Tree<T> start) {
             this.start = start;
 
             number = 0;
@@ -164,17 +164,17 @@ public class Tree<T> implements Iterable<Tree> {
          */
         public void bfs() {
             res.clear();
-            Queue<Tree> queue = new LinkedList<>();
+            Queue<Tree<T>> queue = new LinkedList<>();
             queue.add(start);
             res.add(start);
             start.isIterationFlag = true;
             while (!queue.isEmpty()) {
-                Tree cur = queue.poll();
+                Tree<T> cur = queue.poll();
 
                 for (int i = 0; i < cur.sons.size(); i++) {
-                    queue.add((Tree) cur.sons.get(i));
-                    ((Tree) cur.sons.get(i)).isIterationFlag = true;
-                    res.add((Tree) cur.sons.get(i));
+                    queue.add(cur.sons.get(i));
+                    cur.sons.get(i).isIterationFlag = true;
+                    res.add(cur.sons.get(i));
 
                 }
             }
@@ -183,11 +183,11 @@ public class Tree<T> implements Iterable<Tree> {
         /**
          * Делаем дфс.
          */
-        public void dfs(Tree vert) {
+        public void dfs(Tree<T> vert) {
             vert.isIterationFlag = true;
             res.add(vert);
             for (int i = 0; i < vert.sons.size(); i++) {
-                dfs((Tree) vert.sons.get(i));
+                dfs(vert.sons.get(i));
             }
         }
 
@@ -209,10 +209,10 @@ public class Tree<T> implements Iterable<Tree> {
         /**
          * Меняем обратно флаг итерирования в дереве.
          */
-        private void changeIterationFlag(Tree start) {
+        private void changeIterationFlag(Tree<T> start) {
             start.isIterationFlag = false;
             for (int i = 0; i < start.sons.size(); i++) {
-                changeIterationFlag((Tree) start.sons.get(i));
+                changeIterationFlag(start.sons.get(i));
             }
         }
 
@@ -220,7 +220,7 @@ public class Tree<T> implements Iterable<Tree> {
          * Получаем следующий.
          */
         @Override
-        public Tree next() throws NoSuchElementException {
+        public Tree<T> next() throws NoSuchElementException {
             if (!hasNext()) {
                 number = 0;
 

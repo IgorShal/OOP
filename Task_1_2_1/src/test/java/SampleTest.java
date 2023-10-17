@@ -29,7 +29,7 @@ class SampleTest {
 
         var a = tree.addChild("A");
         Tree<String> tree2 = new Tree<>("R1", 1);
-        Assertions.assertFalse(tree.equals(tree2));
+        Assertions.assertNotEquals(tree, tree2);
 
     }
 
@@ -52,7 +52,7 @@ class SampleTest {
         tree2.addChild("A");
         tree2.addChild("B");
 
-        Assertions.assertTrue(tree.equals(tree2));
+        Assertions.assertEquals(tree, tree2);
     }
 
     @Test
@@ -72,7 +72,7 @@ class SampleTest {
         tree.addChild("A").addChild("C");
         tree.addChild("B").addChild("D");
 
-        Iterator<Tree> iterator = tree.iterator();
+        Iterator<Tree<String>> iterator = tree.iterator();
 
         Assertions.assertTrue(iterator.hasNext());
         Assertions.assertEquals("R1", iterator.next().value);
@@ -89,11 +89,11 @@ class SampleTest {
 
     @Test
     void iteratorShouldReturnCorrectOrderForDfs() {
-        Tree tree2 = new Tree<>("R1", 1);
+        Tree<String> tree2 = new Tree<>("R1", 1);
         tree2.addChild("A").addChild("C");
         tree2.addChild("B").addChild("D");
 
-        Iterator<Tree> iterator = tree2.iterator();
+        Iterator<Tree<String>> iterator = tree2.iterator();
 
         Assertions.assertTrue(iterator.hasNext());
         Assertions.assertEquals("R1", iterator.next().value);
@@ -114,7 +114,7 @@ class SampleTest {
         var b = tree.addChild("R3");
         var c = b.addChild("R3");
         Assertions.assertThrows(ConcurrentModificationException.class, () -> {
-            for (Tree node : tree) {
+            for (Tree<String> node : tree) {
                 tree.addChild("2");
             }
         });
@@ -126,7 +126,7 @@ class SampleTest {
         var b = tree.addChild("R3");
         var c = b.addChild("R3");
         Assertions.assertThrows(ConcurrentModificationException.class, () -> {
-            for (Tree node : tree) {
+            for (Tree<String> node : tree) {
                 a.addChild("2");
             }
         });
