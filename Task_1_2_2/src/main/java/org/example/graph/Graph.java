@@ -238,8 +238,10 @@ public class Graph<T, E extends Number> {
         for (int k = 1; k < this.vertexs.size(); k++) {
             for (int i = 0; i < this.vertexs.size(); i++) {
                 for (int j = 0; j < this.vertexs.size(); j++) {
-                    if (this.adjacencyMatrix.get(j).get(i) == null)
+                    if (this.adjacencyMatrix.get(j).get(i) == null){
                         continue;
+                    }
+
                     double cur = (double) paths.get(j)
                             + (double) this.adjacencyMatrix.get(j).get(i);
                     if (cur < (double) paths.get(i)) {
