@@ -2,13 +2,16 @@ package org.example;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.example.graph.Graph;
 import org.example.graph.Vertex;
 
-
+/**
+ * ТЕСТИМ.
+ */
 public class Main {
-
+    /**
+     * ТЕСТИМ.
+     */
     public static void main(String[] args) throws IOException {
         ArrayList<Vertex<String>> vertexes = new ArrayList<>();
         vertexes.add(new Vertex<String>("A"));
@@ -19,7 +22,7 @@ public class Main {
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
         Graph<String, Double> graph = new Graph<>(vertexes);
-        graph.makeGraphFromAdjacencyMatrix("/1.txt");
+        graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result = graph.bellManFordUsingImatrix("C", 1000);
         for (int i = 0; i < result.size(); i++) {
             System.out.println(result.get(i).value);

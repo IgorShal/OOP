@@ -1,15 +1,18 @@
-import org.example.graph.Graph;
-import org.example.graph.Vertex;
-
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import org.example.graph.Graph;
+import org.example.graph.Vertex;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ *Класс тестов.
+ *
+ */
 public class Tests {
+    /**
+     * Добавляем вершину.
+     */
     @Test
     public void testAddVertical() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -22,7 +25,9 @@ public class Tests {
         assertEquals(3, graph.vertexs.size());
         assertEquals("C", graph.vertexs.get(2).value);
     }
-
+    /**
+     * Добавляем ребро.
+     */
     @Test
     public void testAddEdge() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -37,7 +42,9 @@ public class Tests {
         assertEquals("A", graph.edges.get(0).start.value);
         assertEquals("B", graph.edges.get(0).end.value);
     }
-
+    /**
+     * Удаляем вершину.
+     */
     @Test
     public void testDeleteVertical() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -45,7 +52,8 @@ public class Tests {
         Vertex<String> vertex3 = new Vertex<>("C");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
         Graph<String, Integer> graph = new Graph<>(vertices);
-
+        graph.addEdge(5,"A","B");
+        graph.addEdge(5,"B","C");
         graph.deleteVertical("B");
 
         assertEquals(2, graph.vertexs.size());
@@ -53,7 +61,9 @@ public class Tests {
         assertEquals("C", graph.vertexs.get(1).value);
         assertEquals(0, graph.edges.size());
     }
-
+    /**
+     * Удаляем ребро.
+     */
     @Test
     public void testDeleteEdge() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -66,58 +76,84 @@ public class Tests {
 
         assertEquals(0, graph.edges.size());
     }
-
+    /**
+     * Пример из условия через матрицу смежности.
+     */
     @Test
-    public void testBellmanFordUsingAmatrix() {
-        Vertex<String> vertex1 = new Vertex<>("A");
-        Vertex<String> vertex2 = new Vertex<>("B");
-        Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
-        Graph<String, Double> graph = new Graph<>(vertices);
-        graph.addEdge(10.5, "A", "B");
-        graph.addEdge(8.7, "B", "C");
+    public void testBellmanFordUsingAmatrix() throws IOException {
+        ArrayList<Vertex<String>> vertexes = new ArrayList<>();
+        vertexes.add(new Vertex<String>("A"));
+        vertexes.add(new Vertex<String>("B"));
+        vertexes.add(new Vertex<String>("C"));
+        vertexes.add(new Vertex<String>("D"));
+        vertexes.add(new Vertex<String>("E"));
+        vertexes.add(new Vertex<String>("F"));
+        vertexes.add(new Vertex<String>("G"));
+        Graph<String, Double> graph = new Graph<>(vertexes);
+        graph.makeGraphFromAdjacencyMatrix("1.txt");
+        ArrayList<Vertex<String>> result = graph.bellManFordUsingAmatrix("C", 1000);
 
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingAmatrix("A", 100.0);
-
-        assertEquals("A", result.get(0).value);
-        assertEquals("B", result.get(1).value);
-        assertEquals("C", result.get(2).value);
+        assertEquals("C", result.get(0).value);
+        assertEquals("D", result.get(1).value);
+        assertEquals("E", result.get(2).value);
+        assertEquals("F", result.get(3).value);
+        assertEquals("G", result.get(4).value);
+        assertEquals("B", result.get(5).value);
+        assertEquals("A", result.get(6).value);
     }
-
+    /**
+     * Пример из условия через списки смежности.
+     */
     @Test
-    public void testBellmanFordUsingAlist() {
-        Vertex<String> vertex1 = new Vertex<>("A");
-        Vertex<String> vertex2 = new Vertex<>("B");
-        Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
-        Graph<String, Double> graph = new Graph<>(vertices);
-        graph.addEdge(10.5, "A", "B");
-        graph.addEdge(8.7, "B", "C");
+    public void testBellmanFordUsingAlist() throws IOException {
+        ArrayList<Vertex<String>> vertexes = new ArrayList<>();
+        vertexes.add(new Vertex<String>("A"));
+        vertexes.add(new Vertex<String>("B"));
+        vertexes.add(new Vertex<String>("C"));
+        vertexes.add(new Vertex<String>("D"));
+        vertexes.add(new Vertex<String>("E"));
+        vertexes.add(new Vertex<String>("F"));
+        vertexes.add(new Vertex<String>("G"));
+        Graph<String, Double> graph = new Graph<>(vertexes);
+        graph.makeGraphFromAdjacencyMatrix("1.txt");
+        ArrayList<Vertex<String>> result = graph.bellManFordUsingAlist("C", 1000);
 
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingAlist("A", 100.0);
-
-        assertEquals("A", result.get(0).value);
-        assertEquals("B", result.get(1).value);
-        assertEquals("C", result.get(2).value);
+        assertEquals("C", result.get(0).value);
+        assertEquals("D", result.get(1).value);
+        assertEquals("E", result.get(2).value);
+        assertEquals("F", result.get(3).value);
+        assertEquals("G", result.get(4).value);
+        assertEquals("B", result.get(5).value);
+        assertEquals("A", result.get(6).value);
     }
-
+    /**
+     * Пример из условия через матрицу инцидентности.
+     */
     @Test
-    public void testBellmanFordUsingImatrix() {
-        Vertex<String> vertex1 = new Vertex<>("A");
-        Vertex<String> vertex2 = new Vertex<>("B");
-        Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
-        Graph<String, Double> graph = new Graph<>(vertices);
-        graph.addEdge(10.5, "A", "B");
-        graph.addEdge(8.7, "B", "C");
+    public void testBellmanFordUsingImatrix() throws IOException {
+        ArrayList<Vertex<String>> vertexes = new ArrayList<>();
+        vertexes.add(new Vertex<String>("A"));
+        vertexes.add(new Vertex<String>("B"));
+        vertexes.add(new Vertex<String>("C"));
+        vertexes.add(new Vertex<String>("D"));
+        vertexes.add(new Vertex<String>("E"));
+        vertexes.add(new Vertex<String>("F"));
+        vertexes.add(new Vertex<String>("G"));
+        Graph<String, Double> graph = new Graph<>(vertexes);
+        graph.makeGraphFromAdjacencyMatrix("1.txt");
+        ArrayList<Vertex<String>> result = graph.bellManFordUsingImatrix("C", 1000);
 
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingImatrix("A", 100.0);
-
-        assertEquals("A", result.get(0).value);
-        assertEquals("B", result.get(1).value);
-        assertEquals("C", result.get(2).value);
+        assertEquals("C", result.get(0).value);
+        assertEquals("D", result.get(1).value);
+        assertEquals("E", result.get(2).value);
+        assertEquals("F", result.get(3).value);
+        assertEquals("G", result.get(4).value);
+        assertEquals("B", result.get(5).value);
+        assertEquals("A", result.get(6).value);
     }
-
+    /**
+     *  Меняем вершину.
+     */
     @Test
     public void testSetVertex() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -129,7 +165,9 @@ public class Tests {
 
         assertEquals("C", graph.vertexs.get(0).value);
     }
-
+    /**
+     * Меняем ребро.
+     */
     @Test
     public void testSetEdges() {
         Vertex<String> vertex1 = new Vertex<>("A");
@@ -146,7 +184,9 @@ public class Tests {
         assertEquals("C", graph.edges.get(0).start.value);
         assertEquals("B", graph.edges.get(0).end.value);
     }
-
+    /**
+     * Заполняем из файла.
+     */
     @Test
     public void testMakeGraphFromAdjacencyMatrix() throws IOException {
         Vertex<String> vertex1 = new Vertex<>("A");

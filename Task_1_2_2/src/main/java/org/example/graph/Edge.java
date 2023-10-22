@@ -1,5 +1,10 @@
 package org.example.graph;
 
+/**
+ *Класс ребра, ребро содержит инфу о начале, конце и весе.
+ * Вес ограничен числами.
+ *
+ */
 public class Edge<T, E extends Number> {
     public Vertex<T> start;
     public Vertex<T> end;

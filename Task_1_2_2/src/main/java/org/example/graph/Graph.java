@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-
+/**
+ * Класс графа, из условия неособо понял, что от нас требуется,
+ * поэтому сделал все три имплементации в одном классе.
+ */
 public class Graph<T, E extends Number> {
     public ArrayList<Vertex<T>> vertexs;
     public ArrayList<Edge<T, E>> edges;
@@ -31,7 +34,9 @@ public class Graph<T, E extends Number> {
         }
         this.edges = new ArrayList<>();
     }
-
+    /**
+     * Добавляем вершину.
+     */
     public void addVertical(T value) {
         this.vertexs.add(new Vertex<>(value));
         this.adjacencyList.add(new ArrayList<Edge<T, E>>());
@@ -46,7 +51,9 @@ public class Graph<T, E extends Number> {
             this.incidenceMatrix.get(this.incidenceMatrix.size() - 1).add(0);
         }
     }
-
+    /**
+     * Добавляем ребро.
+     */
     public void addEdge(E value, T start, T end) {
         int startV = -1;
         int endV = -1;
@@ -76,18 +83,24 @@ public class Graph<T, E extends Number> {
 
         }
     }
-
+    /**
+     * Удаляем вершину.
+     */
     public void deleteVertical(T value) {
         int index = -1;
         ArrayList<Number> indexes = new ArrayList<>();
         for (int i = 0; i < this.edges.size(); i++) {
             Edge<T, E> edge = this.edges.get(i);
             if (edge.start.value == value || edge.end.value == value) {
-                this.edges.remove(edge);
+
                 indexes.add(i);
-                i -= 1;
+
             }
         }
+        for (int i = 0;i<indexes.size();i++){
+            this.edges.remove((int)indexes.get(i) - i);
+        }
+
         index = getVertex(value);
 
         this.adjacencyList.remove(index);
@@ -113,7 +126,9 @@ public class Graph<T, E extends Number> {
         this.incidenceMatrix.remove(index);
         this.vertexs.remove(index);
     }
-
+    /**
+     * Удаляем ребро.
+     */
     public void deleteEdge(E value, T start, T end) {
         int index = -1;
         index = getEdge(value, start, end);
@@ -136,7 +151,9 @@ public class Graph<T, E extends Number> {
 
     }
 
-
+    /**
+     * Геттер вершины.
+     */
     public int getVertex(T value) {
         for (int i = 0; i < this.vertexs.size(); i++) {
             if (this.vertexs.get(i).value == value) {
@@ -145,7 +162,9 @@ public class Graph<T, E extends Number> {
         }
         return -1;
     }
-
+    /**
+     *  Геттер ребра.
+     */
     public int getEdge(E weight, T start, T end) {
         for (int i = 0; i < this.edges.size(); i++) {
             if (Objects.equals(this.edges.get(i).weight, weight) && this.edges.get(i).start.value == start
@@ -155,16 +174,22 @@ public class Graph<T, E extends Number> {
         }
         return -1;
     }
-
+    /**
+     * Сеттер вершины.
+     */
     public void setVertex(T value, T newValue) {
         this.vertexs.get(getVertex(value)).value = newValue;
     }
-
+    /**
+     * Сеттер ребра.
+     */
     public void setEdges(E weight, T start, T end, E newWeight, T newStart, T newEnd) {
         deleteEdge(weight, start, end);
         addEdge(newWeight, newStart, newEnd);
     }
-
+    /**
+     * Заполняем граф из файлика, e в файле значит отсутствие дороги.
+     */
     public void makeGraphFromAdjacencyMatrix(String fileName) throws IOException {
         Path path = Path.of(fileName);
         List<String> list = Files.readAllLines(path);
@@ -184,7 +209,9 @@ public class Graph<T, E extends Number> {
             }
         }
     }
-
+    /**
+     * Форд-Беллман через МС.
+     */
     public ArrayList<Vertex<T>> bellManFordUsingAmatrix(T start, double infinity) {
         ArrayList<Vertex<T>> result = (ArrayList<Vertex<T>>) this.vertexs.clone();
         ArrayList<Number> paths = new ArrayList<>();
@@ -215,7 +242,9 @@ public class Graph<T, E extends Number> {
         }
         return result;
     }
-
+    /**
+     * Форд-Беллман через СС.
+     */
     public ArrayList<Vertex<T>> bellManFordUsingAlist(T start, double infinity) {
         ArrayList<Vertex<T>> result = (ArrayList<Vertex<T>>) this.vertexs.clone();
         ArrayList<Number> paths = new ArrayList<>();
@@ -248,7 +277,9 @@ public class Graph<T, E extends Number> {
         }
         return result;
     }
-
+    /**
+     * Форд-Беллман через МИ.
+     */
     public ArrayList<Vertex<T>> bellManFordUsingImatrix(T start, double infinity) {
         ArrayList<Vertex<T>> result = (ArrayList<Vertex<T>>) this.vertexs.clone();
         ArrayList<Number> paths = new ArrayList<>();
