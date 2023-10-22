@@ -2,7 +2,6 @@ package org.example;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.example.graph.Graph;
 import org.example.graph.Vertex;
 
