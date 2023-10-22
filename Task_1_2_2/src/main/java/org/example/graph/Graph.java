@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+
 /**
  * Класс графа, из условия неособо понял, что от нас требуется,
  * поэтому сделал все три имплементации в одном классе.
@@ -34,6 +35,7 @@ public class Graph<T, E extends Number> {
         }
         this.edges = new ArrayList<>();
     }
+
     /**
      * Добавляем вершину.
      */
@@ -51,6 +53,7 @@ public class Graph<T, E extends Number> {
             this.incidenceMatrix.get(this.incidenceMatrix.size() - 1).add(0);
         }
     }
+
     /**
      * Добавляем ребро.
      */
@@ -83,6 +86,7 @@ public class Graph<T, E extends Number> {
 
         }
     }
+
     /**
      * Удаляем вершину.
      */
@@ -97,8 +101,8 @@ public class Graph<T, E extends Number> {
 
             }
         }
-        for (int i = 0;i<indexes.size();i++){
-            this.edges.remove((int)indexes.get(i) - i);
+        for (int i = 0; i < indexes.size(); i++) {
+            this.edges.remove((int) indexes.get(i) - i);
         }
 
         index = getVertex(value);
@@ -126,6 +130,7 @@ public class Graph<T, E extends Number> {
         this.incidenceMatrix.remove(index);
         this.vertexs.remove(index);
     }
+
     /**
      * Удаляем ребро.
      */
@@ -162,8 +167,9 @@ public class Graph<T, E extends Number> {
         }
         return -1;
     }
+
     /**
-     *  Геттер ребра.
+     * Геттер ребра.
      */
     public int getEdge(E weight, T start, T end) {
         for (int i = 0; i < this.edges.size(); i++) {
@@ -174,12 +180,14 @@ public class Graph<T, E extends Number> {
         }
         return -1;
     }
+
     /**
      * Сеттер вершины.
      */
     public void setVertex(T value, T newValue) {
         this.vertexs.get(getVertex(value)).value = newValue;
     }
+
     /**
      * Сеттер ребра.
      */
@@ -187,6 +195,7 @@ public class Graph<T, E extends Number> {
         deleteEdge(weight, start, end);
         addEdge(newWeight, newStart, newEnd);
     }
+
     /**
      * Заполняем граф из файлика, e в файле значит отсутствие дороги.
      */
@@ -209,6 +218,7 @@ public class Graph<T, E extends Number> {
             }
         }
     }
+
     /**
      * Форд-Беллман через МС.
      */
@@ -242,6 +252,7 @@ public class Graph<T, E extends Number> {
         }
         return result;
     }
+
     /**
      * Форд-Беллман через СС.
      */
@@ -277,6 +288,7 @@ public class Graph<T, E extends Number> {
         }
         return result;
     }
+
     /**
      * Форд-Беллман через МИ.
      */

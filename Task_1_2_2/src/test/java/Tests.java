@@ -1,13 +1,15 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.example.graph.Graph;
 import org.example.graph.Vertex;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
- *Класс тестов.
- *
+ * Класс тестов.
  */
 public class Tests {
     /**
@@ -25,6 +27,7 @@ public class Tests {
         assertEquals(3, graph.vertexs.size());
         assertEquals("C", graph.vertexs.get(2).value);
     }
+
     /**
      * Добавляем ребро.
      */
@@ -42,6 +45,7 @@ public class Tests {
         assertEquals("A", graph.edges.get(0).start.value);
         assertEquals("B", graph.edges.get(0).end.value);
     }
+
     /**
      * Удаляем вершину.
      */
@@ -52,8 +56,8 @@ public class Tests {
         Vertex<String> vertex3 = new Vertex<>("C");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
         Graph<String, Integer> graph = new Graph<>(vertices);
-        graph.addEdge(5,"A","B");
-        graph.addEdge(5,"B","C");
+        graph.addEdge(5, "A", "B");
+        graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
 
         assertEquals(2, graph.vertexs.size());
@@ -61,6 +65,7 @@ public class Tests {
         assertEquals("C", graph.vertexs.get(1).value);
         assertEquals(0, graph.edges.size());
     }
+
     /**
      * Удаляем ребро.
      */
@@ -76,6 +81,7 @@ public class Tests {
 
         assertEquals(0, graph.edges.size());
     }
+
     /**
      * Пример из условия через матрицу смежности.
      */
@@ -101,6 +107,7 @@ public class Tests {
         assertEquals("B", result.get(5).value);
         assertEquals("A", result.get(6).value);
     }
+
     /**
      * Пример из условия через списки смежности.
      */
@@ -126,6 +133,7 @@ public class Tests {
         assertEquals("B", result.get(5).value);
         assertEquals("A", result.get(6).value);
     }
+
     /**
      * Пример из условия через матрицу инцидентности.
      */
@@ -151,8 +159,9 @@ public class Tests {
         assertEquals("B", result.get(5).value);
         assertEquals("A", result.get(6).value);
     }
+
     /**
-     *  Меняем вершину.
+     * Меняем вершину.
      */
     @Test
     public void testSetVertex() {
@@ -165,6 +174,7 @@ public class Tests {
 
         assertEquals("C", graph.vertexs.get(0).value);
     }
+
     /**
      * Меняем ребро.
      */
@@ -184,6 +194,7 @@ public class Tests {
         assertEquals("C", graph.edges.get(0).start.value);
         assertEquals("B", graph.edges.get(0).end.value);
     }
+
     /**
      * Заполняем из файла.
      */
