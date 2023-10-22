@@ -133,6 +133,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Graph&lt;T,&#8203;E extends java.lang.Number&gt;</span>
 extends java.lang.Object</pre>
+<div class="block">Класс графа, из условия неособо понял, что от нас требуется,
+ поэтому сделал все три имплементации в одном классе.</div>
 </li>
 </ul>
 </div>
@@ -222,59 +224,79 @@ extends java.lang.Object</pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(E,T,T)">addEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Добавляем ребро.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVertical(T)">addVertical</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Добавляем вершину.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bellManFordUsingAlist(T,double)">bellManFordUsingAlist</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                      double&nbsp;infinity)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Форд-Беллман через СС.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bellManFordUsingAmatrix(T,double)">bellManFordUsingAmatrix</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                        double&nbsp;infinity)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Форд-Беллман через МС.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bellManFordUsingImatrix(T,double)">bellManFordUsingImatrix</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                        double&nbsp;infinity)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Форд-Беллман через МИ.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteEdge(E,T,T)">deleteEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
           <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
           <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Удаляем ребро.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteVertical(T)">deleteVertical</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Удаляем вершину.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdge(E,T,T)">getEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;weight,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер ребра.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertex(T)">getVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Геттер вершины.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeGraphFromAdjacencyMatrix(java.lang.String)">makeGraphFromAdjacencyMatrix</a></span>&#8203;(java.lang.String&nbsp;fileName)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Заполняем граф из файлика, e в файле значит отсутствие дороги.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -284,13 +306,17 @@ extends java.lang.Object</pre>
         <a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;newWeight,
         <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newStart,
         <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newEnd)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Сеттер ребра.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVertex(T,T)">setVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value,
          <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newValue)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Сеттер вершины.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -399,6 +425,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addVertical</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<div class="block">Добавляем вершину.</div>
 </li>
 </ul>
 <a id="addEdge(java.lang.Number,java.lang.Object,java.lang.Object)">
@@ -412,6 +439,7 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;addEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
                     <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                     <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
+<div class="block">Добавляем ребро.</div>
 </li>
 </ul>
 <a id="deleteVertical(java.lang.Object)">
@@ -423,6 +451,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>deleteVertical</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;deleteVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<div class="block">Удаляем вершину.</div>
 </li>
 </ul>
 <a id="deleteEdge(java.lang.Number,java.lang.Object,java.lang.Object)">
@@ -436,6 +465,7 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;deleteEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
                        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
+<div class="block">Удаляем ребро.</div>
 </li>
 </ul>
 <a id="getVertex(java.lang.Object)">
@@ -447,6 +477,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getVertex</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<div class="block">Геттер вершины.</div>
 </li>
 </ul>
 <a id="getEdge(java.lang.Number,java.lang.Object,java.lang.Object)">
@@ -460,6 +491,7 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;int&nbsp;getEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;weight,
                    <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                    <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
+<div class="block">Геттер ребра.</div>
 </li>
 </ul>
 <a id="setVertex(java.lang.Object,java.lang.Object)">
@@ -472,6 +504,7 @@ extends java.lang.Object</pre>
 <h4>setVertex</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value,
                       <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newValue)</pre>
+<div class="block">Сеттер вершины.</div>
 </li>
 </ul>
 <a id="setEdges(java.lang.Number,java.lang.Object,java.lang.Object,java.lang.Number,java.lang.Object,java.lang.Object)">
@@ -488,6 +521,7 @@ extends java.lang.Object</pre>
                      <a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;newWeight,
                      <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newStart,
                      <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newEnd)</pre>
+<div class="block">Сеттер ребра.</div>
 </li>
 </ul>
 <a id="makeGraphFromAdjacencyMatrix(java.lang.String)">
@@ -498,6 +532,7 @@ extends java.lang.Object</pre>
 <h4>makeGraphFromAdjacencyMatrix</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;makeGraphFromAdjacencyMatrix&#8203;(java.lang.String&nbsp;fileName)
                                   throws java.io.IOException</pre>
+<div class="block">Заполняем граф из файлика, e в файле значит отсутствие дороги.</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code></dd>
@@ -514,6 +549,7 @@ extends java.lang.Object</pre>
 <h4>bellManFordUsingAmatrix</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;bellManFordUsingAmatrix&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                                                               double&nbsp;infinity)</pre>
+<div class="block">Форд-Беллман через МС.</div>
 </li>
 </ul>
 <a id="bellManFordUsingAlist(java.lang.Object,double)">
@@ -526,6 +562,7 @@ extends java.lang.Object</pre>
 <h4>bellManFordUsingAlist</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;bellManFordUsingAlist&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                                                             double&nbsp;infinity)</pre>
+<div class="block">Форд-Беллман через СС.</div>
 </li>
 </ul>
 <a id="bellManFordUsingImatrix(java.lang.Object,double)">
@@ -538,6 +575,7 @@ extends java.lang.Object</pre>
 <h4>bellManFordUsingImatrix</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;bellManFordUsingImatrix&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
                                                               double&nbsp;infinity)</pre>
+<div class="block">Форд-Беллман через МИ.</div>
 </li>
 </ul>
 </li>
