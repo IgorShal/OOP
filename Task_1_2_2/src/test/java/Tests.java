@@ -2,11 +2,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.example.graph.Graph;
 import org.example.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Класс тестов.
@@ -51,10 +52,10 @@ public class Tests {
      */
     @Test
     public void testDeleteVertical() {
-        Vertex<String> vertex1 = new Vertex<>("A");
-        Vertex<String> vertex2 = new Vertex<>("B");
-        Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
+        Vertex<String> v1 = new Vertex<>("A");
+        Vertex<String> v2 = new Vertex<>("B");
+        Vertex<String> v3 = new Vertex<>("C");
+        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2, v3));
         Graph<String, Integer> graph = new Graph<>(vertices);
         graph.addEdge(5, "A", "B");
         graph.addEdge(5, "B", "C");
@@ -71,9 +72,9 @@ public class Tests {
      */
     @Test
     public void testDeleteEdge() {
-        Vertex<String> vertex1 = new Vertex<>("A");
-        Vertex<String> vertex2 = new Vertex<>("B");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
+        Vertex<String> v1 = new Vertex<>("A");
+        Vertex<String> v2 = new Vertex<>("B");
+        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
         Graph<String, Integer> graph = new Graph<>(vertices);
         graph.addEdge(10, "A", "B");
 
@@ -97,7 +98,8 @@ public class Tests {
         vertexes.add(new Vertex<String>("G"));
         Graph<String, Double> graph = new Graph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingAmatrix("C", 1000);
+        ArrayList<Vertex<String>> result;
+        result = graph.bellManFordUsingAmatrix("C", 1000);
 
         assertEquals("C", result.get(0).value);
         assertEquals("D", result.get(1).value);
@@ -123,7 +125,8 @@ public class Tests {
         vertexes.add(new Vertex<String>("G"));
         Graph<String, Double> graph = new Graph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingAlist("C", 1000);
+        ArrayList<Vertex<String>> result;
+        result = graph.bellManFordUsingAlist("C", 1000);
 
         assertEquals("C", result.get(0).value);
         assertEquals("D", result.get(1).value);
@@ -149,7 +152,8 @@ public class Tests {
         vertexes.add(new Vertex<String>("G"));
         Graph<String, Double> graph = new Graph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
-        ArrayList<Vertex<String>> result = graph.bellManFordUsingImatrix("C", 1000);
+        ArrayList<Vertex<String>> result;
+        result = graph.bellManFordUsingImatrix("C", 1000);
 
         assertEquals("C", result.get(0).value);
         assertEquals("D", result.get(1).value);
@@ -167,7 +171,9 @@ public class Tests {
     public void testSetVertex() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(vertex1);
+        vertices.add(vertex2);
         Graph<String, Integer> graph = new Graph<>(vertices);
 
         graph.setVertex("A", "C");
@@ -183,7 +189,10 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(vertex1);
+        vertices.add(vertex2);
+        vertices.add(vertex3);
         Graph<String, Integer> graph = new Graph<>(vertices);
         graph.addEdge(10, "A", "B");
 
@@ -203,7 +212,11 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         Vertex<String> vertex3 = new Vertex<>("C");
-        ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2, vertex3));
+
+        ArrayList<Vertex<String>> vertices = new ArrayList<>();
+        vertices.add(vertex1);
+        vertices.add(vertex2);
+        vertices.add(vertex3);
         Graph<String, Double> graph = new Graph<>(vertices);
 
         graph.makeGraphFromAdjacencyMatrix("adjacency_matrix.txt");

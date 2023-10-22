@@ -1,10 +1,12 @@
 package org.example.graph;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс графа, из условия неособо понял, что от нас требуется,
@@ -19,6 +21,9 @@ public class Graph<T, E extends Number> {
 
     public ArrayList<ArrayList<Number>> incidenceMatrix;
 
+    /**
+     * Забыл как эта штука назывется.Генератор вроде.
+     */
     public Graph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;
         this.adjacencyMatrix = new ArrayList<>();
@@ -69,9 +74,9 @@ public class Graph<T, E extends Number> {
             }
         }
         if (startV != -1 && endV != -1) {
-            Edge<T, E> newEdge = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
-            this.edges.add(newEdge);
-            this.adjacencyList.get(startV).add(newEdge);
+            Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
+            this.edges.add(newE);
+            this.adjacencyList.get(startV).add(newE);
             this.adjacencyMatrix.get(startV).set(endV, value);
             for (int i = 0; i < this.incidenceMatrix.size(); i++) {
                 if (i == endV) {
@@ -173,7 +178,8 @@ public class Graph<T, E extends Number> {
      */
     public int getEdge(E weight, T start, T end) {
         for (int i = 0; i < this.edges.size(); i++) {
-            if (Objects.equals(this.edges.get(i).weight, weight) && this.edges.get(i).start.value == start
+            if (Objects.equals(this.edges.get(i).weight, weight)
+                    && this.edges.get(i).start.value == start
                     && this.edges.get(i).end.value == end) {
                 return i;
             }
