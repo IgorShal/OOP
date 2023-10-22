@@ -4,6 +4,7 @@ import java.util.Arrays;
 import org.example.graph.Graph;
 import org.example.graph.Vertex;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
