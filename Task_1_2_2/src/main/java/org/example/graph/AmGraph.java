@@ -2,7 +2,9 @@ package org.example.graph;
 
 import java.util.ArrayList;
 
-
+/**
+ *Граф на матрице смежности.
+ */
 public class AmGraph<T, E extends Number> extends Graph<T, E> {
     public ArrayList<ArrayList<E>> adjacencyMatrix;
 
@@ -10,7 +12,6 @@ public class AmGraph<T, E extends Number> extends Graph<T, E> {
     /**
      * Забыл как эта штука назывется.Генератор вроде.
      *
-     * @param vertexs
      */
     public AmGraph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;

@@ -2,7 +2,9 @@ package org.example.graph;
 
 import java.util.ArrayList;
 
-
+/**
+ *Граф на матрице инцидентости.
+ */
 public class ImGraph<T, E extends Number> extends Graph<T, E> {
     public ArrayList<ArrayList<Number>> incidenceMatrix;
 

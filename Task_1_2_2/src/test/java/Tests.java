@@ -18,7 +18,7 @@ public class Tests {
      * Добавляем вершину через списки смежности.
      */
     @Test
-    public void testAddVerticalAL() {
+    public void testAddVerticalAl() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -35,7 +35,7 @@ public class Tests {
      * Добавляем вершину через матрицу смежности.
      */
     @Test
-    public void testAddVerticalAM() {
+    public void testAddVerticalAm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -52,7 +52,7 @@ public class Tests {
      * Добавляем вершину через матрицу инцидентности.
      */
     @Test
-    public void testAddVerticalIM() {
+    public void testAddVerticalIm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -69,7 +69,7 @@ public class Tests {
      * Добавляем ребро через списки смежности.
      */
     @Test
-    public void testAddEdgeAL() {
+    public void testAddEdgeAl() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -87,7 +87,7 @@ public class Tests {
      * Добавляем ребро через матрицу смежности.
      */
     @Test
-    public void testAddEdgeAM() {
+    public void testAddEdgeAm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -105,7 +105,7 @@ public class Tests {
      * Добавляем ребро через матрицу инцидентности.
      */
     @Test
-    public void testAddEdgeIM() {
+    public void testAddEdgeIm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
@@ -123,7 +123,7 @@ public class Tests {
      * Удаляем вершину через списки смежности.
      */
     @Test
-    public void testDeleteVerticalAL() {
+    public void testDeleteVerticalAl() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
@@ -143,7 +143,7 @@ public class Tests {
      * Удаляем вершину через матрицу смежности.
      */
     @Test
-    public void testDeleteVerticalAM() {
+    public void testDeleteVerticalAm() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
@@ -163,7 +163,7 @@ public class Tests {
      * Удаляем вершину через матрицу инцидентности.
      */
     @Test
-    public void testDeleteVerticalIM() {
+    public void testDeleteVerticalIm() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
@@ -183,7 +183,7 @@ public class Tests {
      * Удаляем ребро через списки смежности.
      */
     @Test
-    public void testDeleteEdgeAL() {
+    public void testDeleteEdgeAl() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
@@ -199,7 +199,7 @@ public class Tests {
      * Удаляем ребро через матрицу смежности.
      */
     @Test
-    public void testDeleteEdgeAM() {
+    public void testDeleteEdgeAm() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
@@ -215,7 +215,7 @@ public class Tests {
      * Удаляем ребро через матрицу инцидентности.
      */
     @Test
-    public void testDeleteEdgeIM() {
+    public void testDeleteEdgeIm() {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
@@ -312,7 +312,7 @@ public class Tests {
      * Меняем вершину через списки смежности.
      */
     @Test
-    public void testSetVertexAL() {
+    public void testSetVertexAl() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
@@ -329,7 +329,7 @@ public class Tests {
      * Меняем вершину через матрицу смежности.
      */
     @Test
-    public void testSetVertexAM() {
+    public void testSetVertexAm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
@@ -346,7 +346,7 @@ public class Tests {
      * Меняем вершину через матрицу инцидентности.
      */
     @Test
-    public void testSetVertexIM() {
+    public void testSetVertexIm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
@@ -363,7 +363,7 @@ public class Tests {
      * Меняем ребро  через списки смежности.
      */
     @Test
-    public void testSetEdgesAL() {
+    public void testSetEdgesAl() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         Vertex<String> vertex3 = new Vertex<>("C");
@@ -386,7 +386,7 @@ public class Tests {
      * Меняем ребро через матрицу смежности.
      */
     @Test
-    public void testSetEdgesAM() {
+    public void testSetEdgesAm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         Vertex<String> vertex3 = new Vertex<>("C");
@@ -409,7 +409,7 @@ public class Tests {
      * Меняем ребро через матрицу инцидентности.
      */
     @Test
-    public void testSetEdgesIM() {
+    public void testSetEdgesIm() {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         Vertex<String> vertex3 = new Vertex<>("C");

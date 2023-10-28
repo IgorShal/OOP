@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Класс графа, из условия неособо понял, что от нас требуется,
- * поэтому сделал все три имплементации в одном классе.
+ * Абстрактный класс графа.
  */
 public abstract class Graph<T, E extends Number> {
     public ArrayList<Vertex<T>> vertexs;
 
     public ArrayList<Edge<T, E>> edges;
+
     public void addVertical(T value) {
 
     }
+
     /**
      * Добавляем ребро.
      */
@@ -120,7 +121,7 @@ public abstract class Graph<T, E extends Number> {
             for (int i = 0; i < this.vertexs.size(); i++) {
                 for (int j = 0; j < this.vertexs.size(); j++) {
                     int index = -1;
-                    index = this.getEdge(null,this.vertexs.get(j).value,
+                    index = this.getEdge(null, this.vertexs.get(j).value,
                             this.vertexs.get(i).value);
                     if (index == -1) {
                         continue;

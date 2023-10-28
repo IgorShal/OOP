@@ -2,14 +2,15 @@ package org.example.graph;
 
 import java.util.ArrayList;
 
-
+/**
+ *Граф на списке смежности.
+ */
 public class AlGraph<T, E extends Number> extends Graph<T, E> {
     public ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
 
     /**
      * Забыл как эта штука назывется.Генератор вроде.
      *
-     * @param vertexs
      */
     public AlGraph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;
