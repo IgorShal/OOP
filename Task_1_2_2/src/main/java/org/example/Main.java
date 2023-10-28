@@ -3,7 +3,7 @@ package org.example;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.example.graph.ALGraph;
+import org.example.graph.AlGraph;
 import org.example.graph.Vertex;
 
 /**
@@ -22,7 +22,7 @@ public class Main {
         vertexes.add(new Vertex<String>("E"));
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
-        ALGraph<String, Double> graph = new ALGraph<>(vertexes);
+        AlGraph<String, Double> graph = new AlGraph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result = graph.bellManFord("C", 1000);
         for (int i = 0; i < result.size(); i++) {

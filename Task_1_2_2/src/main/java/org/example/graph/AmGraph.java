@@ -3,19 +3,23 @@ package org.example.graph;
 import java.util.ArrayList;
 
 
-public class ALGraph<T, E extends Number> extends Graph<T, E> {
-    public ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
+public class AmGraph<T, E extends Number> extends Graph<T, E> {
+    public ArrayList<ArrayList<E>> adjacencyMatrix;
+
 
     /**
      * Забыл как эта штука назывется.Генератор вроде.
      *
      * @param vertexs
      */
-    public ALGraph(ArrayList<Vertex<T>> vertexs) {
+    public AmGraph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;
-        this.adjacencyList = new ArrayList<>();
+        this.adjacencyMatrix = new ArrayList<>();
         for (int i = 0; i < vertexs.size(); i++) {
-            this.adjacencyList.add(new ArrayList<Edge<T, E>>());
+            this.adjacencyMatrix.add(new ArrayList<E>());
+            for (int j = 0; j < vertexs.size(); j++) {
+                this.adjacencyMatrix.get(i).add(null);
+            }
         }
         this.edges = new ArrayList<>();
     }
@@ -26,7 +30,12 @@ public class ALGraph<T, E extends Number> extends Graph<T, E> {
     @Override
     public void addVertical(T value) {
         this.vertexs.add(new Vertex<>(value));
-        this.adjacencyList.add(new ArrayList<Edge<T, E>>());
+        this.adjacencyMatrix.add(new ArrayList<E>());
+
+        for (int i = 0; i < vertexs.size(); i++) {
+            this.adjacencyMatrix.get(i).add(null);
+            this.adjacencyMatrix.get(vertexs.size() - 1).add(null);
+        }
     }
 
     /**
@@ -47,7 +56,9 @@ public class ALGraph<T, E extends Number> extends Graph<T, E> {
         if (startV != -1 && endV != -1) {
             Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
             this.edges.add(newE);
-            this.adjacencyList.get(startV).add(newE);
+            this.adjacencyMatrix.get(startV).set(endV, value);
+
+
         }
     }
 
@@ -61,26 +72,17 @@ public class ALGraph<T, E extends Number> extends Graph<T, E> {
         for (int i = 0; i < this.edges.size(); i++) {
             Edge<T, E> edge = this.edges.get(i);
             if (edge.start.value == value || edge.end.value == value) {
-
                 indexes.add(i);
-
             }
         }
         for (int i = 0; i < indexes.size(); i++) {
             this.edges.remove((int) indexes.get(i) - i);
         }
-
         index = getVertex(value);
-
-        this.adjacencyList.remove(index);
-        for (int i = 0; i < this.adjacencyList.size(); i++) {
-            for (int j = 0; j < this.adjacencyList.get(i).size(); j++) {
-                Edge<T, E> curr = this.adjacencyList.get(i).get(j);
-                if (curr.start.value == value || curr.end.value == value) {
-                    this.adjacencyList.get(i).remove(j);
-                }
-            }
+        for (int i = 0; i < this.adjacencyMatrix.size(); i++) {
+            this.adjacencyMatrix.get(i).remove(index);
         }
+        this.adjacencyMatrix.remove(index);
         this.vertexs.remove(index);
     }
 
@@ -92,12 +94,12 @@ public class ALGraph<T, E extends Number> extends Graph<T, E> {
         int index = -1;
         index = getEdge(value, start, end);
         if (index != -1) {
-
-            for (int i = 0; i < this.adjacencyList.size(); i++) {
-                Edge<T, E> cur = this.edges.get(index);
-                this.adjacencyList.get(i).remove(cur);
-            }
             this.edges.remove(index);
+            int startVertIndex = getVertex(start);
+            int endVertIndex = getVertex(end);
+            this.adjacencyMatrix.get(startVertIndex).set(endVertIndex, null);
+            this.adjacencyMatrix.get(endVertIndex).set(startVertIndex, null);
         }
+
     }
 }

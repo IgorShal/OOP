@@ -3,23 +3,18 @@ package org.example.graph;
 import java.util.ArrayList;
 
 
-public class AMGraph<T, E extends Number> extends Graph<T, E> {
-    public ArrayList<ArrayList<E>> adjacencyMatrix;
+public class ImGraph<T, E extends Number> extends Graph<T, E> {
+    public ArrayList<ArrayList<Number>> incidenceMatrix;
 
 
     /**
      * Забыл как эта штука назывется.Генератор вроде.
-     *
-     * @param vertexs
      */
-    public AMGraph(ArrayList<Vertex<T>> vertexs) {
+    public ImGraph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;
-        this.adjacencyMatrix = new ArrayList<>();
+        this.incidenceMatrix = new ArrayList<>();
         for (int i = 0; i < vertexs.size(); i++) {
-            this.adjacencyMatrix.add(new ArrayList<E>());
-            for (int j = 0; j < vertexs.size(); j++) {
-                this.adjacencyMatrix.get(i).add(null);
-            }
+            this.incidenceMatrix.add(new ArrayList<Number>());
         }
         this.edges = new ArrayList<>();
     }
@@ -30,11 +25,9 @@ public class AMGraph<T, E extends Number> extends Graph<T, E> {
     @Override
     public void addVertical(T value) {
         this.vertexs.add(new Vertex<>(value));
-        this.adjacencyMatrix.add(new ArrayList<E>());
-
-        for (int i = 0; i < vertexs.size(); i++) {
-            this.adjacencyMatrix.get(i).add(null);
-            this.adjacencyMatrix.get(vertexs.size() - 1).add(null);
+        this.incidenceMatrix.add(new ArrayList<Number>());
+        for (int i = 0; i < this.edges.size(); i++) {
+            this.incidenceMatrix.get(this.incidenceMatrix.size() - 1).add(0);
         }
     }
 
@@ -56,7 +49,15 @@ public class AMGraph<T, E extends Number> extends Graph<T, E> {
         if (startV != -1 && endV != -1) {
             Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
             this.edges.add(newE);
-            this.adjacencyMatrix.get(startV).set(endV, value);
+            for (int i = 0; i < this.incidenceMatrix.size(); i++) {
+                if (i == endV) {
+                    this.incidenceMatrix.get(i).add(-1);
+                } else if (i == startV) {
+                    this.incidenceMatrix.get(i).add(1);
+                } else {
+                    this.incidenceMatrix.get(i).add(0);
+                }
+            }
 
 
         }
@@ -72,17 +73,23 @@ public class AMGraph<T, E extends Number> extends Graph<T, E> {
         for (int i = 0; i < this.edges.size(); i++) {
             Edge<T, E> edge = this.edges.get(i);
             if (edge.start.value == value || edge.end.value == value) {
+
                 indexes.add(i);
+
             }
         }
         for (int i = 0; i < indexes.size(); i++) {
             this.edges.remove((int) indexes.get(i) - i);
         }
+
         index = getVertex(value);
-        for (int i = 0; i < this.adjacencyMatrix.size(); i++) {
-            this.adjacencyMatrix.get(i).remove(index);
+
+        for (int i = 0; i < this.incidenceMatrix.size(); i++) {
+            for (int j = 0; j < indexes.size(); j++) {
+                this.incidenceMatrix.get(i).remove((int) indexes.get(j) - j);
+            }
         }
-        this.adjacencyMatrix.remove(index);
+        this.incidenceMatrix.remove(index);
         this.vertexs.remove(index);
     }
 
@@ -95,11 +102,12 @@ public class AMGraph<T, E extends Number> extends Graph<T, E> {
         index = getEdge(value, start, end);
         if (index != -1) {
             this.edges.remove(index);
-            int startVertIndex = getVertex(start);
-            int endVertIndex = getVertex(end);
-            this.adjacencyMatrix.get(startVertIndex).set(endVertIndex, null);
-            this.adjacencyMatrix.get(endVertIndex).set(startVertIndex, null);
+
+            for (int i = 0; i < this.incidenceMatrix.size(); i++) {
+                this.incidenceMatrix.get(i).remove(index);
+            }
         }
 
     }
+
 }

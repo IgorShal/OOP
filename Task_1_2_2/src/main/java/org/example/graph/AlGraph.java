@@ -3,18 +3,19 @@ package org.example.graph;
 import java.util.ArrayList;
 
 
-public class IMGraph<T, E extends Number> extends Graph<T, E> {
-    public ArrayList<ArrayList<Number>> incidenceMatrix;
-
+public class AlGraph<T, E extends Number> extends Graph<T, E> {
+    public ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
 
     /**
      * Забыл как эта штука назывется.Генератор вроде.
+     *
+     * @param vertexs
      */
-    public IMGraph(ArrayList<Vertex<T>> vertexs) {
+    public AlGraph(ArrayList<Vertex<T>> vertexs) {
         this.vertexs = vertexs;
-        this.incidenceMatrix = new ArrayList<>();
+        this.adjacencyList = new ArrayList<>();
         for (int i = 0; i < vertexs.size(); i++) {
-            this.incidenceMatrix.add(new ArrayList<Number>());
+            this.adjacencyList.add(new ArrayList<Edge<T, E>>());
         }
         this.edges = new ArrayList<>();
     }
@@ -25,10 +26,7 @@ public class IMGraph<T, E extends Number> extends Graph<T, E> {
     @Override
     public void addVertical(T value) {
         this.vertexs.add(new Vertex<>(value));
-        this.incidenceMatrix.add(new ArrayList<Number>());
-        for (int i = 0; i < this.edges.size(); i++) {
-            this.incidenceMatrix.get(this.incidenceMatrix.size() - 1).add(0);
-        }
+        this.adjacencyList.add(new ArrayList<Edge<T, E>>());
     }
 
     /**
@@ -49,17 +47,7 @@ public class IMGraph<T, E extends Number> extends Graph<T, E> {
         if (startV != -1 && endV != -1) {
             Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
             this.edges.add(newE);
-            for (int i = 0; i < this.incidenceMatrix.size(); i++) {
-                if (i == endV) {
-                    this.incidenceMatrix.get(i).add(-1);
-                } else if (i == startV) {
-                    this.incidenceMatrix.get(i).add(1);
-                } else {
-                    this.incidenceMatrix.get(i).add(0);
-                }
-            }
-
-
+            this.adjacencyList.get(startV).add(newE);
         }
     }
 
@@ -84,12 +72,15 @@ public class IMGraph<T, E extends Number> extends Graph<T, E> {
 
         index = getVertex(value);
 
-        for (int i = 0; i < this.incidenceMatrix.size(); i++) {
-            for (int j = 0; j < indexes.size(); j++) {
-                this.incidenceMatrix.get(i).remove((int) indexes.get(j) - j);
+        this.adjacencyList.remove(index);
+        for (int i = 0; i < this.adjacencyList.size(); i++) {
+            for (int j = 0; j < this.adjacencyList.get(i).size(); j++) {
+                Edge<T, E> curr = this.adjacencyList.get(i).get(j);
+                if (curr.start.value == value || curr.end.value == value) {
+                    this.adjacencyList.get(i).remove(j);
+                }
             }
         }
-        this.incidenceMatrix.remove(index);
         this.vertexs.remove(index);
     }
 
@@ -101,13 +92,12 @@ public class IMGraph<T, E extends Number> extends Graph<T, E> {
         int index = -1;
         index = getEdge(value, start, end);
         if (index != -1) {
-            this.edges.remove(index);
 
-            for (int i = 0; i < this.incidenceMatrix.size(); i++) {
-                this.incidenceMatrix.get(i).remove(index);
+            for (int i = 0; i < this.adjacencyList.size(); i++) {
+                Edge<T, E> cur = this.edges.get(index);
+                this.adjacencyList.get(i).remove(cur);
             }
+            this.edges.remove(index);
         }
-
     }
-
 }

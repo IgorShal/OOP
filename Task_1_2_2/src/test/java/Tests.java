@@ -3,9 +3,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import org.example.graph.ALGraph;
-import org.example.graph.AMGraph;
-import org.example.graph.IMGraph;
+import org.example.graph.AlGraph;
+import org.example.graph.AmGraph;
+import org.example.graph.ImGraph;
 import org.example.graph.Vertex;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
 
         graph.addVertical("C");
 
@@ -39,7 +39,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
 
         graph.addVertical("C");
 
@@ -56,7 +56,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
 
         graph.addVertical("C");
 
@@ -73,7 +73,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
 
         graph.addEdge(10, "A", "B");
 
@@ -91,7 +91,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
 
         graph.addEdge(10, "A", "B");
 
@@ -109,7 +109,7 @@ public class Tests {
         Vertex<String> vertex1 = new Vertex<>("A");
         Vertex<String> vertex2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(vertex1, vertex2));
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
 
         graph.addEdge(10, "A", "B");
 
@@ -128,7 +128,7 @@ public class Tests {
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2, v3));
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
         graph.addEdge(5, "A", "B");
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
@@ -148,7 +148,7 @@ public class Tests {
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2, v3));
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
         graph.addEdge(5, "A", "B");
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
@@ -168,7 +168,7 @@ public class Tests {
         Vertex<String> v2 = new Vertex<>("B");
         Vertex<String> v3 = new Vertex<>("C");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2, v3));
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
         graph.addEdge(5, "A", "B");
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
@@ -187,7 +187,7 @@ public class Tests {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.deleteEdge(10, "A", "B");
@@ -203,7 +203,7 @@ public class Tests {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.deleteEdge(10, "A", "B");
@@ -219,7 +219,7 @@ public class Tests {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         ArrayList<Vertex<String>> vertices = new ArrayList<>(Arrays.asList(v1, v2));
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.deleteEdge(10, "A", "B");
@@ -240,7 +240,7 @@ public class Tests {
         vertexes.add(new Vertex<String>("E"));
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
-        AMGraph<String, Double> graph = new AMGraph<>(vertexes);
+        AmGraph<String, Double> graph = new AmGraph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
@@ -267,7 +267,7 @@ public class Tests {
         vertexes.add(new Vertex<String>("E"));
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
-        ALGraph<String, Double> graph = new ALGraph<>(vertexes);
+        AlGraph<String, Double> graph = new AlGraph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
@@ -294,7 +294,7 @@ public class Tests {
         vertexes.add(new Vertex<String>("E"));
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
-        IMGraph<String, Double> graph = new IMGraph<>(vertexes);
+        ImGraph<String, Double> graph = new ImGraph<>(vertexes);
         graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
@@ -318,7 +318,7 @@ public class Tests {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         vertices.add(vertex1);
         vertices.add(vertex2);
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
 
         graph.setVertex("A", "C");
 
@@ -335,7 +335,7 @@ public class Tests {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         vertices.add(vertex1);
         vertices.add(vertex2);
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
 
         graph.setVertex("A", "C");
 
@@ -352,7 +352,7 @@ public class Tests {
         ArrayList<Vertex<String>> vertices = new ArrayList<>();
         vertices.add(vertex1);
         vertices.add(vertex2);
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
 
         graph.setVertex("A", "C");
 
@@ -371,7 +371,7 @@ public class Tests {
         vertices.add(vertex1);
         vertices.add(vertex2);
         vertices.add(vertex3);
-        ALGraph<String, Integer> graph = new ALGraph<>(vertices);
+        AlGraph<String, Integer> graph = new AlGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
@@ -394,7 +394,7 @@ public class Tests {
         vertices.add(vertex1);
         vertices.add(vertex2);
         vertices.add(vertex3);
-        AMGraph<String, Integer> graph = new AMGraph<>(vertices);
+        AmGraph<String, Integer> graph = new AmGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
@@ -417,7 +417,7 @@ public class Tests {
         vertices.add(vertex1);
         vertices.add(vertex2);
         vertices.add(vertex3);
-        IMGraph<String, Integer> graph = new IMGraph<>(vertices);
+        ImGraph<String, Integer> graph = new ImGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
@@ -441,7 +441,7 @@ public class Tests {
         vertices.add(vertex1);
         vertices.add(vertex2);
         vertices.add(vertex3);
-        ALGraph<String, Double> graph = new ALGraph<>(vertices);
+        AlGraph<String, Double> graph = new AlGraph<>(vertices);
 
         graph.makeGraphFromAdjacencyMatrix("adjacency_matrix.txt");
 
