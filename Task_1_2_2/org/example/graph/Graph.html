@@ -234,8 +234,8 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertex(T)">getVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
+<td class="colFirst"><code><a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertex(int)">getVertex</a></span>&#8203;(int&nbsp;index)</code></th>
 <td class="colLast">
 <div class="block">Геттер вершины.</div>
 </td>
@@ -422,15 +422,13 @@ extends java.lang.Object</pre>
 <div class="block">Удаляем ребро.</div>
 </li>
 </ul>
-<a id="getVertex(java.lang.Object)">
-<!--   -->
-</a><a id="getVertex(T)">
+<a id="getVertex(int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getVertex</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<pre class="methodSignature">public&nbsp;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&nbsp;getVertex&#8203;(int&nbsp;index)</pre>
 <div class="block">Геттер вершины.</div>
 </li>
 </ul>
@@ -502,8 +500,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>bellManFord</h4>
 <pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;bellManFord&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
-                                                  double&nbsp;infinity)</pre>
+                                                  double&nbsp;infinity)
+                                           throws java.lang.Exception</pre>
 <div class="block">Фордим беллмана.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
 </li>
 </ul>
 </li>
