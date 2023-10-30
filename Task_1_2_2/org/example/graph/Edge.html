@@ -27,6 +27,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -83,15 +89,15 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -135,39 +141,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#end">end</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start">start</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="Edge.html" title="type parameter in Edge">E</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#weight">weight</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section>
 <ul class="blockList">
@@ -175,6 +148,56 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnd()">getEnd</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Геттер.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code><a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStart()">getStart</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Геттер.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Edge.html" title="type parameter in Edge">E</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWeight()">getWeight</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Геттер.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnd(org.example.graph.Vertex)">setEnd</a></span>&#8203;(<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;newEnd)</code></th>
+<td class="colLast">
+<div class="block">Сеттер.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setStart(org.example.graph.Vertex)">setStart</a></span>&#8203;(<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;newStart)</code></th>
+<td class="colLast">
+<div class="block">Сеттер.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWeight(E)">setWeight</a></span>&#8203;(<a href="Edge.html" title="type parameter in Edge">E</a>&nbsp;newWeight)</code></th>
+<td class="colLast">
+<div class="block">Сеттер.</div>
+</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -191,38 +214,73 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
+<!-- ============ METHOD DETAIL ========== -->
 <section>
 <ul class="blockList">
-<li class="blockList"><a id="field.detail">
+<li class="blockList"><a id="method.detail">
 <!--   -->
 </a>
-<h3>Field Detail</h3>
-<a id="start">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>start</h4>
-<pre>public&nbsp;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt; start</pre>
-</li>
-</ul>
-<a id="end">
+<h3>Method Detail</h3>
+<a id="getWeight()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>end</h4>
-<pre>public&nbsp;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt; end</pre>
+<h4>getWeight</h4>
+<pre class="methodSignature">public&nbsp;<a href="Edge.html" title="type parameter in Edge">E</a>&nbsp;getWeight()</pre>
+<div class="block">Геттер.</div>
 </li>
 </ul>
-<a id="weight">
+<a id="setWeight(java.lang.Number)">
+<!--   -->
+</a><a id="setWeight(E)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setWeight</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setWeight&#8203;(<a href="Edge.html" title="type parameter in Edge">E</a>&nbsp;newWeight)</pre>
+<div class="block">Сеттер.</div>
+</li>
+</ul>
+<a id="getStart()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStart</h4>
+<pre class="methodSignature">public&nbsp;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;getStart()</pre>
+<div class="block">Геттер.</div>
+</li>
+</ul>
+<a id="getEnd()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEnd</h4>
+<pre class="methodSignature">public&nbsp;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;getEnd()</pre>
+<div class="block">Геттер.</div>
+</li>
+</ul>
+<a id="setStart(org.example.graph.Vertex)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setStart</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setStart&#8203;(<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;newStart)</pre>
+<div class="block">Сеттер.</div>
+</li>
+</ul>
+<a id="setEnd(org.example.graph.Vertex)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>weight</h4>
-<pre>public&nbsp;<a href="Edge.html" title="type parameter in Edge">E</a> extends java.lang.Number weight</pre>
+<h4>setEnd</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEnd&#8203;(<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;newEnd)</pre>
+<div class="block">Сеттер.</div>
 </li>
 </ul>
 </li>
@@ -277,15 +335,15 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

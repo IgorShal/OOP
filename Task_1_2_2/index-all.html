@@ -92,7 +92,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </nav>
 </header>
 <main role="main">
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
+<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a><a id="I:A">
 <!--   -->
 </a>
 <h2 class="title">A</h2>
@@ -127,17 +127,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Добавляем вершину.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/AlGraph.html#adjacencyList">adjacencyList</a></span> - Variable in class org.example.graph.<a href="org/example/graph/AlGraph.html" title="class in org.example.graph">AlGraph</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/AmGraph.html#adjacencyMatrix">adjacencyMatrix</a></span> - Variable in class org.example.graph.<a href="org/example/graph/AmGraph.html" title="class in org.example.graph">AmGraph</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="org/example/graph/AlGraph.html" title="class in org.example.graph"><span class="typeNameLink">AlGraph</span></a>&lt;<a href="org/example/graph/AlGraph.html" title="type parameter in AlGraph">T</a>,&#8203;<a href="org/example/graph/AlGraph.html" title="type parameter in AlGraph">E</a> extends java.lang.Number&gt; - Class in <a href="org/example/graph/package-summary.html">org.example.graph</a></dt>
 <dd>
 <div class="block">Граф на списке смежности.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/example/graph/AlGraph.html#%3Cinit%3E(java.util.ArrayList)">AlGraph(ArrayList&lt;Vertex&lt;T&gt;&gt;)</a></span> - Constructor for class org.example.graph.<a href="org/example/graph/AlGraph.html" title="class in org.example.graph">AlGraph</a></dt>
 <dd>
-<div class="block">Забыл как эта штука назывется.Генератор вроде.</div>
+<div class="block">Конструктор.</div>
 </dd>
 <dt><a href="org/example/graph/AmGraph.html" title="class in org.example.graph"><span class="typeNameLink">AmGraph</span></a>&lt;<a href="org/example/graph/AmGraph.html" title="type parameter in AmGraph">T</a>,&#8203;<a href="org/example/graph/AmGraph.html" title="type parameter in AmGraph">E</a> extends java.lang.Number&gt; - Class in <a href="org/example/graph/package-summary.html">org.example.graph</a></dt>
 <dd>
@@ -145,7 +141,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/example/graph/AmGraph.html#%3Cinit%3E(java.util.ArrayList)">AmGraph(ArrayList&lt;Vertex&lt;T&gt;&gt;)</a></span> - Constructor for class org.example.graph.<a href="org/example/graph/AmGraph.html" title="class in org.example.graph">AmGraph</a></dt>
 <dd>
-<div class="block">Забыл как эта штука назывется.Генератор вроде.</div>
+<div class="block">Конструктор.</div>
 </dd>
 </dl>
 <a id="I:B">
@@ -205,10 +201,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Класс ребра, ребро содержит инфу о начале, конце и весе.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#edges">edges</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#end">end</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <a id="I:G">
 <!--   -->
@@ -219,9 +211,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Геттер ребра.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#getEdges()">getEdges()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
+<dd>
+<div class="block">Геттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#getEnd()">getEnd()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Геттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#getStart()">getStart()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Геттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Vertex.html#getValue()">getValue()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Vertex.html" title="class in org.example.graph">Vertex</a></dt>
+<dd>
+<div class="block">Геттер.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#getVertex(T)">getVertex(T)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
 <dd>
 <div class="block">Геттер вершины.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#getVertexs()">getVertexs()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
+<dd>
+<div class="block">Геттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#getWeight()">getWeight()</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Геттер.</div>
 </dd>
 <dt><a href="org/example/graph/Graph.html" title="class in org.example.graph"><span class="typeNameLink">Graph</span></a>&lt;<a href="org/example/graph/Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="org/example/graph/Graph.html" title="type parameter in Graph">E</a> extends java.lang.Number&gt; - Class in <a href="org/example/graph/package-summary.html">org.example.graph</a></dt>
 <dd>
@@ -241,10 +257,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/example/graph/ImGraph.html#%3Cinit%3E(java.util.ArrayList)">ImGraph(ArrayList&lt;Vertex&lt;T&gt;&gt;)</a></span> - Constructor for class org.example.graph.<a href="org/example/graph/ImGraph.html" title="class in org.example.graph">ImGraph</a></dt>
 <dd>
-<div class="block">Забыл как эта штука назывется.Генератор вроде.</div>
+<div class="block">Конструктор.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/ImGraph.html#incidenceMatrix">incidenceMatrix</a></span> - Variable in class org.example.graph.<a href="org/example/graph/ImGraph.html" title="class in org.example.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <a id="I:M">
 <!--   -->
@@ -285,20 +299,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Сеттер ребра.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#setEdges(java.util.ArrayList)">setEdges(ArrayList&lt;Edge&lt;T, E&gt;&gt;)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#setEnd(org.example.graph.Vertex)">setEnd(Vertex&lt;T&gt;)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#setStart(org.example.graph.Vertex)">setStart(Vertex&lt;T&gt;)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Vertex.html#setValue(T)">setValue(T)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Vertex.html" title="class in org.example.graph">Vertex</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#setVertex(T,T)">setVertex(T, T)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
 <dd>
 <div class="block">Сеттер вершины.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#start">start</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#setVertexs(java.util.ArrayList)">setVertexs(ArrayList&lt;Vertex&lt;T&gt;&gt;)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#setWeight(E)">setWeight(E)</a></span> - Method in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
+<dd>
+<div class="block">Сеттер.</div>
+</dd>
 </dl>
 <a id="I:V">
 <!--   -->
 </a>
 <h2 class="title">V</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/example/graph/Vertex.html#value">value</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Vertex.html" title="class in org.example.graph">Vertex</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="org/example/graph/Vertex.html" title="class in org.example.graph"><span class="typeNameLink">Vertex</span></a>&lt;<a href="org/example/graph/Vertex.html" title="type parameter in Vertex">T</a>&gt; - Class in <a href="org/example/graph/package-summary.html">org.example.graph</a></dt>
 <dd>
 <div class="block">Класс вершины, содержит инфу о названии вершины.</div>
@@ -307,18 +341,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Забыл как эта штука назывется.Генератор вроде.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/example/graph/Graph.html#vertexs">vertexs</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Graph.html" title="class in org.example.graph">Graph</a></dt>
-<dd>&nbsp;</dd>
 </dl>
-<a id="I:W">
-<!--   -->
-</a>
-<h2 class="title">W</h2>
-<dl>
-<dt><span class="memberNameLink"><a href="org/example/graph/Edge.html#weight">weight</a></span> - Variable in class org.example.graph.<a href="org/example/graph/Edge.html" title="class in org.example.graph">Edge</a></dt>
-<dd>&nbsp;</dd>
-</dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes</a>&nbsp;<a href="allpackages-index.html">All&nbsp;Packages</a></div>
 </main>
 <footer role="contentinfo">
 <nav role="navigation">

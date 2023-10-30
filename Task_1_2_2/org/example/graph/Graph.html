@@ -27,8 +27,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":6,"i1":6,"i2":10,"i3":6,"i4":6,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -144,34 +144,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a>&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#edges">edges</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertexs">vertexs</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section>
 <ul class="blockList">
@@ -201,14 +173,14 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>abstract void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(E,T,T)">addEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
        <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</code></th>
@@ -217,7 +189,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>abstract void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addVertical(T)">addVertical</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -230,7 +202,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>abstract void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteEdge(E,T,T)">deleteEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
           <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
           <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</code></th>
@@ -239,7 +211,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>abstract void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteVertical(T)">deleteVertical</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
 <td class="colLast">
 <div class="block">Удаляем вершину.</div>
@@ -255,20 +227,34 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a>&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdges()">getEdges</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Геттер.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertex(T)">getVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</code></th>
 <td class="colLast">
 <div class="block">Геттер вершины.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertexs()">getVertexs</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Геттер.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeGraphFromAdjacencyMatrix(java.lang.String)">makeGraphFromAdjacencyMatrix</a></span>&#8203;(java.lang.String&nbsp;fileName)</code></th>
 <td class="colLast">
 <div class="block">Заполняем граф из файлика, e в файле значит отсутствие дороги.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEdges(E,T,T,E,T,T)">setEdges</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;weight,
         <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
@@ -280,12 +266,26 @@ extends java.lang.Object</pre>
 <div class="block">Сеттер ребра.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEdges(java.util.ArrayList)">setEdges</a></span>&#8203;(java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a>&gt;&gt;&nbsp;edges)</code></th>
+<td class="colLast">
+<div class="block">Сеттер.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVertex(T,T)">setVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value,
          <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;newValue)</code></th>
 <td class="colLast">
 <div class="block">Сеттер вершины.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVertexs(java.util.ArrayList)">setVertexs</a></span>&#8203;(java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;newVs)</code></th>
+<td class="colLast">
+<div class="block">Сеттер.</div>
 </td>
 </tr>
 </table>
@@ -305,34 +305,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section>
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="vertexs">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>vertexs</h4>
-<pre>public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt; vertexs</pre>
-</li>
-</ul>
-<a id="edges">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>edges</h4>
-<pre>public&nbsp;java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a> extends java.lang.Number&gt;&gt; edges</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section>
 <ul class="blockList">
@@ -359,6 +331,46 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getVertexs()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getVertexs</h4>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;getVertexs()</pre>
+<div class="block">Геттер.</div>
+</li>
+</ul>
+<a id="getEdges()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getEdges</h4>
+<pre class="methodSignature">public&nbsp;java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a>&gt;&gt;&nbsp;getEdges()</pre>
+<div class="block">Геттер.</div>
+</li>
+</ul>
+<a id="setVertexs(java.util.ArrayList)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setVertexs</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setVertexs&#8203;(java.util.ArrayList&lt;<a href="Vertex.html" title="class in org.example.graph">Vertex</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>&gt;&gt;&nbsp;newVs)</pre>
+<div class="block">Сеттер.</div>
+</li>
+</ul>
+<a id="setEdges(java.util.ArrayList)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setEdges</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setEdges&#8203;(java.util.ArrayList&lt;<a href="Edge.html" title="class in org.example.graph">Edge</a>&lt;<a href="Graph.html" title="type parameter in Graph">T</a>,&#8203;<a href="Graph.html" title="type parameter in Graph">E</a>&gt;&gt;&nbsp;edges)</pre>
+<div class="block">Сеттер.</div>
+</li>
+</ul>
 <a id="addVertical(java.lang.Object)">
 <!--   -->
 </a><a id="addVertical(T)">
@@ -367,7 +379,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>addVertical</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<pre class="methodSignature">public abstract&nbsp;void&nbsp;addVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
 </li>
 </ul>
 <a id="addEdge(java.lang.Number,java.lang.Object,java.lang.Object)">
@@ -378,9 +390,9 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>addEdge</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;addEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
-                    <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
-                    <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
+<pre class="methodSignature">public abstract&nbsp;void&nbsp;addEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
+                             <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
+                             <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
 <div class="block">Добавляем ребро.</div>
 </li>
 </ul>
@@ -392,7 +404,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteVertical</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;deleteVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
+<pre class="methodSignature">public abstract&nbsp;void&nbsp;deleteVertical&#8203;(<a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;value)</pre>
 <div class="block">Удаляем вершину.</div>
 </li>
 </ul>
@@ -404,9 +416,9 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteEdge</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;deleteEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
-                       <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
-                       <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
+<pre class="methodSignature">public abstract&nbsp;void&nbsp;deleteEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value,
+                                <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;start,
+                                <a href="Graph.html" title="type parameter in Graph">T</a>&nbsp;end)</pre>
 <div class="block">Удаляем ребро.</div>
 </li>
 </ul>
@@ -546,13 +558,13 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
