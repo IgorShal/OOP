@@ -25,7 +25,7 @@ public class Main {
         graph.makeGraphFromAdjacencyMatrix("1.txt");
         ArrayList<Vertex<String>> result = graph.bellManFord("C", 1000);
         for (int i = 0; i < result.size(); i++) {
-            System.out.println(result.get(i).value);
+            System.out.println(result.get(i).getValue());
         }
 
 

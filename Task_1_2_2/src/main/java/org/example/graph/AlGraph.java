@@ -6,19 +6,19 @@ import java.util.ArrayList;
  *Граф на списке смежности.
  */
 public class AlGraph<T, E extends Number> extends Graph<T, E> {
-    public ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
+    private ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
 
     /**
-     * Забыл как эта штука назывется.Генератор вроде.
+     * Конструктор.
      *
      */
     public AlGraph(ArrayList<Vertex<T>> vertexs) {
-        this.vertexs = vertexs;
+        this.setVertexs(vertexs);
         this.adjacencyList = new ArrayList<>();
         for (int i = 0; i < vertexs.size(); i++) {
             this.adjacencyList.add(new ArrayList<Edge<T, E>>());
         }
-        this.edges = new ArrayList<>();
+        this.setEdges(new ArrayList<>());
     }
 
     /**
@@ -26,7 +26,7 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
      */
     @Override
     public void addVertical(T value) {
-        this.vertexs.add(new Vertex<>(value));
+        this.getVertexs().add(new Vertex<>(value));
         this.adjacencyList.add(new ArrayList<Edge<T, E>>());
     }
 
@@ -37,17 +37,18 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
     public void addEdge(E value, T start, T end) {
         int startV = -1;
         int endV = -1;
-        for (int i = 0; i < this.vertexs.size(); i++) {
-            if (this.vertexs.get(i).value == start) {
+        for (int i = 0; i < this.getVertexs().size(); i++) {
+            if (this.getVertexs().get(i).getValue() == start) {
                 startV = i;
             }
-            if (this.vertexs.get(i).value == end) {
+            if (this.getVertexs().get(i).getValue() == end) {
                 endV = i;
             }
         }
         if (startV != -1 && endV != -1) {
-            Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
-            this.edges.add(newE);
+            Edge<T, E> newE = new Edge<>(value, this.getVertexs().get(startV),
+                    this.getVertexs().get(endV));
+            this.getEdges().add(newE);
             this.adjacencyList.get(startV).add(newE);
         }
     }
@@ -59,16 +60,17 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
     public void deleteVertical(T value) {
         int index = -1;
         ArrayList<Number> indexes = new ArrayList<>();
-        for (int i = 0; i < this.edges.size(); i++) {
-            Edge<T, E> edge = this.edges.get(i);
-            if (edge.start.value == value || edge.end.value == value) {
+        for (int i = 0; i < this.getEdges().size(); i++) {
+            Edge<T, E> edge = this.getEdges().get(i);
+            if (edge.getStart().getValue() == value
+                    || edge.getEnd().getValue() == value) {
 
                 indexes.add(i);
 
             }
         }
         for (int i = 0; i < indexes.size(); i++) {
-            this.edges.remove((int) indexes.get(i) - i);
+            this.getEdges().remove((int) indexes.get(i) - i);
         }
 
         index = getVertex(value);
@@ -77,12 +79,13 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
         for (int i = 0; i < this.adjacencyList.size(); i++) {
             for (int j = 0; j < this.adjacencyList.get(i).size(); j++) {
                 Edge<T, E> curr = this.adjacencyList.get(i).get(j);
-                if (curr.start.value == value || curr.end.value == value) {
+                if (curr.getStart().getValue()== value
+                        || curr.getEnd().getValue() == value) {
                     this.adjacencyList.get(i).remove(j);
                 }
             }
         }
-        this.vertexs.remove(index);
+        this.getVertexs().remove(index);
     }
 
     /**
@@ -95,10 +98,10 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
         if (index != -1) {
 
             for (int i = 0; i < this.adjacencyList.size(); i++) {
-                Edge<T, E> cur = this.edges.get(index);
+                Edge<T, E> cur = this.getEdges().get(index);
                 this.adjacencyList.get(i).remove(cur);
             }
-            this.edges.remove(index);
+            this.getEdges().remove(index);
         }
     }
 }

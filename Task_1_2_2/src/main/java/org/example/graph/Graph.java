@@ -12,41 +12,56 @@ import java.util.Objects;
  * Абстрактный класс графа.
  */
 public abstract class Graph<T, E extends Number> {
-    public ArrayList<Vertex<T>> vertexs;
+    private ArrayList<Vertex<T>> vertexs;
 
-    public ArrayList<Edge<T, E>> edges;
-
-    public void addVertical(T value) {
-
+    private ArrayList<Edge<T, E>> edges;
+    /**
+     * Геттер.
+     */
+    public ArrayList<Vertex<T>>  getVertexs(){
+         return this.vertexs;
     }
+    /**
+     * Геттер.
+     */
+    public ArrayList<Edge<T, E>>  getEdges(){
+        return this.edges;
+    }
+    /**
+     * Сеттер.
+     */
+    public void setVertexs(ArrayList<Vertex<T>> newVs){
+        this.vertexs = newVs;
+    }
+    /**
+     * Сеттер.
+     */
+    public void setEdges(ArrayList<Edge<T, E>> edges){
+        this.edges = edges;
+    }
+    public abstract  void addVertical(T value);
 
     /**
      * Добавляем ребро.
      */
-    public void addEdge(E value, T start, T end) {
-
-    }
+    public abstract void addEdge(E value, T start, T end);
 
     /**
      * Удаляем вершину.
      */
-    public void deleteVertical(T value) {
-
-    }
+    public abstract void deleteVertical(T value);
 
     /**
      * Удаляем ребро.
      */
-    public void deleteEdge(E value, T start, T end) {
-
-    }
+    public abstract  void deleteEdge(E value, T start, T end);
 
     /**
      * Геттер вершины.
      */
     public int getVertex(T value) {
         for (int i = 0; i < this.vertexs.size(); i++) {
-            if (this.vertexs.get(i).value == value) {
+            if (this.vertexs.get(i).getValue() == value) {
                 return i;
             }
         }
@@ -58,9 +73,9 @@ public abstract class Graph<T, E extends Number> {
      */
     public int getEdge(E weight, T start, T end) {
         for (int i = 0; i < this.edges.size(); i++) {
-            if ((Objects.equals(this.edges.get(i).weight, weight) || weight == null)
-                    && this.edges.get(i).start.value == start
-                    && this.edges.get(i).end.value == end) {
+            if ((Objects.equals(this.edges.get(i).getWeight(), weight) || weight == null)
+                    && this.edges.get(i).getStart().getValue() == start
+                    && this.edges.get(i).getEnd().getValue() == end) {
                 return i;
             }
         }
@@ -72,7 +87,7 @@ public abstract class Graph<T, E extends Number> {
      */
 
     public void setVertex(T value, T newValue) {
-        this.vertexs.get(getVertex(value)).value = newValue;
+        this.vertexs.get(getVertex(value)).setValue(newValue);
     }
 
     /**
@@ -102,7 +117,7 @@ public abstract class Graph<T, E extends Number> {
                     continue;
                 }
                 Number result = Double.parseDouble(res[j]);
-                this.addEdge((E) result, this.vertexs.get(i).value, this.vertexs.get(j).value);
+                this.addEdge((E) result, this.vertexs.get(i).getValue(), this.vertexs.get(j).getValue());
             }
         }
     }
@@ -121,14 +136,14 @@ public abstract class Graph<T, E extends Number> {
             for (int i = 0; i < this.vertexs.size(); i++) {
                 for (int j = 0; j < this.vertexs.size(); j++) {
                     int index = -1;
-                    index = this.getEdge(null, this.vertexs.get(j).value,
-                            this.vertexs.get(i).value);
+                    index = this.getEdge(null, this.vertexs.get(j).getValue(),
+                            this.vertexs.get(i).getValue());
                     if (index == -1) {
                         continue;
                     }
 
                     double cur = (double) paths.get(j)
-                            + (double) this.edges.get(index).weight;
+                            + (double) this.edges.get(index).getWeight();
                     if (cur < (double) paths.get(i)) {
                         paths.set(i, cur);
                     }

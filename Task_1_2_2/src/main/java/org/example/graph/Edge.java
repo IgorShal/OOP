@@ -5,9 +5,9 @@ package org.example.graph;
  * Вес ограничен числами.
  */
 public class Edge<T, E extends Number> {
-    public Vertex<T> start;
-    public Vertex<T> end;
-    public E weight;
+    private Vertex<T> start;
+    private Vertex<T> end;
+    private E weight;
 
     /**
      * Забыл как эта штука назывется.Генератор вроде.
@@ -17,6 +17,42 @@ public class Edge<T, E extends Number> {
         this.start = start;
         this.end = end;
 
+    }
+    /**
+     * Геттер.
+     */
+    public E getWeight(){
+        return this.weight;
+    }
+    /**
+     * Сеттер.
+     */
+    public void setWeight(E newWeight){
+        this.weight = newWeight;
+    }
+    /**
+     * Геттер.
+     */
+    public Vertex<T> getStart(){
+        return this.start;
+    }
+    /**
+     * Геттер.
+     */
+    public Vertex<T> getEnd(){
+        return this.end;
+    }
+    /**
+     * Сеттер.
+     */
+    public void setStart(Vertex<T> newStart){
+        this.start = newStart;
+    }
+    /**
+     * Сеттер.
+     */
+    public void setEnd(Vertex<T> newEnd){
+        this.start = newEnd;
     }
 
 }

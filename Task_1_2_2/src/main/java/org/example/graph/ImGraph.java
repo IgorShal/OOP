@@ -6,19 +6,20 @@ import java.util.ArrayList;
  *Граф на матрице инцидентости.
  */
 public class ImGraph<T, E extends Number> extends Graph<T, E> {
-    public ArrayList<ArrayList<Number>> incidenceMatrix;
+    private ArrayList<ArrayList<Number>> incidenceMatrix;
 
 
     /**
-     * Забыл как эта штука назывется.Генератор вроде.
+     * Конструктор.
+     *
      */
     public ImGraph(ArrayList<Vertex<T>> vertexs) {
-        this.vertexs = vertexs;
+        this.setVertexs(vertexs);
         this.incidenceMatrix = new ArrayList<>();
         for (int i = 0; i < vertexs.size(); i++) {
             this.incidenceMatrix.add(new ArrayList<Number>());
         }
-        this.edges = new ArrayList<>();
+        this.setEdges(new ArrayList<>());
     }
 
     /**
@@ -26,9 +27,9 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
      */
     @Override
     public void addVertical(T value) {
-        this.vertexs.add(new Vertex<>(value));
+        this.getVertexs().add(new Vertex<>(value));
         this.incidenceMatrix.add(new ArrayList<Number>());
-        for (int i = 0; i < this.edges.size(); i++) {
+        for (int i = 0; i < this.getVertexs().size(); i++) {
             this.incidenceMatrix.get(this.incidenceMatrix.size() - 1).add(0);
         }
     }
@@ -40,17 +41,18 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
     public void addEdge(E value, T start, T end) {
         int startV = -1;
         int endV = -1;
-        for (int i = 0; i < this.vertexs.size(); i++) {
-            if (this.vertexs.get(i).value == start) {
+        for (int i = 0; i < this.getVertexs().size(); i++) {
+            if (this.getVertexs().get(i).getValue() == start) {
                 startV = i;
             }
-            if (this.vertexs.get(i).value == end) {
+            if (this.getVertexs().get(i).getValue() == end) {
                 endV = i;
             }
         }
         if (startV != -1 && endV != -1) {
-            Edge<T, E> newE = new Edge<>(value, this.vertexs.get(startV), this.vertexs.get(endV));
-            this.edges.add(newE);
+            Edge<T, E> newE = new Edge<>(value, this.getVertexs().get(startV),
+                    this.getVertexs().get(endV));
+            this.getEdges().add(newE);
             for (int i = 0; i < this.incidenceMatrix.size(); i++) {
                 if (i == endV) {
                     this.incidenceMatrix.get(i).add(-1);
@@ -72,16 +74,17 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
     public void deleteVertical(T value) {
         int index = -1;
         ArrayList<Number> indexes = new ArrayList<>();
-        for (int i = 0; i < this.edges.size(); i++) {
-            Edge<T, E> edge = this.edges.get(i);
-            if (edge.start.value == value || edge.end.value == value) {
+        for (int i = 0; i < this.getEdges().size(); i++) {
+            Edge<T, E> edge = this.getEdges().get(i);
+            if (edge.getStart().getValue()== value ||
+                    edge.getEnd().getValue() == value) {
 
                 indexes.add(i);
 
             }
         }
         for (int i = 0; i < indexes.size(); i++) {
-            this.edges.remove((int) indexes.get(i) - i);
+            this.getEdges().remove((int) indexes.get(i) - i);
         }
 
         index = getVertex(value);
@@ -92,7 +95,7 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
             }
         }
         this.incidenceMatrix.remove(index);
-        this.vertexs.remove(index);
+        this.getVertexs().remove(index);
     }
 
     /**
@@ -103,7 +106,7 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
         int index = -1;
         index = getEdge(value, start, end);
         if (index != -1) {
-            this.edges.remove(index);
+            this.getEdges().remove(index);
 
             for (int i = 0; i < this.incidenceMatrix.size(); i++) {
                 this.incidenceMatrix.get(i).remove(index);

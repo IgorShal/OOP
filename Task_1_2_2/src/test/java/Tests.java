@@ -26,12 +26,12 @@ public class Tests {
 
         graph.addVertical("C");
 
-        assertEquals(3, graph.vertexs.size());
-        assertEquals("C", graph.vertexs.get(2).value);
+        assertEquals(3, graph.getVertexs().size());
+        assertEquals("C", graph.getVertexs().get(2).getValue());
 
     }
 
-    /**
+    /**3
      * Добавляем вершину через матрицу смежности.
      */
     @Test
@@ -43,8 +43,8 @@ public class Tests {
 
         graph.addVertical("C");
 
-        assertEquals(3, graph.vertexs.size());
-        assertEquals("C", graph.vertexs.get(2).value);
+        assertEquals(3, graph.getVertexs().size());
+        assertEquals("C", graph.getVertexs().get(2).getValue());
 
     }
 
@@ -60,8 +60,8 @@ public class Tests {
 
         graph.addVertical("C");
 
-        assertEquals(3, graph.vertexs.size());
-        assertEquals("C", graph.vertexs.get(2).value);
+        assertEquals(3, graph.getVertexs().size());
+        assertEquals("C", graph.getVertexs().get(2).getValue());
 
     }
 
@@ -77,10 +77,10 @@ public class Tests {
 
         graph.addEdge(10, "A", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(10, graph.edges.get(0).weight);
-        assertEquals("A", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(10, graph.getEdges().get(0).getWeight());
+        assertEquals("A", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -95,10 +95,10 @@ public class Tests {
 
         graph.addEdge(10, "A", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(10, graph.edges.get(0).weight);
-        assertEquals("A", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(10, graph.getEdges().get(0).getWeight());
+        assertEquals("A", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -113,10 +113,10 @@ public class Tests {
 
         graph.addEdge(10, "A", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(10, graph.edges.get(0).weight);
-        assertEquals("A", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(10, graph.getEdges().get(0).getWeight());
+        assertEquals("A", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -133,10 +133,10 @@ public class Tests {
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
 
-        assertEquals(2, graph.vertexs.size());
-        assertEquals("A", graph.vertexs.get(0).value);
-        assertEquals("C", graph.vertexs.get(1).value);
-        assertEquals(0, graph.edges.size());
+        assertEquals(2, graph.getVertexs().size());
+        assertEquals("A", graph.getVertexs().get(0).getValue());
+        assertEquals("C", graph.getVertexs().get(1).getValue());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -153,10 +153,10 @@ public class Tests {
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
 
-        assertEquals(2, graph.vertexs.size());
-        assertEquals("A", graph.vertexs.get(0).value);
-        assertEquals("C", graph.vertexs.get(1).value);
-        assertEquals(0, graph.edges.size());
+        assertEquals(2, graph.getVertexs().size());
+        assertEquals("A", graph.getVertexs().get(0).getValue());
+        assertEquals("C", graph.getVertexs().get(1).getValue());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -173,10 +173,10 @@ public class Tests {
         graph.addEdge(5, "B", "C");
         graph.deleteVertical("B");
 
-        assertEquals(2, graph.vertexs.size());
-        assertEquals("A", graph.vertexs.get(0).value);
-        assertEquals("C", graph.vertexs.get(1).value);
-        assertEquals(0, graph.edges.size());
+        assertEquals(2, graph.getVertexs().size());
+        assertEquals("A", graph.getVertexs().get(0).getValue());
+        assertEquals("C", graph.getVertexs().get(1).getValue());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -192,7 +192,7 @@ public class Tests {
 
         graph.deleteEdge(10, "A", "B");
 
-        assertEquals(0, graph.edges.size());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -208,7 +208,7 @@ public class Tests {
 
         graph.deleteEdge(10, "A", "B");
 
-        assertEquals(0, graph.edges.size());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -224,7 +224,7 @@ public class Tests {
 
         graph.deleteEdge(10, "A", "B");
 
-        assertEquals(0, graph.edges.size());
+        assertEquals(0, graph.getEdges().size());
     }
 
     /**
@@ -245,13 +245,13 @@ public class Tests {
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
 
-        assertEquals("C", result.get(0).value);
-        assertEquals("D", result.get(1).value);
-        assertEquals("E", result.get(2).value);
-        assertEquals("F", result.get(3).value);
-        assertEquals("G", result.get(4).value);
-        assertEquals("B", result.get(5).value);
-        assertEquals("A", result.get(6).value);
+        assertEquals("C", result.get(0).getValue());
+        assertEquals("D", result.get(1).getValue());
+        assertEquals("E", result.get(2).getValue());
+        assertEquals("F", result.get(3).getValue());
+        assertEquals("G", result.get(4).getValue());
+        assertEquals("B", result.get(5).getValue());
+        assertEquals("A", result.get(6).getValue());
     }
 
     /**
@@ -272,13 +272,13 @@ public class Tests {
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
 
-        assertEquals("C", result.get(0).value);
-        assertEquals("D", result.get(1).value);
-        assertEquals("E", result.get(2).value);
-        assertEquals("F", result.get(3).value);
-        assertEquals("G", result.get(4).value);
-        assertEquals("B", result.get(5).value);
-        assertEquals("A", result.get(6).value);
+        assertEquals("C", result.get(0).getValue());
+        assertEquals("D", result.get(1).getValue());
+        assertEquals("E", result.get(2).getValue());
+        assertEquals("F", result.get(3).getValue());
+        assertEquals("G", result.get(4).getValue());
+        assertEquals("B", result.get(5).getValue());
+        assertEquals("A", result.get(6).getValue());
     }
 
     /**
@@ -299,13 +299,13 @@ public class Tests {
         ArrayList<Vertex<String>> result;
         result = graph.bellManFord("C", 1000);
 
-        assertEquals("C", result.get(0).value);
-        assertEquals("D", result.get(1).value);
-        assertEquals("E", result.get(2).value);
-        assertEquals("F", result.get(3).value);
-        assertEquals("G", result.get(4).value);
-        assertEquals("B", result.get(5).value);
-        assertEquals("A", result.get(6).value);
+        assertEquals("C", result.get(0).getValue());
+        assertEquals("D", result.get(1).getValue());
+        assertEquals("E", result.get(2).getValue());
+        assertEquals("F", result.get(3).getValue());
+        assertEquals("G", result.get(4).getValue());
+        assertEquals("B", result.get(5).getValue());
+        assertEquals("A", result.get(6).getValue());
     }
 
     /**
@@ -322,7 +322,7 @@ public class Tests {
 
         graph.setVertex("A", "C");
 
-        assertEquals("C", graph.vertexs.get(0).value);
+        assertEquals("C", graph.getVertexs().get(0).getValue());
     }
 
     /**
@@ -339,7 +339,7 @@ public class Tests {
 
         graph.setVertex("A", "C");
 
-        assertEquals("C", graph.vertexs.get(0).value);
+        assertEquals("C", graph.getVertexs().get(0).getValue());
     }
 
     /**
@@ -356,7 +356,7 @@ public class Tests {
 
         graph.setVertex("A", "C");
 
-        assertEquals("C", graph.vertexs.get(0).value);
+        assertEquals("C", graph.getVertexs().get(0).getValue());
     }
 
     /**
@@ -376,10 +376,10 @@ public class Tests {
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(20, graph.edges.get(0).weight);
-        assertEquals("C", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(20, graph.getEdges().get(0).getWeight());
+        assertEquals("C", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -399,10 +399,10 @@ public class Tests {
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(20, graph.edges.get(0).weight);
-        assertEquals("C", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(20, graph.getEdges().get(0).getWeight());
+        assertEquals("C", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -422,10 +422,10 @@ public class Tests {
 
         graph.setEdges(10, "A", "B", 20, "C", "B");
 
-        assertEquals(1, graph.edges.size());
-        assertEquals(20, graph.edges.get(0).weight);
-        assertEquals("C", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
+        assertEquals(1, graph.getEdges().size());
+        assertEquals(20, graph.getEdges().get(0).getWeight());
+        assertEquals("C", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
     }
 
     /**
@@ -445,16 +445,16 @@ public class Tests {
 
         graph.makeGraphFromAdjacencyMatrix("adjacency_matrix.txt");
 
-        assertEquals(3, graph.edges.size());
-        assertEquals(10.0, graph.edges.get(0).weight);
-        assertEquals("A", graph.edges.get(0).start.value);
-        assertEquals("B", graph.edges.get(0).end.value);
-        assertEquals(8.5, graph.edges.get(1).weight);
-        assertEquals("B", graph.edges.get(1).start.value);
-        assertEquals("C", graph.edges.get(1).end.value);
-        assertEquals(15.0, graph.edges.get(2).weight);
-        assertEquals("C", graph.edges.get(2).start.value);
-        assertEquals("A", graph.edges.get(2).end.value);
+        assertEquals(3, graph.getEdges().size());
+        assertEquals(10.0, graph.getEdges().get(0).getWeight());
+        assertEquals("A", graph.getEdges().get(0).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
+        assertEquals(8.5, graph.getEdges().get(1).getWeight());
+        assertEquals("B", graph.getEdges().get(1).getStart().getValue());
+        assertEquals("C", graph.getEdges().get(1).getEnd().getValue());
+        assertEquals(15.0, graph.getEdges().get(2).getWeight());
+        assertEquals("C", graph.getEdges().get(2).getStart().getValue());
+        assertEquals("A", graph.getEdges().get(2).getEnd().getValue());
     }
 }
 
