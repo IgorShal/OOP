@@ -375,7 +375,7 @@ public class Tests {
         AlGraph<String, Integer> graph = new AlGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
-        graph.setEdges(10, "A", "B", 20, "C", "B");
+        graph.setEdge(10, "A", "B", 20, "C", "B");
 
         assertEquals(1, graph.getEdges().size());
         assertEquals(20, graph.getEdges().get(0).getWeight());
@@ -398,7 +398,7 @@ public class Tests {
         AmGraph<String, Integer> graph = new AmGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
-        graph.setEdges(10, "A", "B", 20, "C", "B");
+        graph.setEdge(10, "A", "B", 20, "C", "B");
 
         assertEquals(1, graph.getEdges().size());
         assertEquals(20, graph.getEdges().get(0).getWeight());
@@ -421,7 +421,7 @@ public class Tests {
         ImGraph<String, Integer> graph = new ImGraph<>(vertices);
         graph.addEdge(10, "A", "B");
 
-        graph.setEdges(10, "A", "B", 20, "C", "B");
+        graph.setEdge(10, "A", "B", 20, "C", "B");
 
         assertEquals(1, graph.getEdges().size());
         assertEquals(20, graph.getEdges().get(0).getWeight());

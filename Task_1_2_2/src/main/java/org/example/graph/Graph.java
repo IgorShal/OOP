@@ -105,7 +105,7 @@ public abstract class Graph<T, E extends Number> {
     /**
      * Сеттер ребра.
      */
-    public void setEdges(E weight, T start, T end, E newWeight, T newStart, T newEnd) {
+    public void setEdge(E weight, T start, T end, E newWeight, T newStart, T newEnd) {
         deleteEdge(weight, start, end);
         addEdge(newWeight, newStart, newEnd);
     }
@@ -129,7 +129,8 @@ public abstract class Graph<T, E extends Number> {
                     continue;
                 }
                 Number result = Double.parseDouble(res[j]);
-                this.addEdge((E) result, this.vertexs.get(i).getValue(), this.vertexs.get(j).getValue());
+                this.addEdge((E) result, this.vertexs.get(i).getValue(),
+                        this.vertexs.get(j).getValue());
             }
         }
     }
