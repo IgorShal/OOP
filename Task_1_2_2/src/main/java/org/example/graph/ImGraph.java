@@ -3,7 +3,7 @@ package org.example.graph;
 import java.util.ArrayList;
 
 /**
- *Граф на матрице инцидентости.
+ * Граф на матрице инцидентости.
  */
 public class ImGraph<T, E extends Number> extends Graph<T, E> {
     private ArrayList<ArrayList<Number>> incidenceMatrix;
@@ -11,7 +11,6 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
 
     /**
      * Конструктор.
-     *
      */
     public ImGraph(ArrayList<Vertex<T>> vertexs) {
         this.setVertexs(vertexs);
@@ -76,7 +75,7 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
         ArrayList<Number> indexes = new ArrayList<>();
         for (int i = 0; i < this.getEdges().size(); i++) {
             Edge<T, E> edge = this.getEdges().get(i);
-            if (edge.getStart().getValue()== value ||
+            if (edge.getStart().getValue() == value ||
                     edge.getEnd().getValue() == value) {
 
                 indexes.add(i);

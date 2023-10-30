@@ -3,7 +3,7 @@ package org.example.graph;
 import java.util.ArrayList;
 
 /**
- *Граф на матрице смежности.
+ * Граф на матрице смежности.
  */
 public class AmGraph<T, E extends Number> extends Graph<T, E> {
     private ArrayList<ArrayList<E>> adjacencyMatrix;
@@ -11,7 +11,6 @@ public class AmGraph<T, E extends Number> extends Graph<T, E> {
 
     /**
      * Конструктор.
-     *
      */
     public AmGraph(ArrayList<Vertex<T>> vertexs) {
         this.setVertexs(vertexs);
@@ -74,7 +73,7 @@ public class AmGraph<T, E extends Number> extends Graph<T, E> {
         for (int i = 0; i < this.getEdges().size(); i++) {
             Edge<T, E> edge = this.getEdges().get(i);
             if (edge.getStart().getValue() == value ||
-                    edge.getEnd().getValue()== value) {
+                    edge.getEnd().getValue() == value) {
                 indexes.add(i);
             }
         }

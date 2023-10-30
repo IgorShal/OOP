@@ -3,14 +3,13 @@ package org.example.graph;
 import java.util.ArrayList;
 
 /**
- *Граф на списке смежности.
+ * Граф на списке смежности.
  */
 public class AlGraph<T, E extends Number> extends Graph<T, E> {
     private ArrayList<ArrayList<Edge<T, E>>> adjacencyList;
 
     /**
      * Конструктор.
-     *
      */
     public AlGraph(ArrayList<Vertex<T>> vertexs) {
         this.setVertexs(vertexs);
@@ -79,7 +78,7 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
         for (int i = 0; i < this.adjacencyList.size(); i++) {
             for (int j = 0; j < this.adjacencyList.get(i).size(); j++) {
                 Edge<T, E> curr = this.adjacencyList.get(i).get(j);
-                if (curr.getStart().getValue()== value
+                if (curr.getStart().getValue() == value
                         || curr.getEnd().getValue() == value) {
                     this.adjacencyList.get(i).remove(j);
                 }

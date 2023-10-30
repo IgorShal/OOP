@@ -13,16 +13,18 @@ public class Vertex<T> {
     public Vertex(T value) {
         this.value = value;
     }
+
     /**
      * Геттер.
      */
-    public T getValue(){
+    public T getValue() {
         return this.value;
     }
+
     /**
      * Сеттер.
      */
-    public void setValue(T newValue){
+    public void setValue(T newValue) {
         this.value = newValue;
     }
 }

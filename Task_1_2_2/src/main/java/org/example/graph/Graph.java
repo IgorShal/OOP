@@ -15,31 +15,36 @@ public abstract class Graph<T, E extends Number> {
     private ArrayList<Vertex<T>> vertexs;
 
     private ArrayList<Edge<T, E>> edges;
+
     /**
      * Геттер.
      */
-    public ArrayList<Vertex<T>>  getVertexs(){
-         return this.vertexs;
+    public ArrayList<Vertex<T>> getVertexs() {
+        return this.vertexs;
     }
+
     /**
      * Геттер.
      */
-    public ArrayList<Edge<T, E>>  getEdges(){
+    public ArrayList<Edge<T, E>> getEdges() {
         return this.edges;
     }
+
     /**
      * Сеттер.
      */
-    public void setVertexs(ArrayList<Vertex<T>> newVs){
+    public void setVertexs(ArrayList<Vertex<T>> newVs) {
         this.vertexs = newVs;
     }
+
     /**
      * Сеттер.
      */
-    public void setEdges(ArrayList<Edge<T, E>> edges){
+    public void setEdges(ArrayList<Edge<T, E>> edges) {
         this.edges = edges;
     }
-    public abstract  void addVertical(T value);
+
+    public abstract void addVertical(T value);
 
     /**
      * Добавляем ребро.
@@ -54,7 +59,7 @@ public abstract class Graph<T, E extends Number> {
     /**
      * Удаляем ребро.
      */
-    public abstract  void deleteEdge(E value, T start, T end);
+    public abstract void deleteEdge(E value, T start, T end);
 
     /**
      * Геттер вершины.

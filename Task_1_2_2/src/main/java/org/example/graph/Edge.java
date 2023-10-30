@@ -18,40 +18,46 @@ public class Edge<T, E extends Number> {
         this.end = end;
 
     }
+
     /**
      * Геттер.
      */
-    public E getWeight(){
+    public E getWeight() {
         return this.weight;
     }
+
     /**
      * Сеттер.
      */
-    public void setWeight(E newWeight){
+    public void setWeight(E newWeight) {
         this.weight = newWeight;
     }
+
     /**
      * Геттер.
      */
-    public Vertex<T> getStart(){
+    public Vertex<T> getStart() {
         return this.start;
     }
+
     /**
      * Геттер.
      */
-    public Vertex<T> getEnd(){
+    public Vertex<T> getEnd() {
         return this.end;
     }
+
     /**
      * Сеттер.
      */
-    public void setStart(Vertex<T> newStart){
+    public void setStart(Vertex<T> newStart) {
         this.start = newStart;
     }
+
     /**
      * Сеттер.
      */
-    public void setEnd(Vertex<T> newEnd){
+    public void setEnd(Vertex<T> newEnd) {
         this.start = newEnd;
     }
 
