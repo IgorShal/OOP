@@ -72,7 +72,7 @@ public class AlGraph<T, E extends Number> extends Graph<T, E> {
             this.getEdges().remove((int) indexes.get(i) - i);
         }
 
-        index = getVertex(value);
+        index = this.getVertexIndex(value);
 
         this.adjacencyList.remove(index);
         for (int i = 0; i < this.adjacencyList.size(); i++) {

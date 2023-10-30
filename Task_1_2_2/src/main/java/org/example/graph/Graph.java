@@ -62,15 +62,22 @@ public abstract class Graph<T, E extends Number> {
     public abstract void deleteEdge(E value, T start, T end);
 
     /**
-     * Геттер вершины.
+     * Геттер индекс вершины.
      */
-    public int getVertex(T value) {
+    int getVertexIndex(T value) {
         for (int i = 0; i < this.vertexs.size(); i++) {
             if (this.vertexs.get(i).getValue() == value) {
                 return i;
             }
         }
         return -1;
+    }
+
+    /**
+     * Геттер вершины.
+     */
+    public Vertex<T> getVertex(int index) {
+        return this.vertexs.get(index);
     }
 
     /**
@@ -92,7 +99,7 @@ public abstract class Graph<T, E extends Number> {
      */
 
     public void setVertex(T value, T newValue) {
-        this.vertexs.get(getVertex(value)).setValue(newValue);
+        this.vertexs.get(getVertexIndex(value)).setValue(newValue);
     }
 
     /**
@@ -111,7 +118,7 @@ public abstract class Graph<T, E extends Number> {
         Path path = Path.of(fileName);
         List<String> list = Files.readAllLines(path);
         if (list.isEmpty()) {
-            throw new IOException("Error");
+            throw new IOException("File is empty");
         }
 
         for (int i = 0; i < list.size(); i++) {
@@ -130,14 +137,14 @@ public abstract class Graph<T, E extends Number> {
     /**
      * Фордим беллмана.
      */
-    public ArrayList<Vertex<T>> bellManFord(T start, double infinity) {
+    public ArrayList<Vertex<T>> bellManFord(T start, double infinity) throws Exception {
         ArrayList<Vertex<T>> result = (ArrayList<Vertex<T>>) this.vertexs.clone();
         ArrayList<Number> paths = new ArrayList<>();
         for (int i = 0; i < this.vertexs.size(); i++) {
             paths.add(infinity);
         }
-        paths.set(getVertex(start), 0.0);
-        for (int k = 1; k < this.vertexs.size(); k++) {
+        paths.set(getVertexIndex(start), 0.0);
+        for (int k = 0; k < this.vertexs.size(); k++) {
             for (int i = 0; i < this.vertexs.size(); i++) {
                 for (int j = 0; j < this.vertexs.size(); j++) {
                     int index = -1;
@@ -150,6 +157,9 @@ public abstract class Graph<T, E extends Number> {
                     double cur = (double) paths.get(j)
                             + (double) this.edges.get(index).getWeight();
                     if (cur < (double) paths.get(i)) {
+                        if (k == this.vertexs.size() - 1) {
+                            throw new Exception("Infinite cycles found");
+                        }
                         paths.set(i, cur);
                     }
                 }
@@ -162,6 +172,9 @@ public abstract class Graph<T, E extends Number> {
                     Collections.swap(result, j, j - 1);
                 }
             }
+        }
+        for (int i = 0; i < paths.size(); i++) {
+            System.out.println(paths.get(i));
         }
         return result;
     }

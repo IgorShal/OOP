@@ -2,7 +2,6 @@ package org.example;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.example.graph.AlGraph;
 import org.example.graph.Vertex;
 
@@ -13,7 +12,7 @@ public class Main {
     /**
      * ТЕСТИМ.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         ArrayList<Vertex<String>> vertexes = new ArrayList<>();
         vertexes.add(new Vertex<String>("A"));
         vertexes.add(new Vertex<String>("B"));
@@ -23,7 +22,7 @@ public class Main {
         vertexes.add(new Vertex<String>("F"));
         vertexes.add(new Vertex<String>("G"));
         AlGraph<String, Double> graph = new AlGraph<>(vertexes);
-        graph.makeGraphFromAdjacencyMatrix("1.txt");
+        graph.makeGraphFromAdjacencyMatrix("adjacency_matrix.txt");
         ArrayList<Vertex<String>> result = graph.bellManFord("C", 1000);
         for (int i = 0; i < result.size(); i++) {
             System.out.println(result.get(i).getValue());

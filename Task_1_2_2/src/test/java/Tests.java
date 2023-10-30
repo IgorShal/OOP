@@ -232,7 +232,7 @@ public class Tests {
      * Пример из условия через матрицу смежности.
      */
     @Test
-    public void testBellmanFordUsingAmatrix() throws IOException {
+    public void testBellmanFordUsingAmatrix() throws Exception {
         ArrayList<Vertex<String>> vertexes = new ArrayList<>();
         vertexes.add(new Vertex<String>("A"));
         vertexes.add(new Vertex<String>("B"));
@@ -259,7 +259,7 @@ public class Tests {
      * Пример из условия через списки смежности.
      */
     @Test
-    public void testBellmanFordUsingAlist() throws IOException {
+    public void testBellmanFordUsingAlist() throws Exception {
         ArrayList<Vertex<String>> vertexes = new ArrayList<>();
         vertexes.add(new Vertex<String>("A"));
         vertexes.add(new Vertex<String>("B"));
@@ -286,7 +286,7 @@ public class Tests {
      * Пример из условия через матрицу инцидентности.
      */
     @Test
-    public void testBellmanFordUsingImatrix() throws IOException {
+    public void testBellmanFordUsingImatrix() throws Exception {
         ArrayList<Vertex<String>> vertexes = new ArrayList<>();
         vertexes.add(new Vertex<String>("A"));
         vertexes.add(new Vertex<String>("B"));
@@ -446,16 +446,16 @@ public class Tests {
 
         graph.makeGraphFromAdjacencyMatrix("adjacency_matrix.txt");
 
-        assertEquals(3, graph.getEdges().size());
-        assertEquals(10.0, graph.getEdges().get(0).getWeight());
+        assertEquals(9, graph.getEdges().size());
+        assertEquals(5, graph.getEdges().get(0).getWeight());
         assertEquals("A", graph.getEdges().get(0).getStart().getValue());
-        assertEquals("B", graph.getEdges().get(0).getEnd().getValue());
-        assertEquals(8.5, graph.getEdges().get(1).getWeight());
-        assertEquals("B", graph.getEdges().get(1).getStart().getValue());
-        assertEquals("C", graph.getEdges().get(1).getEnd().getValue());
-        assertEquals(15.0, graph.getEdges().get(2).getWeight());
-        assertEquals("C", graph.getEdges().get(2).getStart().getValue());
-        assertEquals("A", graph.getEdges().get(2).getEnd().getValue());
+        assertEquals("A", graph.getEdges().get(0).getEnd().getValue());
+        assertEquals(10, graph.getEdges().get(1).getWeight());
+        assertEquals("A", graph.getEdges().get(1).getStart().getValue());
+        assertEquals("B", graph.getEdges().get(1).getEnd().getValue());
+        assertEquals(10, graph.getEdges().get(2).getWeight());
+        assertEquals("A", graph.getEdges().get(2).getStart().getValue());
+        assertEquals("C", graph.getEdges().get(2).getEnd().getValue());
     }
 }
 

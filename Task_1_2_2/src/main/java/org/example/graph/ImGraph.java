@@ -75,9 +75,8 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
         ArrayList<Number> indexes = new ArrayList<>();
         for (int i = 0; i < this.getEdges().size(); i++) {
             Edge<T, E> edge = this.getEdges().get(i);
-            if (edge.getStart().getValue() == value ||
-                    edge.getEnd().getValue() == value) {
-
+            if (edge.getStart().getValue() == value
+                    || edge.getEnd().getValue() == value) {
                 indexes.add(i);
 
             }
@@ -86,7 +85,7 @@ public class ImGraph<T, E extends Number> extends Graph<T, E> {
             this.getEdges().remove((int) indexes.get(i) - i);
         }
 
-        index = getVertex(value);
+        index = this.getVertexIndex(value);
 
         for (int i = 0; i < this.incidenceMatrix.size(); i++) {
             for (int j = 0; j < indexes.size(); j++) {

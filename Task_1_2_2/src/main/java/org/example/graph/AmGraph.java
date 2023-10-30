@@ -72,15 +72,15 @@ public class AmGraph<T, E extends Number> extends Graph<T, E> {
         ArrayList<Number> indexes = new ArrayList<>();
         for (int i = 0; i < this.getEdges().size(); i++) {
             Edge<T, E> edge = this.getEdges().get(i);
-            if (edge.getStart().getValue() == value ||
-                    edge.getEnd().getValue() == value) {
+            if (edge.getStart().getValue() == value
+                    || edge.getEnd().getValue() == value) {
                 indexes.add(i);
             }
         }
         for (int i = 0; i < indexes.size(); i++) {
             this.getEdges().remove((int) indexes.get(i) - i);
         }
-        index = getVertex(value);
+        index = this.getVertexIndex(value);
         for (int i = 0; i < this.adjacencyMatrix.size(); i++) {
             this.adjacencyMatrix.get(i).remove(index);
         }
@@ -97,8 +97,8 @@ public class AmGraph<T, E extends Number> extends Graph<T, E> {
         index = getEdge(value, start, end);
         if (index != -1) {
             this.getEdges().remove(index);
-            int startVertIndex = getVertex(start);
-            int endVertIndex = getVertex(end);
+            int startVertIndex = this.getVertexIndex(start);
+            int endVertIndex = this.getVertexIndex(end);
             this.adjacencyMatrix.get(startVertIndex).set(endVertIndex, null);
             this.adjacencyMatrix.get(endVertIndex).set(startVertIndex, null);
         }
