@@ -15,13 +15,6 @@ import org.junit.jupiter.api.Test;
  * Класс с тестами.
  */
 public class Tests {
-
-    private ArrayList<Integer> result;
-    public Tests() throws IOException {
-         this.result = generateTest(1000000000, "hello", "file.txt");
-
-    }
-
     /**
      * 日本語テスト.
      */
@@ -85,10 +78,10 @@ public class Tests {
     @Test
     void generatedFile() throws IOException {
 
-
+        ArrayList<Integer> result = generateTest(1000000000, "hello", "file.txt");
         Finder finder = new Finder("file.txt", "hello", Finder.Type.file);
         new File("file.txt").delete();
-        Assertions.assertEquals(finder.find(), this.result);
+        Assertions.assertEquals(finder.find(), result);
     }
 
     /**
