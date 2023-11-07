@@ -5,16 +5,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
 import org.example.Finder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+/**
+ * Класс с тестами.
+ */
 public class Tests {
     /**
      * 日本語テスト.
      */
     @Test
     void japTest() throws IOException {
-        Finder finder = new Finder("Japanese.txt", "スト", Finder.fileType.resourse);
+        Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(247, 370, 549));
 
 
@@ -25,7 +30,7 @@ public class Tests {
      */
     @Test
     void ruTest() throws IOException {
-        Finder finder = new Finder("Russian.txt", "привет", Finder.fileType.resourse);
+        Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(0, 11, 626, 876));
     }
 
@@ -34,34 +39,38 @@ public class Tests {
      */
     @Test
     void enTest() throws IOException {
-        Finder finder = new Finder("English.txt", "this", Finder.fileType.resourse);
+        Finder finder = new Finder("English.txt", "this", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(0, 156, 223, 274, 664,
                 937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492));
     }
+
     /**
      * Пустой файл.
      */
     @Test
     void emptyFileTest() throws IOException {
-        Finder finder = new Finder("Empty.txt", "hello", Finder.fileType.resourse);
+        Finder finder = new Finder("Empty.txt", "hello", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList());
     }
+
     /**
      * Одно слово без всего.
      */
     @Test
     void oneWordTest() throws IOException {
-        Finder finder = new Finder("OneWord.txt", "hello", Finder.fileType.resourse);
+        Finder finder = new Finder("OneWord.txt", "hello", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(0));
     }
+
     /**
      * Слово в слове.
      */
     @Test
     void oneInOneTest() throws IOException {
-        Finder finder = new Finder("oneInOne.txt", "hello", Finder.fileType.resourse);
+        Finder finder = new Finder("oneInOne.txt", "hello", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(3));
     }
+
     /**
      * Создаём файл гигов на 18.
      */
@@ -69,9 +78,11 @@ public class Tests {
     void generatedFile() throws IOException {
 
         ArrayList<Integer> result = generateTest(1000000000, "hello", "file.txt");
-        Finder finder = new Finder("file.txt", "hello", Finder.fileType.file);
+        Finder finder = new Finder("file.txt", "hello", Finder.Type.file);
+        new File("file.txt").delete();
         Assertions.assertEquals(finder.find(), result);
     }
+
     /**
      * Метод создания файлов гигов на 18.
      */
@@ -100,7 +111,7 @@ public class Tests {
 
         fos.flush();
         fos.close();
-        new File(filename).delete();
+
         return result;
     }
 }

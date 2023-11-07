@@ -2,10 +2,10 @@ package org.example;
 
 
 import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -23,10 +23,11 @@ public class Finder {
     private Reader reader;
     private int currentIndexInStr;
     private Charset encoding;
+
     /**
      * Конструктор.
      */
-    public Finder(String filename, String subString, fileType filetype) throws IOException {
+    public Finder(String filename, String subString, Type filetype) throws IOException {
         this.encoding = StandardCharsets.UTF_8;
         byte[] bytes = subString.getBytes("windows-1251");
         this.subString = new String(bytes, StandardCharsets.UTF_8);
@@ -34,6 +35,7 @@ public class Finder {
         this.currentIndexInStr = 0;
         openFile(filename, filetype);
     }
+
     /**
      * Метод поиска.
      */
@@ -80,14 +82,15 @@ public class Finder {
 
 
     }
+
     /**
      * Открытие файла.
      */
-    private void openFile(String filename, fileType filetype) throws IOException {
+    private void openFile(String filename, Type filetype) throws IOException {
 
         File file = new File(filename);
         InputStream in;
-        if (filetype == fileType.resourse) {
+        if (filetype == Type.resourse) {
             in = getClass().getClassLoader().getResourceAsStream(filename);
         } else {
             in = new FileInputStream(file);
@@ -97,6 +100,7 @@ public class Finder {
 
 
     }
+
     /**
      * Получаем буффер из файла.
      */
@@ -104,16 +108,19 @@ public class Finder {
         char[] buffer = new char[100000];
         int count = this.reader.read(buffer);
 
-        if (count == -1)
+        if (count == -1) {
             throw new EOFException();
+        }
+
         char[] res = new char[count];
         java.lang.System.arraycopy(buffer, 0, res, 0, count);
         return res;
     }
+
     /**
      * Енум для двух возможных типов файла.
      */
-    public enum fileType {
+    public enum Type {
 
         file,
         resourse
