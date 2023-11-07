@@ -106,7 +106,7 @@ public class Tests {
                 String add = new String(array, StandardCharsets.US_ASCII);
                 fos.write(add.getBytes());
                 current += (add.length());
-                i += add.length() / 20;
+                i += add.length() / 10;
             }
         }
 
