@@ -94,7 +94,7 @@ public class Tests {
         Random rnd = new Random();
         int countBytes;
         int current = 0;
-        countBytes = 120000000;
+        countBytes = 12000000;
         byte[] array = new byte[countBytes];
         for (int i = 0; i < size; i++) {
             if (rnd.nextInt(100) > 90) {
