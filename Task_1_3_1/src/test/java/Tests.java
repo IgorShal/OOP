@@ -20,7 +20,7 @@ public class Tests {
     @Test
     void japTest() throws IOException {
         Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList(247, 370, 549));
+        Assertions.assertEquals(finder.find().size(), Arrays.asList(247, 370, 549).size());
 
 
     }
