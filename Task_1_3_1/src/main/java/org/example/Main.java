@@ -14,7 +14,7 @@ public class Main {
      * Мейн метод.
      */
     public static void main(String[] args) throws IOException {
-        Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
+        Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
         ArrayList<Integer> res= finder.find();
         for (int i = 0;i<res.size();i++){
             System.out.println(res.get(i));

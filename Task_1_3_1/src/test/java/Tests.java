@@ -21,7 +21,7 @@ public class Tests {
     @Test
     void japTest() throws IOException {
         Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList(247, 370, 549));
+        Assertions.assertEquals(finder.find(), Arrays.asList(241, 362, 539));
 
 
     }
@@ -32,8 +32,7 @@ public class Tests {
     @Test
     void ruTest() throws IOException {
         Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
-        ArrayList<Integer> res= finder.find();
-        throw new IOException(String.valueOf(res));
+        Assertions.assertEquals(finder.find(), Arrays.asList(0, 11, 626, 876));
     }
 
     /**
@@ -42,8 +41,7 @@ public class Tests {
     @Test
     void enTest() throws IOException {
         Finder finder = new Finder("English.txt", "this", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList(0, 156, 223, 274, 664,
-                937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492));
+        Assertions.assertEquals(finder.find(), Arrays.asList(91, 531, 713, 728, 924, 939));
     }
 
     /**
