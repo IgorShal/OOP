@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import org.example.Finder;
@@ -20,7 +21,7 @@ public class Tests {
     @Test
     void japTest() throws IOException {
         Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find().size(), Arrays.asList(247, 370, 549).size());
+        Assertions.assertEquals(finder.find(), Arrays.asList(247, 370, 549));
 
 
     }
@@ -31,7 +32,7 @@ public class Tests {
     @Test
     void ruTest() throws IOException {
         Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find().size(), Arrays.asList(0, 11, 626, 876).size());
+        Assertions.assertEquals(finder.find(), Arrays.asList(0, 11, 626, 876));
     }
 
     /**
@@ -40,8 +41,8 @@ public class Tests {
     @Test
     void enTest() throws IOException {
         Finder finder = new Finder("English.txt", "this", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find().size(), Arrays.asList(0, 156, 223, 274, 664,
-                937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492).size());
+        Assertions.assertEquals(finder.find(), Arrays.asList(0, 156, 223, 274, 664,
+                937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492));
     }
 
     /**
@@ -50,7 +51,7 @@ public class Tests {
     @Test
     void emptyFileTest() throws IOException {
         Finder finder = new Finder("Empty.txt", "hello", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList());
+        Assertions.assertTrue(finder.find().isEmpty());
     }
 
     /**
@@ -59,7 +60,7 @@ public class Tests {
     @Test
     void oneWordTest() throws IOException {
         Finder finder = new Finder("OneWord.txt", "hello", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find().size(), Arrays.asList(0).size());
+        Assertions.assertEquals(finder.find(), List.of(0));
     }
 
     /**
