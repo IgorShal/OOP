@@ -59,7 +59,7 @@ public class Tests {
      */
     @Test
     void oneWordTest() throws IOException {
-        Finder finder = new Finder("OneWord.txt", "hello", Finder.Type.resourse);
+        Finder finder = new Finder("oneWord.txt", "hello", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), List.of(0));
     }
 
