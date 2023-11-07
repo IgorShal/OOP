@@ -32,7 +32,8 @@ public class Tests {
     @Test
     void ruTest() throws IOException {
         Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList(0, 11, 626, 876));
+        ArrayList<Integer> res= finder.find();
+        throw new IOException(String.valueOf(res));
     }
 
     /**
