@@ -12,6 +12,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+/**
+ * Класс элемента поиска подстроки.
+ */
 
 public class Finder {
 
@@ -20,7 +23,9 @@ public class Finder {
     private Reader reader;
     private int currentIndexInStr;
     private Charset encoding;
-
+    /**
+     * Конструктор.
+     */
     public Finder(String filename, String subString, fileType filetype) throws IOException {
         this.encoding = StandardCharsets.UTF_8;
         byte[] bytes = subString.getBytes("windows-1251");
@@ -29,7 +34,9 @@ public class Finder {
         this.currentIndexInStr = 0;
         openFile(filename, filetype);
     }
-
+    /**
+     * Метод поиска.
+     */
     public ArrayList<Integer> find() throws IOException {
         this.prefixArr[0] = 0;
         int len = this.subString.length();
@@ -73,7 +80,9 @@ public class Finder {
 
 
     }
-
+    /**
+     * Открытие файла.
+     */
     private void openFile(String filename, fileType filetype) throws IOException {
 
         File file = new File(filename);
@@ -88,7 +97,9 @@ public class Finder {
 
 
     }
-
+    /**
+     * Получаем буффер из файла.
+     */
     private char[] getElementFromFile() throws IOException {
         char[] buffer = new char[100000];
         int count = this.reader.read(buffer);
@@ -99,7 +110,9 @@ public class Finder {
         java.lang.System.arraycopy(buffer, 0, res, 0, count);
         return res;
     }
-
+    /**
+     * Енум для двух возможных типов файла.
+     */
     public enum fileType {
 
         file,

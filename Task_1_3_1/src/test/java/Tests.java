@@ -9,6 +9,9 @@ import org.example.Finder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class Tests {
+    /**
+     * 日本語テスト.
+     */
     @Test
     void japTest() throws IOException {
         Finder finder = new Finder("Japanese.txt", "スト", Finder.fileType.resourse);
@@ -17,36 +20,51 @@ public class Tests {
 
     }
 
+    /**
+     * Тест русского.
+     */
     @Test
     void ruTest() throws IOException {
         Finder finder = new Finder("Russian.txt", "привет", Finder.fileType.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(0, 11, 626, 876));
     }
 
+    /**
+     * English test.
+     */
     @Test
     void enTest() throws IOException {
         Finder finder = new Finder("English.txt", "this", Finder.fileType.resourse);
-        Assertions.assertEquals(finder.find(), Arrays.asList(0, 156, 223, 274, 664, 937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492));
+        Assertions.assertEquals(finder.find(), Arrays.asList(0, 156, 223, 274, 664,
+                937, 1826, 2352, 2810, 2909, 2982, 3630, 4340, 4600, 5062, 5254, 5269, 5477, 5492));
     }
-
+    /**
+     * Пустой файл.
+     */
     @Test
     void emptyFileTest() throws IOException {
         Finder finder = new Finder("Empty.txt", "hello", Finder.fileType.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList());
     }
-
+    /**
+     * Одно слово без всего.
+     */
     @Test
     void oneWordTest() throws IOException {
         Finder finder = new Finder("OneWord.txt", "hello", Finder.fileType.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(0));
     }
-
+    /**
+     * Слово в слове.
+     */
     @Test
     void oneInOneTest() throws IOException {
         Finder finder = new Finder("oneInOne.txt", "hello", Finder.fileType.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(3));
     }
-
+    /**
+     * Создаём файл гигов на 18.
+     */
     @Test
     void generatedFile() throws IOException {
 
@@ -54,8 +72,11 @@ public class Tests {
         Finder finder = new Finder("file.txt", "hello", Finder.fileType.file);
         Assertions.assertEquals(finder.find(), result);
     }
-
-    private ArrayList<Integer> generateTest(int size, String subString, String filename) throws IOException {
+    /**
+     * Метод создания файлов гигов на 18.
+     */
+    private ArrayList<Integer> generateTest(int size, String subString,
+                                            String filename) throws IOException {
         ArrayList<Integer> result = new ArrayList<>();
         FileOutputStream fos = new FileOutputStream(filename);
         Random rnd = new Random();
