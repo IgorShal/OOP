@@ -88,11 +88,12 @@ public class Finder {
      */
     private void openFile(String filename, Type filetype) throws IOException {
 
-        File file = new File(filename);
+
         InputStream in;
         if (filetype == Type.resourse) {
             in = getClass().getClassLoader().getResourceAsStream(filename);
         } else {
+            File file = new File(filename);
             in = new FileInputStream(file);
         }
 
