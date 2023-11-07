@@ -69,12 +69,13 @@ public class Finder {
                     k = this.prefixArr[k - 1];
 
                 }
+
+                if (k != len && currentString.charAt(i) == this.subString.charAt(k)) {
+                    k++;
+                }
                 if (k == len) {
                     k = 0;
                     result.add(strIndex - len);
-                }
-                if (k != len && currentString.charAt(i) == this.subString.charAt(k)) {
-                    k++;
                 }
 
             }
