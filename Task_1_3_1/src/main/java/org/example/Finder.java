@@ -96,6 +96,7 @@ public class Finder {
             in = getClass().getClassLoader().getResourceAsStream(filename);
         } else {
             File file = new File(filename);
+
             in = new FileInputStream(file);
         }
 

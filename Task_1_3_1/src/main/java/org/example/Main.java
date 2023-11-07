@@ -3,6 +3,7 @@ package org.example;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -13,9 +14,11 @@ public class Main {
      * Мейн метод.
      */
     public static void main(String[] args) throws IOException {
-        Finder finder = new Finder("file.txt", "f", Finder.Type.file);
-        ArrayList<Integer> result = finder.find();
-        System.out.println();
+        Finder finder = new Finder("Russian.txt", "привет", Finder.Type.resourse);
+        ArrayList<Integer> res= finder.find();
+        for (int i = 0;i<res.size();i++){
+            System.out.println(res.get(i));
+        }
     }
 
 }
