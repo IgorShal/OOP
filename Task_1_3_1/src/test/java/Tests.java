@@ -80,12 +80,13 @@ public class Tests {
 
         ArrayList<Integer> result = generateTest(1000000000, "hello", "file.txt");
         Finder finder = new Finder("file.txt", "hello", Finder.Type.file);
-        new File("file.txt").delete();
+
         Assertions.assertEquals(finder.find(), result);
+        new File("file.txt").delete();
     }
 
     /**
-     * Метод создания файлов гигов на 18.
+     * Метод создания файлов гигов на 18.Точнее 18.6
      */
     private ArrayList<Integer> generateTest(int size, String subString,
                                             String filename) throws IOException {
@@ -94,7 +95,7 @@ public class Tests {
         Random rnd = new Random();
         int countBytes;
         int current = 0;
-        countBytes = 12000000;
+        countBytes = 50000000;
         byte[] array = new byte[countBytes];
         for (int i = 0; i < size; i++) {
             if (rnd.nextInt(100) > 90) {
