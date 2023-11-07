@@ -29,7 +29,7 @@ public class Finder {
      */
     public Finder(String filename, String subString, Type filetype) throws IOException {
         this.encoding = StandardCharsets.UTF_8;
-        byte[] bytes = subString.getBytes("UTF-8");
+        byte[] bytes = subString.getBytes("windows-1252");
         this.subString = new String(bytes, StandardCharsets.UTF_8);
         this.prefixArr = new int[this.subString.length()];
         this.currentIndexInStr = 0;
