@@ -59,6 +59,7 @@ public class Finder {
             try {
                 currentString = new String(getElementFromFile());
             } catch (EOFException e) {
+                this.reader.close();
                 return result;
             }
 
