@@ -52,7 +52,7 @@ public class CreditBook {
         if (!this.marks.get(semester).containsKey(lesson)) {
             this.marks.get(semester).put(lesson, new ArrayList<>());
         }
-        if (!this.lessonsList.contains(lesson)){
+        if (!this.lessonsList.contains(lesson)) {
             this.lessonsList.add(lesson);
         }
 
@@ -152,7 +152,7 @@ public class CreditBook {
         }
         ArrayList<Integer> diplomaMarks = new ArrayList<>();
         for (String lesson : this.lessonsList) {
-            if (this.getDiplomaMarkForLesson(lesson) <= 3){
+            if (this.getDiplomaMarkForLesson(lesson) <= 3) {
                 return false;
             }
 
