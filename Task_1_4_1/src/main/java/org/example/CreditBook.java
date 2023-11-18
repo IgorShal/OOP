@@ -52,8 +52,10 @@ public class CreditBook {
         if (!this.marks.get(semester).containsKey(lesson)) {
             this.marks.get(semester).put(lesson, new ArrayList<>());
         }
-        if (!this.lessonsList.contains(lesson))
+        if (!this.lessonsList.contains(lesson)){
             this.lessonsList.add(lesson);
+        }
+
         this.marks.get(semester).get(lesson).add(mark);
     }
 
@@ -104,8 +106,8 @@ public class CreditBook {
             if (this.marks.containsKey(i)) {
                 if (this.marks.get(i).containsKey(lesson)) {
                     average = (double) this.marks.get(i).get(lesson)
-                            .stream().reduce(0, Integer::sum) /
-                            this.marks.get(i).get(lesson).size();
+                            .stream().reduce(0, Integer::sum)
+                            / this.marks.get(i).get(lesson).size();
                 }
             }
         }
@@ -150,8 +152,10 @@ public class CreditBook {
         }
         ArrayList<Integer> diplomaMarks = new ArrayList<>();
         for (String lesson : this.lessonsList) {
-            if (this.getDiplomaMarkForLesson(lesson) == 3)
+            if (this.getDiplomaMarkForLesson(lesson) <= 3){
                 return false;
+            }
+
             diplomaMarks.add(this.getDiplomaMarkForLesson(lesson));
         }
         if ((double) Collections.frequency(diplomaMarks, 5) / diplomaMarks.size() >= 0.75) {
