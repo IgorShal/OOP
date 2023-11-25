@@ -12,42 +12,46 @@ import org.junit.jupiter.api.Test;
  * Тесты для класса CreditBook.
  */
 public class CreditBookTest {
-    private CreditBook creditBook1;
-    private CreditBook creditBook2;
-    private CreditBook creditBook3;
-    private CreditBook creditBook4;
+    private CreditBook creditBookForDiploma;
+    private CreditBook creditBookWithOneThree;
+    private CreditBook creditBookWithQualFour;
+    private CreditBook creditBookWithTwoSemesters;
 
     /**
      * Настройка объектов CreditBook для каждого теста.
      */
     @BeforeEach
     public void setUp() throws Exception {
-        creditBook1 = new CreditBook("Шалыгин", 1);
-        creditBook1.addMark("Математика", 4);
-        creditBook1.addMark("Оси", 5);
-        creditBook1.addMark("ИИ", 5);
-        creditBook1.addMark("Физика", 5);
-        creditBook1.setQualWork(5);
+        creditBookForDiploma = new CreditBook("Шалыгин", 1);
+        creditBookForDiploma.addMark("Математика", CreditBook.Mark.markFour);
+        creditBookForDiploma.addMark("Оси", CreditBook.Mark.markFive);
+        creditBookForDiploma.addMark("ИИ", CreditBook.Mark.markFive);
+        creditBookForDiploma.addMark("Модели", CreditBook.Mark.markPassed);
+        creditBookForDiploma.addMark("Физика", CreditBook.Mark.markFive);
+        creditBookForDiploma.setQualWork(CreditBook.Mark.markFive);
 
-        creditBook2 = new CreditBook("Цой", 2);
-        creditBook2.addMark("Информатика", 3);
-        creditBook2.addMark("Английский", 5);
-        creditBook2.addMark("Математика", 4);
-        creditBook2.setQualWork(4);
+        creditBookWithOneThree = new CreditBook("Цой", 2);
+        creditBookWithOneThree.addMark("Информатика", CreditBook.Mark.markThree);
+        creditBookWithOneThree.addMark("Английский", CreditBook.Mark.markFive);
+        creditBookWithOneThree.addMark("Математика", CreditBook.Mark.markFour);
+        creditBookWithOneThree.setQualWork(CreditBook.Mark.markFive);
 
-        creditBook3 = new CreditBook("Власенко", 3);
-        creditBook3.addMark("Информатика", 5);
-        creditBook3.addMark("Физика", 4);
-        creditBook3.setQualWork(4);
+        creditBookWithQualFour = new CreditBook("Власенко", 3);
+        creditBookWithQualFour.addMark("Информатика", CreditBook.Mark.markFive);
+        creditBookWithQualFour.addMark("ОСИ", CreditBook.Mark.markFive);
+        creditBookWithQualFour.addMark("Литература", CreditBook.Mark.markFive);
+        creditBookWithQualFour.addMark("Физика", CreditBook.Mark.markFour);
+        creditBookWithQualFour.setQualWork(CreditBook.Mark.markFour);
 
-        creditBook4 = new CreditBook("Козлов", 4);
-        creditBook4.addMark("История", 3);
-        creditBook4.addMark("Английский", 5);
-        creditBook4.addMark("ИИ", 5);
-        creditBook4.incSemesterNumber();
-        creditBook4.addMark("Английский", 5);
-        creditBook4.addMark("ИИ", 5);
-        creditBook4.setQualWork(5);
+        creditBookWithTwoSemesters = new CreditBook("Козлов", 4);
+        creditBookWithTwoSemesters.addMark("История", CreditBook.Mark.markThree);
+        creditBookWithTwoSemesters.addMark("Английский", CreditBook.Mark.markFive);
+        creditBookWithTwoSemesters.addMark("ИИ", CreditBook.Mark.markFive);
+        creditBookWithTwoSemesters.incSemesterNumber();
+        creditBookWithTwoSemesters.addMark("Английский", CreditBook.Mark.markFive);
+        creditBookWithTwoSemesters.addMark("ОСИ", CreditBook.Mark.markPassed);
+        creditBookWithTwoSemesters.addMark("ИИ", CreditBook.Mark.markFive);
+        creditBookWithTwoSemesters.setQualWork(CreditBook.Mark.markFive);
     }
 
     /**
@@ -55,45 +59,43 @@ public class CreditBookTest {
      */
     @Test
     public void testAddMark() throws Exception {
-        creditBook1.addMark("История", 3);
-        assertEquals(3, creditBook1.getDiplomaMarkForLesson("История"));
+        creditBookForDiploma.addMark("История", CreditBook.Mark.markThree);
+        assertEquals(CreditBook.Mark.markThree, creditBookForDiploma.getDiplomaMarkForLesson("История"));
 
-        creditBook2.addMark("История", 5);
-        assertEquals(5, creditBook2.getDiplomaMarkForLesson("История"));
+        creditBookWithOneThree.addMark("История", CreditBook.Mark.markFive);
+        assertEquals(CreditBook.Mark.markFive, creditBookWithOneThree.getDiplomaMarkForLesson("История"));
     }
 
     /**
-     * Тест для проверки получения диплома, если оценка за квали не 5.
+     * Тест для проверки получения диплома, если оценка за квали не CreditBook.Mark.markFive.
      */
     @Test
-    public void testSetValidQualWork() throws Exception {
-        creditBook1.setQualWork(4);
-
-        assertFalse(creditBook1.isDiplomaPossible());
+    public void testNotPossibleDiplomaWhenMarkFour() throws Exception {
+        creditBookForDiploma.setQualWork(CreditBook.Mark.markFour);
+        assertFalse(creditBookForDiploma.isDiplomaPossible());
     }
 
     /**
      * Тест для метода getDiplomaMarkForLesson при отсутствии оценки.
      */
     @Test
-    public void testGetDiplomaMarkForNonExistentLesson() throws Exception {
+    public void testGetExceptionForNotExistentLesson() throws Exception {
         assertThrowsExactly(Exception.class, () -> {
-            creditBook1.getDiplomaMarkForLesson("Астрономия");
+            creditBookForDiploma.getDiplomaMarkForLesson("Астрономия");
         });
 
 
     }
 
     /**
-     * Тест для метода getAverageForLesson с пустой зачетной книжкой.
+     * Тест для метода getAverageForAllTime для четырех разных зачетных книжек.
      */
     @Test
-    public void testGetAverageForLessonWithEmptyCreditBook() throws Exception {
-        CreditBook emptyCreditBook = new CreditBook("Сидоров", 3);
-        assertThrowsExactly(Exception.class, () -> {
-            emptyCreditBook.getAverageForLesson("Математика");
-        });
-
+    public void testGetAverageForAllTimeForMultipleCreditBooks() throws Exception {
+        assertEquals(creditBookForDiploma.getAverageForAllTime(), 4.75);
+        assertEquals(creditBookWithOneThree.getAverageForAllTime(), 4.0);
+        assertEquals(creditBookWithQualFour.getAverageForAllTime(), 4.75);
+        assertEquals(creditBookWithTwoSemesters.getAverageForAllTime(), 4.66, 0.1);
     }
 
     /**
@@ -101,10 +103,10 @@ public class CreditBookTest {
      */
     @Test
     public void testIsDiplomaPossibleForMultipleCreditBooks() throws Exception {
-        assertTrue(creditBook1.isDiplomaPossible());
-        assertFalse(creditBook2.isDiplomaPossible());
-        assertFalse(creditBook3.isDiplomaPossible());
-        assertFalse(creditBook4.isDiplomaPossible());
+        assertTrue(creditBookForDiploma.isDiplomaPossible());
+        assertFalse(creditBookWithOneThree.isDiplomaPossible());
+        assertFalse(creditBookWithQualFour.isDiplomaPossible());
+        assertFalse(creditBookWithTwoSemesters.isDiplomaPossible());
     }
 
     /**
@@ -112,22 +114,11 @@ public class CreditBookTest {
      */
     @Test
     public void testIsIncreasedScholarshipForMultipleCreditBooks() {
-        assertFalse(creditBook1.isIncreasedScholarship());
-        assertFalse(creditBook2.isIncreasedScholarship());
-        assertFalse(creditBook3.isIncreasedScholarship());
-        assertTrue(creditBook4.isIncreasedScholarship());
+        assertFalse(creditBookForDiploma.isIncreasedScholarship());
+        assertFalse(creditBookWithOneThree.isIncreasedScholarship());
+        assertFalse(creditBookWithQualFour.isIncreasedScholarship());
+        assertTrue(creditBookWithTwoSemesters.isIncreasedScholarship());
     }
 
-    /**
-     * Тест для метода getAverageForAllTime для четырех разных зачетных книжек.
-     */
-    @Test
-    public void testAverageAllTimeAvg() {
-        assertEquals(creditBook1.getAverageForAllTime(), 4.75, 0.01);
-        assertEquals(creditBook2.getAverageForAllTime(), 4, 0.01);
-        assertEquals(creditBook3.getAverageForAllTime(), 4.5, 0.01);
-        assertEquals(creditBook4.getAverageForAllTime(), 4.6, 0.01);
-
-    }
 }
 

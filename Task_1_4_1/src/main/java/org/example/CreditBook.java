@@ -2,7 +2,9 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.HashMap;
+
 
 /**
  * Класс зачетной книжки.
@@ -13,8 +15,8 @@ public class CreditBook {
     private String studentName;
     private int semester;
     private ArrayList<String> lessonsList;
-    private int qualWork;
-    private HashMap<Integer, HashMap<String, ArrayList<Integer>>> marks;
+    private Mark qualWork;
+    private HashMap<Integer, HashMap<String, Mark>> marks;
 
     /**
      * Конструктор.
@@ -31,7 +33,7 @@ public class CreditBook {
         this.lessonsList = new ArrayList<>();
         this.marks = new HashMap<>();
         this.marks.put(semester, new HashMap<>());
-        this.qualWork = 0;
+        this.qualWork = Mark.markNotPassed;
     }
 
     /**
@@ -42,21 +44,19 @@ public class CreditBook {
      * @param semester Семестр.
      * @throws Exception Эксепшн на случай некорректной оценки.
      */
-    public void addMark(String lesson, int mark, int semester) throws Exception {
-        if (mark < 0 || mark > 5) {
-            throw new Exception("Invalid mark number");
-        }
+    public void addMark(String lesson, Mark mark, int semester) throws Exception {
+
         if (!this.marks.containsKey(semester)) {
             this.marks.put(semester, new HashMap<>());
         }
         if (!this.marks.get(semester).containsKey(lesson)) {
-            this.marks.get(semester).put(lesson, new ArrayList<>());
+            this.marks.get(semester).put(lesson, mark);
         }
         if (!this.lessonsList.contains(lesson)) {
             this.lessonsList.add(lesson);
         }
 
-        this.marks.get(semester).get(lesson).add(mark);
+        this.marks.get(semester).put(lesson, mark);
     }
 
     /**
@@ -66,7 +66,7 @@ public class CreditBook {
      * @param mark   Оценка.
      * @throws Exception Эксепшн на случай некорректной оценки.
      */
-    public void addMark(String lesson, int mark) throws Exception {
+    public void addMark(String lesson, Mark mark) throws Exception {
         this.addMark(lesson, mark, this.semester);
     }
 
@@ -86,36 +86,8 @@ public class CreditBook {
      * @param mark Оценка.
      * @throws Exception Валидность оценки.
      */
-    public void setQualWork(int mark) throws Exception {
-        if (mark < 0 || mark > 5) {
-            throw new Exception("Invalid mark number");
-        }
+    public void setQualWork(Mark mark) throws Exception {
         this.qualWork = mark;
-    }
-
-    /**
-     * Получаем средний балл по предмету.
-     *
-     * @param lesson предмет.
-     * @return возвращаем средний балл.
-     * @throws Exception если предмета нет, возвращаем исключение.
-     */
-    public double getAverageForLesson(String lesson) throws Exception {
-        double average = 0;
-        for (int i = 1; i <= this.semester; i++) {
-            if (this.marks.containsKey(i)) {
-                if (this.marks.get(i).containsKey(lesson)) {
-                    average = (double) this.marks.get(i).get(lesson)
-                            .stream().reduce(0, Integer::sum)
-                            / this.marks.get(i).get(lesson).size();
-                }
-            }
-        }
-
-        if (average == 0) {
-            throw new Exception("No such lesson");
-        }
-        return average;
     }
 
     /**
@@ -125,19 +97,19 @@ public class CreditBook {
      * @return возвращаем средний балл.
      * @throws Exception если предмета нет, возвращаем исключение.
      */
-    public int getDiplomaMarkForLesson(String lesson) throws Exception {
-        int mark = 0;
+    public Mark getDiplomaMarkForLesson(String lesson) throws Exception {
+        Mark mark = null;
         for (int i = 1; i <= this.semester; i++) {
             if (this.marks.containsKey(i)) {
                 if (this.marks.get(i).containsKey(lesson)) {
-                    mark = this.marks.get(i).get(lesson)
-                            .get(this.marks.get(i).get(lesson).size() - 1);
+                    mark = this.marks.get(i).get(lesson);
                 }
             }
         }
-        if (mark == 0) {
+        if (mark == null) {
             throw new Exception("No such lesson");
         }
+
         return mark;
     }
 
@@ -147,21 +119,33 @@ public class CreditBook {
      * @return Возвращает тру или фолс.
      */
     public boolean isDiplomaPossible() throws Exception {
-        if (this.qualWork != 5) {
+        if (this.qualWork.intMark != 5) {
             return false;
         }
-        ArrayList<Integer> diplomaMarks = new ArrayList<>();
-        for (String lesson : this.lessonsList) {
-            if (this.getDiplomaMarkForLesson(lesson) <= 3) {
-                return false;
-            }
 
-            diplomaMarks.add(this.getDiplomaMarkForLesson(lesson));
-        }
-        if ((double) Collections.frequency(diplomaMarks, 5) / diplomaMarks.size() >= 0.75) {
-            return true;
-        }
-        return false;
+        List<Mark> diplomaMarks = this.lessonsList.stream().filter(
+                        x -> {
+                            try {
+
+                                return this.getDiplomaMarkForLesson(x).getIntMark() >= 4 ||
+                                        this.getDiplomaMarkForLesson(x).getStrMark().equals("Passed");
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                .map(x -> {
+                    try {
+                        return getDiplomaMarkForLesson(x);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }).toList();
+        if (diplomaMarks.size() != this.lessonsList.size())
+            return false;
+
+        return (double) Collections.frequency(diplomaMarks, Mark.markFive) /
+                (diplomaMarks.size() - diplomaMarks.stream().
+                        filter(x -> !x.strMark.isEmpty()).count()) >= 0.75;
     }
 
     /**
@@ -170,18 +154,10 @@ public class CreditBook {
      * @return дабл среднего балла.
      */
     public double getAverageForAllTime() {
-        int count = 0;
-        int sum = 0;
-        for (int i = 1; i <= this.semester; i++) {
-            if (this.marks.containsKey(i)) {
-                for (ArrayList<Integer> mark : this.marks.get(i).values()) {
-                    sum += mark.stream().reduce(0, Integer::sum);
-                    count += mark.size();
-                }
-            }
-        }
-        double res = (double) sum / count;
-        return res;
+        return this.marks.values().stream().map(x -> x.values().stream().map(Mark::getIntMark)
+                        .filter(y -> y != 0).mapToInt(Integer::intValue).average().getAsDouble())
+                .mapToDouble(num -> (double) num).average().getAsDouble();
+
     }
 
     /**
@@ -191,14 +167,8 @@ public class CreditBook {
      * @return буллеан.
      */
     public boolean isIncreasedScholarship() {
-        if (this.marks.containsKey(this.semester)) {
-            for (ArrayList<Integer> mark : this.marks.get(this.semester).values()) {
-                if (Collections.frequency(mark, 5) != mark.size()) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return this.marks.get(this.semester).values().stream().
+                allMatch(y -> y.intMark == 5 || y.strMark.equals("Passed"));
     }
 
     /**
@@ -206,8 +176,56 @@ public class CreditBook {
      *
      * @return инт оценки.
      */
-    public int getQualWork() {
+    public Mark getQualWork() {
         return this.qualWork;
+    }
+
+    /**
+     * Енум для оценок.
+     */
+    public enum Mark {
+        markFive(5),
+        markFour(4),
+        markThree(3),
+        markTwo(2),
+        markOne(1),
+        markPassed("Passed"),
+        markNotPassed("Not passed");
+        private int intMark;
+        private String strMark;
+
+        /**
+         * Конструктор для числовых оценок.
+         *
+         * @param mark оценка.
+         */
+        Mark(int mark) {
+            this.intMark = mark;
+            this.strMark = "";
+        }
+
+        /**
+         * Конструктор для зачёта и незачёт.
+         *
+         * @param mark Оценка.
+         */
+        Mark(String mark) {
+            this.strMark = mark;
+        }
+
+        /**
+         * Геттер оценки.
+         */
+        public int getIntMark() {
+            return this.intMark;
+        }
+
+        /**
+         * Геттер оценки.
+         */
+        public String getStrMark() {
+            return this.strMark;
+        }
     }
 }
 
