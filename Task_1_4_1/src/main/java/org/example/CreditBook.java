@@ -2,8 +2,9 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -127,8 +128,9 @@ public class CreditBook {
                         x -> {
                             try {
 
-                                return this.getDiplomaMarkForLesson(x).getIntMark() >= 4 ||
-                                        this.getDiplomaMarkForLesson(x).getStrMark().equals("Passed");
+                                return this.getDiplomaMarkForLesson(x).getIntMark() >= 4
+                                        || this.getDiplomaMarkForLesson(x)
+                                        .getStrMark().equals("Passed");
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -139,13 +141,14 @@ public class CreditBook {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                }).toList();
-        if (diplomaMarks.size() != this.lessonsList.size())
+                }).collect(Collectors.toList());
+        if (diplomaMarks.size() != this.lessonsList.size()) {
             return false;
+        }
 
-        return (double) Collections.frequency(diplomaMarks, Mark.markFive) /
-                (diplomaMarks.size() - diplomaMarks.stream().
-                        filter(x -> !x.strMark.isEmpty()).count()) >= 0.75;
+        return (double) Collections.frequency(diplomaMarks, Mark.markFive)
+                / (diplomaMarks.size() - diplomaMarks.stream()
+                .filter(x -> !x.strMark.isEmpty()).count()) >= 0.75;
     }
 
     /**
@@ -167,8 +170,8 @@ public class CreditBook {
      * @return буллеан.
      */
     public boolean isIncreasedScholarship() {
-        return this.marks.get(this.semester).values().stream().
-                allMatch(y -> y.intMark == 5 || y.strMark.equals("Passed"));
+        return this.marks.get(this.semester).values().stream()
+                .allMatch(y -> y.intMark == 5 || y.strMark.equals("Passed"));
     }
 
     /**

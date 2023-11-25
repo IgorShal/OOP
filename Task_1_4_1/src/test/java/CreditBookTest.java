@@ -60,10 +60,12 @@ public class CreditBookTest {
     @Test
     public void testAddMark() throws Exception {
         creditBookForDiploma.addMark("История", CreditBook.Mark.markThree);
-        assertEquals(CreditBook.Mark.markThree, creditBookForDiploma.getDiplomaMarkForLesson("История"));
+        assertEquals(CreditBook.Mark.markThree,
+                creditBookForDiploma.getDiplomaMarkForLesson("История"));
 
         creditBookWithOneThree.addMark("История", CreditBook.Mark.markFive);
-        assertEquals(CreditBook.Mark.markFive, creditBookWithOneThree.getDiplomaMarkForLesson("История"));
+        assertEquals(CreditBook.Mark.markFive,
+                creditBookWithOneThree.getDiplomaMarkForLesson("История"));
     }
 
     /**
