@@ -34,7 +34,7 @@ public class CreditBook {
         this.lessonsList = new ArrayList<>();
         this.marks = new HashMap<>();
         this.marks.put(semester, new HashMap<>());
-        this.qualWork = Mark.markNotPassed;
+        this.qualWork = Mark.MARKNOTPASSED;
     }
 
     /**
@@ -120,14 +120,13 @@ public class CreditBook {
      * @return Возвращает тру или фолс.
      */
     public boolean isDiplomaPossible() throws Exception {
-        if (this.qualWork.intMark != 5) {
+        if (this.qualWork.getIntMark() != 5) {
             return false;
         }
 
         List<Mark> diplomaMarks = this.lessonsList.stream().filter(
                         x -> {
                             try {
-
                                 return this.getDiplomaMarkForLesson(x).getIntMark() >= 4
                                         || this.getDiplomaMarkForLesson(x)
                                         .getStrMark().equals("Passed");
@@ -146,9 +145,9 @@ public class CreditBook {
             return false;
         }
 
-        return (double) Collections.frequency(diplomaMarks, Mark.markFive)
+        return (double) Collections.frequency(diplomaMarks, Mark.MARKFIVE)
                 / (diplomaMarks.size() - diplomaMarks.stream()
-                .filter(x -> !x.strMark.isEmpty()).count()) >= 0.75;
+                .filter(x -> !x.getStrMark().isEmpty()).count()) >= 0.75;
     }
 
     /**
@@ -171,7 +170,7 @@ public class CreditBook {
      */
     public boolean isIncreasedScholarship() {
         return this.marks.get(this.semester).values().stream()
-                .allMatch(y -> y.intMark == 5 || y.strMark.equals("Passed"));
+                .allMatch(y -> y.getIntMark() == 5 || y.getStrMark().equals("Passed"));
     }
 
     /**
@@ -181,54 +180,6 @@ public class CreditBook {
      */
     public Mark getQualWork() {
         return this.qualWork;
-    }
-
-    /**
-     * Енум для оценок.
-     */
-    public enum Mark {
-        markFive(5),
-        markFour(4),
-        markThree(3),
-        markTwo(2),
-        markOne(1),
-        markPassed("Passed"),
-        markNotPassed("Not passed");
-        private int intMark;
-        private String strMark;
-
-        /**
-         * Конструктор для числовых оценок.
-         *
-         * @param mark оценка.
-         */
-        Mark(int mark) {
-            this.intMark = mark;
-            this.strMark = "";
-        }
-
-        /**
-         * Конструктор для зачёта и незачёт.
-         *
-         * @param mark Оценка.
-         */
-        Mark(String mark) {
-            this.strMark = mark;
-        }
-
-        /**
-         * Геттер оценки.
-         */
-        public int getIntMark() {
-            return this.intMark;
-        }
-
-        /**
-         * Геттер оценки.
-         */
-        public String getStrMark() {
-            return this.strMark;
-        }
     }
 }
 
