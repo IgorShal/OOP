@@ -38,7 +38,7 @@ public class FunctionFactory {
         this.addFunction("-", new Minus());
         this.addFunction("sqr", new Sqr());
         this.addFunction("sqrt", new Sqrt());
-        this.addFunction("abs", new Sqrt());
+        this.addFunction("abs", new Abs());
         this.addFunction("*", new Mult());
         this.addFunction("/", new Div());
         this.addFunction("log", new Log());

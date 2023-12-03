@@ -110,4 +110,13 @@ public class Tests {
         Assertions.assertEquals(4,
                 new Parser("   +             1                     3").calculate());
     }
+
+    /**
+     * Абс и косинус.
+     */
+    @Test
+    public void cosAbsTest() throws Exception {
+        Assertions.assertEquals(1,
+                new Parser("abs cos 3.14159").calculate(), 0.001);
+    }
 }
