@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Класс парсера - калькулятора.
@@ -32,7 +33,7 @@ public class Parser {
     public double calculate() throws Exception {
         double res = 0;
         List<String> array = Arrays.stream(this.lineToParse.split(" "))
-                .filter(x -> !x.isEmpty()).toList();
+                .filter(x -> !x.isEmpty()).collect(Collectors.toList());
 
         Stack<Double> stack = new Stack<>();
         Function cur = null;

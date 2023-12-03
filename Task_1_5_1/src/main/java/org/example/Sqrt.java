@@ -18,10 +18,12 @@ public class Sqrt extends Function {
      */
     @Override
     public double apply(ArrayList<Double> vars) throws Exception {
-        if (super.countOfArgs != vars.size())
+        if (super.countOfArgs != vars.size()) {
             throw new Exception("wrong count of args");
-        if (vars.get(0) < 0)
+        }
+        if (vars.get(0) < 0) {
             throw new Exception("Sqrt from negative");
+        }
         return Math.sqrt(vars.get(0));
     }
 }
