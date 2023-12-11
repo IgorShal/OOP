@@ -26,8 +26,12 @@ public class FunctionFactory {
     /**
      * Функция получения функции по имени.
      */
-    public Function getFunction(String name) {
-        return functionMap.get(name);
+    public Function getFunction(String name) throws CalculatorException {
+        if (functionMap.get(name) != null) {
+            return functionMap.get(name);
+        } else {
+            throw new NoSuchFunctionException("No such function");
+        }
     }
 
     /**

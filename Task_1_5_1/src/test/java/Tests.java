@@ -1,9 +1,4 @@
-import org.example.CalculatorException;
-import org.example.DivisionByZeroException;
-import org.example.LogNonPositiveException;
-import org.example.Parser;
-import org.example.SqrtFromNegativeException;
-import org.example.WrongExpressionException;
+import org.example.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -205,7 +200,7 @@ public class Tests {
      * Тест корня.
      */
     @Test
-    public void SqrtTest() throws CalculatorException {
+    public void sqrtTest() throws CalculatorException {
         Assertions.assertThrowsExactly(SqrtFromNegativeException.class,
                 () -> {
                     new Parser("sqrt -1").calculate();
@@ -232,5 +227,9 @@ public class Tests {
                 new Parser("+ sqrt sqr + / * + 4 3 12 12 5 + 1 2").calculate());
         Assertions.assertEquals(4,
                 new Parser("   +             1                     3").calculate());
+        Assertions.assertThrowsExactly(NoSuchFunctionException.class,
+                () -> {
+                    new Parser("sdsd aada").calculate();
+                });
     }
 }

@@ -17,7 +17,7 @@ public class Cos extends Function {
      * Функция применения.
      */
     @Override
-    public double apply(ArrayList<Double> vars) throws CalculatorException{
+    public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
             throw new WrongCountOFArgumentsException("wrong count of args");
         }

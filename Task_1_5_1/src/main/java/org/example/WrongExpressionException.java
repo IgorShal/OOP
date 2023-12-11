@@ -1,6 +1,14 @@
 package org.example;
 
-public class WrongExpressionException extends CalculatorException{
+/**
+ * Класс исключений для неправильных выражений.
+ */
+public class WrongExpressionException extends CalculatorException {
+    /**
+     * Конструктор.
+     *
+     * @param message Сообщение.
+     */
     public WrongExpressionException(String message) {
         super(message);
     }
