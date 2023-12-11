@@ -19,7 +19,7 @@ public class Div extends Function {
     @Override
     public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
-            throw new WrongCountOFArgumentsException("wrong count of args");
+            throw new WrongCountOfArgumentsException("wrong count of args");
         }
         if (Math.abs(vars.get(1)) < 0.000000001) {
             throw new DivisionByZeroException("Division by zero");

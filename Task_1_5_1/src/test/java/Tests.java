@@ -1,4 +1,10 @@
-import org.example.*;
+import org.example.CalculatorException;
+import org.example.DivisionByZeroException;
+import org.example.LogNonPositiveException;
+import org.example.NoSuchFunctionException;
+import org.example.Parser;
+import org.example.SqrtFromNegativeException;
+import org.example.WrongExpressionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

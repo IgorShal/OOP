@@ -19,7 +19,7 @@ public class Log extends Function {
     @Override
     public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
-            throw new WrongCountOFArgumentsException("wrong count of args");
+            throw new WrongCountOfArgumentsException("wrong count of args");
         }
         if (Math.abs(vars.get(0)) < 0.000000001 || vars.get(0) < 0) {
             throw new LogNonPositiveException("Log from zero or negative");
