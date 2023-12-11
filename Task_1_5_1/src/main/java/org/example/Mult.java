@@ -17,9 +17,9 @@ public class Mult extends Function {
      * Функция применения.
      */
     @Override
-    public double apply(ArrayList<Double> vars) throws Exception {
+    public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
-            throw new Exception("wrong count of args");
+            throw new WrongCountOFArgumentsException("wrong count of args");
         }
         return vars.get(0) * vars.get(1);
     }

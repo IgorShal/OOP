@@ -17,12 +17,12 @@ public class Div extends Function {
      * Функция применения.
      */
     @Override
-    public double apply(ArrayList<Double> vars) throws Exception {
+    public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
-            throw new Exception("wrong count of args");
+            throw new WrongCountOFArgumentsException("wrong count of args");
         }
         if (Math.abs(vars.get(1)) < 0.000000001) {
-            throw new Exception("Division by zero");
+            throw new DivisionByZeroException("Division by zero");
         }
         return vars.get(0) / vars.get(1);
     }

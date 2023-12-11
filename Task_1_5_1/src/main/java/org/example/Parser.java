@@ -28,9 +28,9 @@ public class Parser {
      * Функция калькулирования.
      *
      * @return Дабл результат вычисления.
-     * @throws Exception Исключения, если выражение задано неправильно.
+     * @throws CalculatorException Исключения, если выражение задано неправильно.
      */
-    public double calculate() throws Exception {
+    public double calculate() throws CalculatorException {
         double res = 0;
         List<String> array = Arrays.stream(this.lineToParse.split(" "))
                 .filter(x -> !x.isEmpty()).collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class Parser {
                     try {
                         vars.add(stack.pop());
                     } catch (EmptyStackException e) {
-                        throw new Exception("wrong expression");
+                        throw new WrongExpressionException("wrong expression");
                     }
                 }
                 stack.add(cur.apply(vars));
@@ -58,7 +58,7 @@ public class Parser {
         }
         res = stack.pop();
         if (!stack.isEmpty()) {
-            throw new Exception("wrong expression");
+            throw new WrongExpressionException("wrong expression");
         }
 
         return res;

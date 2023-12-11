@@ -19,7 +19,7 @@ public class Function {
     /**
      * Функция применения.
      */
-    public double apply(ArrayList<Double> vars) throws Exception {
+    public double apply(ArrayList<Double> vars) throws CalculatorException {
         return 0;
     }
 

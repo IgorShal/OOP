@@ -17,9 +17,9 @@ public class Abs extends Function {
      * Функция применения.
      */
     @Override
-    public double apply(ArrayList<Double> vars) throws Exception {
+    public double apply(ArrayList<Double> vars) throws CalculatorException {
         if (super.countOfArgs != vars.size()) {
-            throw new Exception("wrong count of args");
+            throw new WrongCountOFArgumentsException("wrong count of args");
         }
         return Math.abs(vars.get(0));
     }
