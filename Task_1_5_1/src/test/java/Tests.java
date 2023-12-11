@@ -65,6 +65,10 @@ public class Tests {
                 () -> {
                     new Parser("cos 2 1").calculate();
                 });
+        Assertions.assertThrowsExactly(WrongExpressionException.class,
+                () -> {
+                    new Parser("cos").calculate();
+                });
     }
 
     /**
@@ -79,6 +83,10 @@ public class Tests {
         Assertions.assertThrowsExactly(WrongExpressionException.class,
                 () -> {
                     new Parser("sin 2 1").calculate();
+                });
+        Assertions.assertThrowsExactly(WrongExpressionException.class,
+                () -> {
+                    new Parser("sin").calculate();
                 });
     }
 
@@ -215,6 +223,10 @@ public class Tests {
                 new Parser("sqrt 0").calculate());
         Assertions.assertEquals(5,
                 new Parser("sqrt 25").calculate());
+        Assertions.assertThrowsExactly(WrongExpressionException.class,
+                () -> {
+                    new Parser("sqrt 1 2").calculate();
+                });
         Assertions.assertEquals(2,
                 new Parser("sqrt sqrt 16").calculate());
         Assertions.assertEquals(6,
