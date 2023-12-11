@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":2,"i1":8,"i2":2,"i3":2,"i4":8,"i5":2,"i6":2,"i7":2,"i8":8,"i9":2,"i10":2,"i11":2,"i12":2,"i13":2,"i14":2,"i15":2,"i16":2,"i17":2,"i18":8,"i19":8,"i20":8};
+var data = {"i0":2,"i1":8,"i2":2,"i3":2,"i4":8,"i5":2,"i6":2,"i7":2,"i8":8,"i9":2,"i10":2,"i11":2,"i12":8,"i13":2,"i14":2,"i15":2,"i16":2,"i17":2,"i18":2,"i19":8,"i20":8,"i21":8};
 var tabs = {65535:["t0","All Classes"],2:["t2","Class Summary"],8:["t4","Exception Summary"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -117,7 +117,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><a href="org/example/CalculatorException.html" title="class in org.example">CalculatorException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Общий класс эксепшенов калькулятора.</div>
+</th>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><a href="org/example/Cos.html" title="class in org.example">Cos</a></td>
@@ -133,7 +135,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><a href="org/example/DivisionByZeroException.html" title="class in org.example">DivisionByZeroException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Деление на 0.</div>
+</th>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><a href="org/example/Function.html" title="class in org.example">Function</a></td>
@@ -155,7 +159,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><a href="org/example/LogNonPositiveException.html" title="class in org.example">LogNonPositiveException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Логарифм от неположительного.</div>
+</th>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><a href="org/example/Main.html" title="class in org.example">Main</a></td>
@@ -176,52 +182,64 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </th>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><a href="org/example/NoSuchFunctionException.html" title="class in org.example">NoSuchFunctionException</a></td>
+<th class="colLast" scope="row">
+<div class="block">Исклюение для несуществующей функции.</div>
+</th>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><a href="org/example/Parser.html" title="class in org.example">Parser</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс парсера - калькулятора.</div>
 </th>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><a href="org/example/Plus.html" title="class in org.example">Plus</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс плюса.</div>
 </th>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><a href="org/example/Pow.html" title="class in org.example">Pow</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс пова.</div>
 </th>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><a href="org/example/Sin.html" title="class in org.example">Sin</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс синуса.</div>
 </th>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><a href="org/example/Sqr.html" title="class in org.example">Sqr</a></td>
 <th class="colLast" scope="row">
 <div class="block">Возведение в квадрат.</div>
 </th>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><a href="org/example/Sqrt.html" title="class in org.example">Sqrt</a></td>
 <th class="colLast" scope="row">
 <div class="block">Класс корня.</div>
 </th>
 </tr>
-<tr id="i18" class="altColor">
-<td class="colFirst"><a href="org/example/SqrtFromNegativeException.html" title="class in org.example">SqrtFromNegativeException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
-</tr>
 <tr id="i19" class="rowColor">
-<td class="colFirst"><a href="org/example/WrongCountOFArgumentsException.html" title="class in org.example">WrongCountOFArgumentsException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<td class="colFirst"><a href="org/example/SqrtFromNegativeException.html" title="class in org.example">SqrtFromNegativeException</a></td>
+<th class="colLast" scope="row">
+<div class="block">Корень из отрицательного.</div>
+</th>
 </tr>
 <tr id="i20" class="altColor">
+<td class="colFirst"><a href="org/example/WrongCountOFArgumentsException.html" title="class in org.example">WrongCountOFArgumentsException</a></td>
+<th class="colLast" scope="row">
+<div class="block">Неправильное количество аргументов у функции.</div>
+</th>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><a href="org/example/WrongExpressionException.html" title="class in org.example">WrongExpressionException</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Класс исключений для неправильных выражений.</div>
+</th>
 </tr>
 </table>
 </li>
