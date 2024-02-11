@@ -2,12 +2,12 @@ package org.example;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.List;
 
 
 /**
@@ -19,6 +19,7 @@ public class ParallelSolver implements Solver {
 
     /**
      * Конструктор для задания количества потоков.
+     *
      * @param count Количество потоков.
      */
     public ParallelSolver(int count) {
@@ -27,6 +28,7 @@ public class ParallelSolver implements Solver {
 
     /**
      * Метод проверки массива на наличие непростых.
+     *
      * @param arr Массив.
      * @return Тру или фолз.
      */
@@ -55,7 +57,7 @@ public class ParallelSolver implements Solver {
             }
         }
 
-        for (long num : arr){
+        for (long num : arr) {
             tasks.add(new PrimeTask(num));
         }
 
@@ -81,6 +83,7 @@ public class ParallelSolver implements Solver {
 
     /**
      * Метод проверки числа на простоту.
+     *
      * @param num число.
      * @return тру если простое и фолз иначе.
      */
