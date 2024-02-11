@@ -19,7 +19,7 @@ public class Tests {
      */
     @Test
     void japTest() throws IOException {
-        Finder finder = new Finder("Japanese.txt", "\uD83C\uDFF3", Finder.Type.resourse);
+        Finder finder = new Finder("Japanese.txt", "スト", Finder.Type.resourse);
         Assertions.assertEquals(finder.find(), Arrays.asList(241, 362, 539));
 
 
@@ -77,11 +77,11 @@ public class Tests {
     @Test
     void generatedFile() throws IOException {
 
-        //ArrayList<Integer> result = generateTest(1000000000, "hello", "file.txt");
-        //Finder finder = new Finder("file.txt", "hello", Finder.Type.file);
+        ArrayList<Integer> result = generateTest(1000000000, "hello", "file.txt");
+        Finder finder = new Finder("file.txt", "hello", Finder.Type.file);
 
-        //Assertions.assertEquals(finder.find(), result);
-        //new File("file.txt").delete();
+        Assertions.assertEquals(finder.find(), result);
+        new File("file.txt").delete();
     }
 
     /**
