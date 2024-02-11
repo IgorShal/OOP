@@ -1,3 +1,5 @@
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
 import org.example.ParallelSolver;
 import org.example.ParallelStreamSolver;
 import org.example.SequentualSolver;
@@ -6,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
 
 /**
  * Класс тестов.
@@ -65,7 +65,7 @@ public class PrimeSolversTest {
     }
 
     /**
-     * Проверка стандартных простых
+     * Проверка стандартных простых.
      */
     @Test
     public void basicPrimesTest() {
