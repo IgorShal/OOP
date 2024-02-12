@@ -1,6 +1,5 @@
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
-
 import org.example.ParallelSolver;
 import org.example.ParallelStreamSolver;
 import org.example.SequentualSolver;
