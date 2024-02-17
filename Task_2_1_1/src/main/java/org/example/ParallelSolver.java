@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.RejectedExecutionException;
 
 
 /**
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ParallelSolver implements Solver {
     private int threadsNumber;
-    private boolean answer = false;
+    private volatile boolean answer = false;
 
     /**
      * Конструктор для задания количества потоков.
@@ -44,13 +44,10 @@ public class ParallelSolver implements Solver {
 
             @Override
             public Boolean call() throws Exception {
-                if (answer) {
-                    return false;
-                }
                 if (isPrime(this.num)) {
                     return true;
                 } else {
-                    answer = true;
+                    es.shutdownNow();
                     return false;
                 }
             }
@@ -61,14 +58,18 @@ public class ParallelSolver implements Solver {
         }
 
         try {
-            List<Future<Boolean>> listResult = es.invokeAll(tasks);
-            es.shutdown();
-            if (!es.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
-                es.shutdownNow();
+            List<Future<Boolean>> listResult = new ArrayList<>();
+            for (Callable<Boolean> task:tasks){
+                try {
+                    listResult.add(es.submit(task));
+                }
+                catch (RejectedExecutionException e){
+                    return true;
+                }
             }
+            es.shutdown();
             for (Future<Boolean> elem : listResult) {
                 if (!elem.get()) {
-                    answer = false;
                     return true;
                 }
             }
@@ -86,17 +87,4 @@ public class ParallelSolver implements Solver {
      * @param num число.
      * @return тру если простое и фолз иначе.
      */
-    @Override
-    public boolean isPrime(long num) {
-        long sqrt = Math.round(Math.sqrt((double) num));
-        if (num == 2) {
-            return true;
-        }
-        for (long i = 2; i <= sqrt; i++) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

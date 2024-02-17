@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+
 /**
  * Класс последовательного решателя.
  */
@@ -12,13 +14,7 @@ public class SequentualSolver implements Solver {
      */
     @Override
     public boolean hasNonPrimeNumber(long[] arr) {
-        for (long num : arr) {
-            if (!isPrime(num)) {
-                return true;
-            }
-
-        }
-        return false;
+        return Arrays.stream(arr).anyMatch(x -> !isPrime(x));
     }
 
     /**
@@ -27,17 +23,4 @@ public class SequentualSolver implements Solver {
      * @param num число.
      * @return тру если простое и фолз иначе.
      */
-    @Override
-    public boolean isPrime(long num) {
-        if (num == 2) {
-            return true;
-        }
-        long square = Math.round(Math.sqrt((double) num));
-        for (long i = 2; i <= square; i++) {
-            if (num % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

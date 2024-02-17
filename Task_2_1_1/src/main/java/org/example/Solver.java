@@ -18,5 +18,13 @@ public interface Solver {
      * @param num число.
      * @return тру если простое и фолз иначе.
      */
-    boolean isPrime(long num);
+    public default boolean isPrime(long num) {
+        long square = Math.round(Math.sqrt((double) num));
+        for (long i = 2; i <= square; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
