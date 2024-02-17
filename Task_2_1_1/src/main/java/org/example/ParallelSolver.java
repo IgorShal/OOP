@@ -59,11 +59,10 @@ public class ParallelSolver implements Solver {
 
         try {
             List<Future<Boolean>> listResult = new ArrayList<>();
-            for (Callable<Boolean> task:tasks){
+            for (Callable<Boolean> task : tasks) {
                 try {
                     listResult.add(es.submit(task));
-                }
-                catch (RejectedExecutionException e){
+                } catch (RejectedExecutionException e) {
                     return true;
                 }
             }
@@ -80,11 +79,4 @@ public class ParallelSolver implements Solver {
         }
 
     }
-
-    /**
-     * Метод проверки числа на простоту.
-     *
-     * @param num число.
-     * @return тру если простое и фолз иначе.
-     */
 }

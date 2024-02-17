@@ -16,13 +16,5 @@ public class ParallelStreamSolver implements Solver {
     public boolean hasNonPrimeNumber(long[] arr) {
         return Arrays.stream(arr).parallel().mapToObj(this::isPrime).anyMatch(x -> !x);
     }
-
-    /**
-     * Метод проверки числа на простоту.
-     *
-     * @param num число.
-     * @return тру если простое и фолз иначе.
-     */
-
 }
 

@@ -17,10 +17,4 @@ public class SequentualSolver implements Solver {
         return Arrays.stream(arr).anyMatch(x -> !isPrime(x));
     }
 
-    /**
-     * Метод проверки числа на простоту.
-     *
-     * @param num число.
-     * @return тру если простое и фолз иначе.
-     */
 }
