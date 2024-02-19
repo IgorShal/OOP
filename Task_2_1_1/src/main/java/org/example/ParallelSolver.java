@@ -3,8 +3,8 @@ package org.example;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.stream.Collectors;
@@ -54,6 +54,7 @@ public class ParallelSolver implements Solver {
                 }
             }
         }
+
         Stream<Future<Boolean>> result;
         try {
             result = Arrays.stream(arr).mapToObj(PrimeTask::new).map(es::submit)
