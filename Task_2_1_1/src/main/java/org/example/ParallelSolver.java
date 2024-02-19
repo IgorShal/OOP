@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -37,7 +38,7 @@ public class ParallelSolver implements Solver {
         ExecutorService es = Executors.newFixedThreadPool(threadsNumber);
 
         class PrimeTask implements Callable<Boolean> {
-            long num;
+            final long num;
 
             PrimeTask(long num) {
                 this.num = num;
@@ -56,7 +57,7 @@ public class ParallelSolver implements Solver {
         Stream<Future<Boolean>> result;
         try {
             result = Arrays.stream(arr).mapToObj(PrimeTask::new).map(es::submit)
-                .toList().stream();
+                .collect(Collectors.toList()).stream();
         } catch (RejectedExecutionException e) {
             return true;
         }
