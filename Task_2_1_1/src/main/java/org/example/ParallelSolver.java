@@ -1,12 +1,13 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.stream.Stream;
 
 
 /**
@@ -34,7 +35,7 @@ public class ParallelSolver implements Solver {
     @Override
     public boolean hasNonPrimeNumber(long[] arr) {
         ExecutorService es = Executors.newFixedThreadPool(threadsNumber);
-        List<Callable<Boolean>> tasks = new ArrayList<>();
+
         class PrimeTask implements Callable<Boolean> {
             long num;
 
@@ -52,31 +53,21 @@ public class ParallelSolver implements Solver {
                 }
             }
         }
-
-        for (long num : arr) {
-            tasks.add(new PrimeTask(num));
-        }
-
+        Stream<Future<Boolean>> result;
         try {
-            List<Future<Boolean>> listResult = new ArrayList<>();
-            for (Callable<Boolean> task : tasks) {
-                try {
-                    listResult.add(es.submit(task));
-                } catch (RejectedExecutionException e) {
-                    return true;
-                }
-            }
-            es.shutdown();
-            for (Future<Boolean> elem : listResult) {
-                if (!elem.get()) {
-                    return true;
-                }
-            }
-            return false;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            result = Arrays.stream(arr).mapToObj(PrimeTask::new).map(es::submit)
+                .toList().stream();
+        } catch (RejectedExecutionException e) {
+            return true;
         }
+        es.shutdown();
+        return result.anyMatch(elem -> {
+            try {
+                return !elem.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 }
