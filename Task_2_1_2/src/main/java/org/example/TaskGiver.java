@@ -73,7 +73,7 @@ public class TaskGiver {
     }
 
     private Worker getWorkerByTaskNumber(int number) {
-        for (Worker worker : workersList) {
+        for (Worker worker : this.workersList) {
             if (worker.getTaskNumber() == number) {
                 return worker;
             }
@@ -82,7 +82,7 @@ public class TaskGiver {
     }
 
     private Task getTaskByWorkerNumber(int number) {
-        for (Task task : tasks) {
+        for (Task task : this.tasks) {
             if (task.getWorkerNumber() == number) {
                 return task;
             }
