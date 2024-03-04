@@ -63,6 +63,7 @@ public class Server {
             }
             selectedKeys.clear();
         }
+        this.serverKey.channel().close();
         System.out.println("Found workers: " + this.workers.size());
         return this.workers;
     }
@@ -70,104 +71,134 @@ public class Server {
     public void checkChannels() throws IOException {
         System.out.println("Check channels started");
         while (!(tasks.stream().allMatch(Task::isDone) || tasks.stream().anyMatch(Task::getAnswer))) {
+            Set<SelectionKey> keys = this.selector.keys();
+            if (keys.stream().allMatch(x -> !x.isValid())) {
+                break;
+            }
             if (this.selector.select() == 0) {
                 System.out.println("no Actions");
                 continue;
             }
+
             Set<SelectionKey> selectedKeys = this.selector.selectedKeys();
             for (SelectionKey key : selectedKeys) {
                 Worker curr = (Worker) key.attachment();
                 if (!key.isValid()) {
                     deleteWorker(curr);
+                    key.channel().close();
                 }
                 if (key.isWritable()) {
-                    if (curr.getStatus() == Worker.WorkerStatus.READY) {
-                        try {
-                            curr.setStatus(Worker.WorkerStatus.WORKING);
-                            giveTask((SocketChannel) key.channel(), getTaskByWorkerNumber(curr.getNumber()));
-                            key.interestOps(SelectionKey.OP_READ);
-                        } catch (Exception ignored) {
+                    try {
+                        if (curr.getStatus() == Worker.WorkerStatus.READY) {
+                            Task task = getTaskByWorker(curr);
+                            if (!task.isDone()) {
+                                curr.setStatus(Worker.WorkerStatus.WORKING);
+                                giveTask((SocketChannel) key.channel(), task);
+                                key.interestOps(SelectionKey.OP_READ);
+                            }
 
                         }
-
+                    } catch (IOException e) {
+                        deleteWorker(curr);
+                        key.channel().close();
                     }
                 }
-                if (key.isReadable()) {
-                    getAnswer((SocketChannel) key.channel(), getTaskByWorkerNumber(curr.getNumber()));
-                    curr.setStatus(Worker.WorkerStatus.READY);
-                    key.interestOps(SelectionKey.OP_WRITE);
+                else if (key.isReadable()) {
+                    try {
+                        getAnswer((SocketChannel) key.channel(), getTaskByWorker(curr));
+                        curr.setStatus(Worker.WorkerStatus.READY);
+                        key.interestOps(SelectionKey.OP_WRITE);
+
+                    } catch (IOException e) {
+                        deleteWorker(curr);
+                        key.channel().close();
+                    }
                 }
             }
             selectedKeys.clear();
         }
+
         System.out.println("Check channels ended, tasks count = " + this.tasks.size());
         endConnection();
     }
 
     public void giveTask(SocketChannel channel, Task task) throws IOException {
-        ByteBuffer send = ByteBuffer.allocate(task.getArr().size() * 8);
+        ByteBuffer send = ByteBuffer.allocate(4);
         send.position(0);
-        for (Long num:task.getArr()){
+        send.putInt(task.getArr().size());
+        send.position(0);
+        int wrote = channel.write(send);
+
+        send = ByteBuffer.allocate(task.getArr().size() * 8);
+        send.position(0);
+        for (Long num : task.getArr()) {
             send.putLong(num);
         }
         send.position(0);
 
+        wrote = channel.write(send);
+        System.out.println("Server: i send client " + wrote);
 
-        int write = channel.write(send);
-        System.out.println("Server wrote " + write);
 
     }
 
     public void getAnswer(SocketChannel channel, Task task) throws IOException {
         ByteBuffer message = ByteBuffer.allocate(4);
+
         channel.read(message);
         message.position(0);
         int answer = message.getInt();
-        System.out.println("answer : " + answer);
+        System.out.println("Sever: i answer : " + answer);
         if (answer > 0) {
             task.setAnswer(true);
         } else {
             task.setAnswer(false);
         }
         task.setDone(true);
+
     }
 
-    public void addConnection() throws IOException {
-        SocketChannel clientChannel = this.serverChannel.accept();
-        if (clientChannel.isConnectionPending()) {
-            clientChannel.finishConnect();
+    public void addConnection() {
+        try {
+            SocketChannel clientChannel = this.serverChannel.accept();
+            if (clientChannel.isConnectionPending()) {
+                clientChannel.finishConnect();
+            }
+            InetWorker worker = new InetWorker();
+            worker.setServer(this);
+            this.workers.add(worker);
+            System.out.println("Connection established");
+            clientChannel.configureBlocking(false);
+            SelectionKey current = clientChannel.register(this.selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+            current.attach(worker);
+        } catch (IOException ignored) {
+
         }
-        InetWorker worker = new InetWorker();
-        worker.setServer(this);
-        this.workers.add(worker);
-        System.out.println("Connection established");
-        clientChannel.configureBlocking(false);
-        SelectionKey current = clientChannel.register(this.selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-        current.attach(worker);
+
     }
 
     public void endConnection() throws IOException {
-        this.serverChannel.close();
-        for (Worker worker:this.workers){
-            deleteWorker(worker);
+
+        this.selector.keys().stream().map(x -> {
+            try {
+                x.channel().close();
+            } catch (IOException ignored) {
+
+            }
+            return x;
+        });
+        for (Worker worker : this.workers) {
+            worker.setStatus(Worker.WorkerStatus.DELETED);
         }
     }
+
     public void deleteWorker(Worker worker) {
         worker.setStatus(Worker.WorkerStatus.DEAD);
     }
 
-    private Worker getWorkerByTaskNumber(int number) {
-        for (Worker worker : this.workers) {
-            if (worker.getTaskNumber() == number) {
-                return worker;
-            }
-        }
-        throw new RuntimeException("No worker with such task");
-    }
-
-    private Task getTaskByWorkerNumber(int number) {
+    private Task getTaskByWorker(Worker worker) {
         for (Task task : this.tasks) {
-            if (task.getWorkerNumber() == number) {
+            if (task.getWorkerNumber() == worker.getNumber() && task.getTaskNumber() == worker.getTaskNumber()) {
                 return task;
             }
         }

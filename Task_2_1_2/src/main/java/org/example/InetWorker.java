@@ -10,8 +10,11 @@ public class InetWorker extends Worker {
 
     @Override
     public void solveTask(Task task) {
-        this.server.tasks.add(task);
-        if (this.server.tasks.size() == this.server.workers.size()){
+        if (!this.server.tasks.contains(task)){
+            this.server.tasks.add(task);
+        }
+
+        if (this.server.tasks.size() == this.server.workers.size() && !this.server.serverThread.isAlive()){
             this.server.serverThread.start();
         }
     }

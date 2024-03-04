@@ -24,35 +24,60 @@ public class Client {
         }
         System.out.println("client connected");
     }
+
     public void getTask(long time) throws IOException {
+
         long start = System.currentTimeMillis();
         ArrayList<Long> task = new ArrayList<>();
-        while (System.currentTimeMillis() - start < time){
-            ByteBuffer longBuf = ByteBuffer.allocate(8);
-            longBuf.position(0);
-            while (this.clientChannel.read(longBuf) > 0){
-                longBuf.position(0);
-                task.add(longBuf.getLong());
+        int size = -1;
+        while (System.currentTimeMillis() - start < time) {
+            if (size == -1) {
+                ByteBuffer sizeBuf = ByteBuffer.allocate(4);
+                sizeBuf.position(0);
+                int res = this.clientChannel.read(sizeBuf);
+                if (res > 0) {
+                    sizeBuf.position(0);
+                    size = sizeBuf.getInt();
+                } else if (res == -1) {
+                    this.clientChannel.close();
+                    return;
+                }
+
+            } else {
+                while (task.size() < size){
+                    ByteBuffer longBuf = ByteBuffer.allocate(8);
+                    longBuf.position(0);
+                    while (this.clientChannel.read(longBuf) > 0) {
+                        longBuf.position(0);
+                        task.add(longBuf.getLong());
+                    }
+                }
+                System.out.println("Client: I got task:" + task.toString());
+                size = -1;
+                this.performTask(task);
             }
 
         }
-        System.out.println("Client got task:" + task.toString());
-        this.performTask(task);
+
 
     }
+
     public void performTask(ArrayList<Long> task) throws IOException {
         boolean answer = task.stream().anyMatch(x -> !isPrime(x));
+        task.clear();
         sendAnswer(answer);
     }
+
     public void sendAnswer(boolean answer) throws IOException {
         ByteBuffer ansBuffer = ByteBuffer.allocate(4);
 
-        if (answer){
+        if (answer) {
             ansBuffer.putInt(1);
         }
         ansBuffer.position(0);
-        System.out.println("send server :" + this.clientChannel.write(ansBuffer));
+        System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
     }
+
     /**
      * Метод проверки числа на простоту.
      *

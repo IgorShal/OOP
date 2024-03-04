@@ -49,6 +49,7 @@ public class Worker {
 
     public enum WorkerStatus{
         READY,
+        DELETED,
         INTERRUPTED,
         WORKING,
         DEAD,

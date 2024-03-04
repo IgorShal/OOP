@@ -12,18 +12,11 @@ public class Main {
         int port = 6000;
         Server server = new Server(port);
 
-        Thread clientTh = new Thread(() -> {
-            try {
-                Client client = new Client(port);
-                client.getTask(7000);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
 
-        });
         Thread clientTh2 = new Thread(() -> {
             try {
                 Client client = new Client(port);
+                client.clientChannel.close();
                 client.getTask(7000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -33,25 +26,43 @@ public class Main {
         Thread clientTh3 = new Thread(() -> {
             try {
                 Client client = new Client(port);
+                client.clientChannel.close();
                 client.getTask(7000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
         });
+        Thread clientTh1 = new Thread(() -> {
+            try {
+                Client client = new Client(port);
+                client.clientChannel.close();
+                client.getTask(100000);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-        clientTh2.start();
+        });
+
         clientTh3.start();
-        clientTh.start();
+        clientTh2.start();
+        clientTh1.start();
+
+
 
 
         ArrayList<InetWorker> workers = server.findWorkers(5000);
         for (Worker worker:workers){
             taskGiver.addWorker(worker);
         }
+        taskGiver.addWorker(new ThreadWorker());
+        boolean answer;
+        try{
+            answer = taskGiver.solve(new long[]{1,3, 6,7,11,13,17,19});
+        } catch (Exception e){
+            return;
+        }
 
-
-        taskGiver.solve(new long[]{9223372036854775783L,9223372036854775783L, 9223372036854775643L,9223372036854775783L});
-        System.out.println();
+        System.out.println(answer);
     }
 }
