@@ -2,13 +2,18 @@ package org.example;
 
 import java.util.ArrayList;
 
+
+/**
+ * Класс задачи.
+ */
 public class Task {
     private boolean answer;
     private boolean done;
     private int workerNumber;
     private int taskNumber;
     private ArrayList<Long> arr;
-    public Task(ArrayList<Long> arr,int taskNumber){
+
+    public Task(ArrayList<Long> arr, int taskNumber) {
         this.done = false;
         this.taskNumber = taskNumber;
         this.workerNumber = -1;
@@ -18,6 +23,7 @@ public class Task {
     public void setWorkerNumber(int workerNumber) {
         this.workerNumber = workerNumber;
     }
+
     public int getWorkerNumber() {
         return workerNumber;
     }
@@ -38,6 +44,7 @@ public class Task {
     public boolean isDone() {
         return done;
     }
+
     public void setTaskNumber(int taskNumber) {
         this.taskNumber = taskNumber;
     }

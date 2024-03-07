@@ -1,19 +1,23 @@
 package org.example;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
+/**
+ * Класс клиента.
+ * Подключается к серверу, получает задачу и решает.
+ */
 public class Client {
     SocketChannel clientChannel;
 
+    /**
+     * Конструктор.
+     *
+     * @param port Порт сервера.
+     */
     public Client(int port) throws IOException {
         this.clientChannel = SocketChannel.open();
         this.clientChannel.configureBlocking(false);
@@ -25,6 +29,12 @@ public class Client {
         System.out.println("client connected");
     }
 
+    /**
+     * Получаем задание от сервера в течение времени.
+     * Сначала сервер отправляет количество чисел, потом клиент ждёт, пока не придут все числа.
+     *
+     * @param time Время.
+     */
     public void getTask(long time) throws IOException {
 
         long start = System.currentTimeMillis();
@@ -35,6 +45,7 @@ public class Client {
                 ByteBuffer sizeBuf = ByteBuffer.allocate(4);
                 sizeBuf.position(0);
                 int res = this.clientChannel.read(sizeBuf);
+
                 if (res > 0) {
                     sizeBuf.position(0);
                     size = sizeBuf.getInt();
@@ -44,7 +55,7 @@ public class Client {
                 }
 
             } else {
-                while (task.size() < size){
+                while (task.size() < size) {
                     ByteBuffer longBuf = ByteBuffer.allocate(8);
                     longBuf.position(0);
                     while (this.clientChannel.read(longBuf) > 0) {
@@ -62,20 +73,29 @@ public class Client {
 
     }
 
+    /**
+     * Выполняем задание сервера.
+     *
+     * @param task Задание, здесь именно список лонгов, а не структура таск потому что сервер передаёт клиенту числа по одному.
+     */
     public void performTask(ArrayList<Long> task) throws IOException {
         boolean answer = task.stream().anyMatch(x -> !isPrime(x));
         task.clear();
         sendAnswer(answer);
     }
 
+    /**
+     * Отправляем ответ серверу.
+     *
+     * @param answer Ответ.
+     */
     public void sendAnswer(boolean answer) throws IOException {
         ByteBuffer ansBuffer = ByteBuffer.allocate(4);
-
         if (answer) {
             ansBuffer.putInt(1);
         }
         ansBuffer.position(0);
-        System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
+        //System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
     }
 
     /**

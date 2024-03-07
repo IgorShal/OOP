@@ -1,24 +1,19 @@
 package org.example;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.LongBuffer;
-import java.nio.channels.*;
-import java.nio.charset.Charset;
-import java.security.Key;
-
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
-
+/**
+ * Класс сервера, отвечает за общение с клиентами - рабочими.
+ * Получает набор заданий от ТаскГивера и распределяет между клиентами.
+ */
 public class Server {
     ServerSocketChannel serverChannel;
     Selector selector;
@@ -27,7 +22,11 @@ public class Server {
     ArrayList<InetWorker> workers;
     SelectionKey serverKey;
 
-
+    /**
+     * Конструктор сервера, сервер создаётся на локалхосте.
+     *
+     * @param port порт.
+     */
     public Server(int port) throws IOException {
         this.serverChannel = ServerSocketChannel.open();
         this.serverChannel.configureBlocking(false);
@@ -48,6 +47,12 @@ public class Server {
         });
     }
 
+    /**
+     * В течение определённого времени ждём клиентов для работы.
+     *
+     * @param time Время.
+     * @return Список готовых рабочих.
+     */
     public ArrayList<InetWorker> findWorkers(int time) throws IOException {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < time) {
@@ -63,11 +68,13 @@ public class Server {
             }
             selectedKeys.clear();
         }
-        this.serverKey.channel().close();
         System.out.println("Found workers: " + this.workers.size());
         return this.workers;
     }
 
+    /**
+     * Метод для проверки каналов на события.
+     */
     public void checkChannels() throws IOException {
         System.out.println("Check channels started");
         while (!(tasks.stream().allMatch(Task::isDone) || tasks.stream().anyMatch(Task::getAnswer))) {
@@ -87,7 +94,7 @@ public class Server {
                     deleteWorker(curr);
                     key.channel().close();
                 }
-                if (key.isWritable()) {
+                if (key.isValid() && key.isWritable()) {
                     try {
                         if (curr.getStatus() == Worker.WorkerStatus.READY) {
                             Task task = getTaskByWorker(curr);
@@ -102,8 +109,7 @@ public class Server {
                         deleteWorker(curr);
                         key.channel().close();
                     }
-                }
-                else if (key.isReadable()) {
+                } else if (key.isValid() && key.isReadable()) {
                     try {
                         getAnswer((SocketChannel) key.channel(), getTaskByWorker(curr));
                         curr.setStatus(Worker.WorkerStatus.READY);
@@ -122,6 +128,9 @@ public class Server {
         endConnection();
     }
 
+    /**
+     * Даём задания клиенту.
+     */
     public void giveTask(SocketChannel channel, Task task) throws IOException {
         ByteBuffer send = ByteBuffer.allocate(4);
         send.position(0);
@@ -142,6 +151,9 @@ public class Server {
 
     }
 
+    /**
+     * Получаем ответ от клиента.
+     */
     public void getAnswer(SocketChannel channel, Task task) throws IOException {
         ByteBuffer message = ByteBuffer.allocate(4);
 
@@ -158,6 +170,9 @@ public class Server {
 
     }
 
+    /**
+     * Добавляем новое соединение.
+     */
     public void addConnection() {
         try {
             SocketChannel clientChannel = this.serverChannel.accept();
@@ -177,25 +192,37 @@ public class Server {
 
     }
 
+    /**
+     * Закрываем все соединения(каналы) после выполнения задания.
+     */
     public void endConnection() throws IOException {
+        Set<SelectionKey> set = this.selector.keys();
+        this.serverChannel.close();
+        for (SelectionKey key : set) {
+            key.channel().close();
+        }
+        this.selector.close();
 
-        this.selector.keys().stream().map(x -> {
-            try {
-                x.channel().close();
-            } catch (IOException ignored) {
-
-            }
-            return x;
-        });
         for (Worker worker : this.workers) {
             worker.setStatus(Worker.WorkerStatus.DELETED);
         }
     }
 
+    /**
+     * Меняем статус на мертвого для отключённых рабочих.
+     *
+     * @param worker Рабочий.
+     */
     public void deleteWorker(Worker worker) {
         worker.setStatus(Worker.WorkerStatus.DEAD);
     }
 
+    /**
+     * По рабочему получаем его задание.
+     *
+     * @param worker Рабочий.
+     * @return Задание.
+     */
     private Task getTaskByWorker(Worker worker) {
         for (Task task : this.tasks) {
             if (task.getWorkerNumber() == worker.getNumber() && task.getTaskNumber() == worker.getTaskNumber()) {

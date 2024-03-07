@@ -1,29 +1,41 @@
 package org.example;
 
-import java.util.Arrays;
-
-
-
+/**
+ * Класс потока-рабочего.
+ */
 public class ThreadWorker extends Worker {
-
+    /**
+     * Конструктор.
+     */
     public ThreadWorker() {
         super();
     }
 
-
+    /**
+     * Метод решения задачи.
+     *
+     * @param task Задача.
+     */
     @Override
     public void solveTask(Task task) {
         Thread thread = new Thread(() -> this.solve(task));
         thread.start();
 
     }
-    private void solve(Task task){
+
+    /**
+     * Конкрутная реализация решения для потока-рабочего.
+     *
+     * @param task Задача.
+     */
+    private void solve(Task task) {
         this.setStatus(WorkerStatus.WORKING);
         task.setAnswer(task.getArr().stream().anyMatch(x -> !isPrime(x)));
         task.setDone(true);
         this.setStatus(WorkerStatus.READY);
         System.out.println("Worker ready:" + this.getWorkerNumber());
     }
+
     /**
      * Метод проверки числа на простоту.
      *
