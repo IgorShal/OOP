@@ -96,8 +96,8 @@ public class Client {
             ansBuffer.putInt(1);
         }
         ansBuffer.position(0);
-        System.out.println("Client: i send to server" +
-            this.clientChannel.write(ansBuffer));
+        System.out.println("Client: i send to server"
+            + this.clientChannel.write(ansBuffer));
     }
 
     /**

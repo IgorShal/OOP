@@ -77,8 +77,8 @@ public class Server {
      */
     public void checkChannels() throws IOException {
         System.out.println("Check channels started");
-        while (!(tasks.stream().allMatch(Task::isDone) ||
-            tasks.stream().anyMatch(Task::getAnswer))) {
+        while (!(tasks.stream().allMatch(Task::isDone)
+            || tasks.stream().anyMatch(Task::getAnswer))) {
             Set<SelectionKey> keys = this.selector.keys();
             if (keys.stream().allMatch(x -> !x.isValid())) {
                 break;
@@ -137,7 +137,7 @@ public class Server {
         send.position(0);
         send.putInt(task.getArr().size());
         send.position(0);
-        int wrote = channel.write(send);
+        channel.write(send);
 
         send = ByteBuffer.allocate(task.getArr().size() * 8);
         send.position(0);
@@ -146,7 +146,7 @@ public class Server {
         }
         send.position(0);
 
-        wrote = channel.write(send);
+        int wrote = channel.write(send);
         System.out.println("Server: i send client " + wrote);
 
 
@@ -189,7 +189,7 @@ public class Server {
                 SelectionKey.OP_READ | SelectionKey.OP_WRITE);
             current.attach(worker);
         } catch (IOException ignored) {
-
+            return;
         }
 
     }
@@ -227,7 +227,8 @@ public class Server {
      */
     private Task getTaskByWorker(Worker worker) {
         for (Task task : this.tasks) {
-            if (task.getWorkerNumber() == worker.getNumber() && task.getTaskNumber() == worker.getTaskNumber()) {
+            if (task.getWorkerNumber() == worker.getNumber()
+                && task.getTaskNumber() == worker.getTaskNumber()) {
                 return task;
             }
         }

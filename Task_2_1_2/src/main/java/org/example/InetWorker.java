@@ -26,8 +26,8 @@ public class InetWorker extends Worker {
             this.server.tasks.add(task);
         }
 
-        if (this.server.tasks.size() == this.server.workers.size() &&
-            !this.server.serverThread.isAlive()) {
+        if (this.server.tasks.size() == this.server.workers.size()
+            && !this.server.serverThread.isAlive()) {
             this.server.serverThread.start();
         }
     }
