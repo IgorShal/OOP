@@ -64,6 +64,8 @@ public class Main {
         boolean answer;
         try {
             answer = taskGiver.solve(new long[]{1, 3, 5, 7, 11, 5, 17, 5});
+
+
         } catch (Exception e) {
             System.out.println("execption");
             throw e;
@@ -72,7 +74,10 @@ public class Main {
         System.out.println(clientTh2.isAlive());
         System.out.println(clientTh3.isAlive());
         System.out.println(server.serverThread.isAlive());
-
+        clientTh1.join();
+        clientTh3.join();
+        clientTh2.join();
+        server.serverThread.join();
         System.out.println("Answer:" + answer);
 
     }

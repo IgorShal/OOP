@@ -52,6 +52,7 @@ public class TaskGiver {
         if (this.workersList.isEmpty()) {
             throw new RuntimeException("No workers to solve");
         }
+
         this.tasks = splitTask(arr, this.workersList.size());
         while (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer)
@@ -98,7 +99,10 @@ public class TaskGiver {
 
 
         }
-        return tasks.stream().anyMatch(Task::getAnswer);
+        this.workersList.clear();
+        boolean answer = this.tasks.stream().anyMatch(Task::getAnswer);
+        this.tasks.clear();
+        return answer;
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Server {
     ServerSocketChannel serverChannel;
     Selector selector;
-    Thread serverThread;
+    public Thread serverThread;
     ArrayList<Task> tasks;
     ArrayList<InetWorker> workers;
     SelectionKey serverKey;
@@ -202,7 +202,7 @@ public class Server {
             key.channel().close();
         }
         this.selector.close();
-
+        this.serverChannel.socket().close();
         for (Worker worker : this.workers) {
             worker.setStatus(Worker.WorkerStatus.DELETED);
         }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Подключается к серверу, получает задачу и решает.
  */
 public class Client {
-    SocketChannel clientChannel;
+    public SocketChannel clientChannel;
 
     /**
      * Конструктор.
@@ -95,7 +95,7 @@ public class Client {
             ansBuffer.putInt(1);
         }
         ansBuffer.position(0);
-        //System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
+        System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
     }
 
     /**
