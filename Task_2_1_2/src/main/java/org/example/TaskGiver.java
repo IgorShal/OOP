@@ -56,7 +56,8 @@ public class TaskGiver {
         this.tasks = splitTask(arr, this.workersList.size());
         while (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer)
-            || this.workersList.stream().allMatch(x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
+            || this.workersList.stream().allMatch(
+            x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
             for (Worker worker : workersList) {
                 if (worker.getStatus() == Worker.WorkerStatus.DEAD) {
                     Task deadTask = getTaskByWorker(worker);
@@ -90,11 +91,13 @@ public class TaskGiver {
 
         }
         for (Worker worker : workersList) {
-            if (worker.getStatus() != Worker.WorkerStatus.READY || worker.getStatus() != Worker.WorkerStatus.DELETED) {
+            if (worker.getStatus() != Worker.WorkerStatus.READY ||
+                worker.getStatus() != Worker.WorkerStatus.DELETED) {
                 worker.interrupt();
             }
         }
-        if (!(this.tasks.stream().allMatch(Task::isDone) || this.tasks.stream().anyMatch(Task::getAnswer))) {
+        if (!(this.tasks.stream().allMatch(Task::isDone) ||
+            this.tasks.stream().anyMatch(Task::getAnswer))) {
             throw new Exception("No workers left, tasks weren't done");
 
 
@@ -134,7 +137,8 @@ public class TaskGiver {
      */
     private Task getTaskByWorker(Worker worker) {
         for (Task task : this.tasks) {
-            if (task.getWorkerNumber() == worker.getNumber() && task.getTaskNumber() == worker.getTaskNumber()) {
+            if (task.getWorkerNumber() == worker.getNumber() &&
+                task.getTaskNumber() == worker.getTaskNumber()) {
                 return task;
             }
         }

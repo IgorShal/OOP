@@ -76,7 +76,8 @@ public class Client {
     /**
      * Выполняем задание сервера.
      *
-     * @param task Задание, здесь именно список лонгов, а не структура таск потому что сервер передаёт клиенту числа по одному.
+     * @param task Задание, здесь именно список лонгов,
+     *             а не структура таск потому что сервер передаёт клиенту числа по одному.
      */
     public void performTask(ArrayList<Long> task) throws IOException {
         boolean answer = task.stream().anyMatch(x -> !isPrime(x));
@@ -95,7 +96,8 @@ public class Client {
             ansBuffer.putInt(1);
         }
         ansBuffer.position(0);
-        System.out.println("Client: i send to server" + this.clientChannel.write(ansBuffer));
+        System.out.println("Client: i send to server" +
+            this.clientChannel.write(ansBuffer));
     }
 
     /**

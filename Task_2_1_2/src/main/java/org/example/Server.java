@@ -77,7 +77,8 @@ public class Server {
      */
     public void checkChannels() throws IOException {
         System.out.println("Check channels started");
-        while (!(tasks.stream().allMatch(Task::isDone) || tasks.stream().anyMatch(Task::getAnswer))) {
+        while (!(tasks.stream().allMatch(Task::isDone) ||
+            tasks.stream().anyMatch(Task::getAnswer))) {
             Set<SelectionKey> keys = this.selector.keys();
             if (keys.stream().allMatch(x -> !x.isValid())) {
                 break;
@@ -184,7 +185,8 @@ public class Server {
             this.workers.add(worker);
             System.out.println("Connection established");
             clientChannel.configureBlocking(false);
-            SelectionKey current = clientChannel.register(this.selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+            SelectionKey current = clientChannel.register(this.selector,
+                SelectionKey.OP_READ | SelectionKey.OP_WRITE);
             current.attach(worker);
         } catch (IOException ignored) {
 

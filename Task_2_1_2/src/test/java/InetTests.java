@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 import org.example.Client;
 import org.example.InetWorker;
 import org.example.Server;
@@ -10,9 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.stream.Stream;
 
 /**
  * Класс тестов.
