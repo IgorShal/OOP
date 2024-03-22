@@ -1,12 +1,13 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-import org.example.Client;
-import org.example.InetWorker;
-import org.example.Server;
-import org.example.TaskGiver;
-import org.example.ThreadWorker;
-import org.example.Worker;
+
+import org.solver.Client;
+import org.solver.InetWorker;
+import org.solver.Server;
+import org.solver.TaskGiver;
+import org.solver.ThreadWorker;
+import org.solver.Worker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -63,13 +64,14 @@ public class InetTests {
         Thread clientTh2 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.getTask(700000);
+                client.connect();
+                client.getTask(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         clientTh2.start();
-        ArrayList<InetWorker> workers = this.server.findWorkers(5000);
+        ArrayList<InetWorker> workers = this.server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -88,7 +90,8 @@ public class InetTests {
         Thread clientTh2 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.getTask(700000);
+                client.connect();
+                client.getTask(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -96,14 +99,15 @@ public class InetTests {
         Thread clientTh3 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.getTask(700000);
+                client.connect();
+                client.getTask(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(5000);
+        ArrayList<InetWorker> workers = server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -143,7 +147,8 @@ public class InetTests {
         Thread clientTh2 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.getTask(700000);
+                client.connect();
+                client.getTask(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -152,14 +157,15 @@ public class InetTests {
             try {
                 Client client = new Client(this.port);
                 client.clientChannel.close();
-                client.getTask(700000);
+                client.connect();
+                client.getTask(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(5000);
+        ArrayList<InetWorker> workers = server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }

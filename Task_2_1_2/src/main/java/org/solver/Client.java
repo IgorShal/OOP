@@ -1,4 +1,4 @@
-package org.example;
+package org.solver;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Client {
     public SocketChannel clientChannel;
+    public int port;
 
     /**
      * Конструктор.
@@ -21,8 +22,11 @@ public class Client {
     public Client(int port) throws IOException {
         this.clientChannel = SocketChannel.open();
         this.clientChannel.configureBlocking(false);
-        this.clientChannel.connect(new InetSocketAddress("localhost", port));
+        this.port = port;
+    }
 
+    public void connect() throws IOException {
+        this.clientChannel.connect(new InetSocketAddress("localhost", this.port));
         while (!this.clientChannel.finishConnect()) {
             System.out.println("still connecting");
         }
@@ -36,42 +40,57 @@ public class Client {
      * @param time Время.
      */
     public void getTask(long time) throws IOException {
+        ArrayList<Long> task = parseBytes(getInfoFromServer(time));
+        boolean answer = this.performTask(task);
+        this.sendAnswer(answer);
+    }
 
+    public ArrayList<ByteBuffer> getInfoFromServer(long time) throws IOException {
         long start = System.currentTimeMillis();
-        ArrayList<Long> task = new ArrayList<>();
-        int size = -1;
+        ArrayList<ByteBuffer> bytes = new ArrayList<>();
         while (System.currentTimeMillis() - start < time) {
-            if (size == -1) {
-                ByteBuffer sizeBuf = ByteBuffer.allocate(4);
+            ByteBuffer sizeBuf = ByteBuffer.allocate(1);
+            sizeBuf.position(0);
+            int res = this.clientChannel.read(sizeBuf);
+            if (res > 0) {
                 sizeBuf.position(0);
-                int res = this.clientChannel.read(sizeBuf);
-
-                if (res > 0) {
-                    sizeBuf.position(0);
-                    size = sizeBuf.getInt();
-                } else if (res == -1) {
-                    this.clientChannel.close();
-                    return;
-                }
-
-            } else {
-                while (task.size() < size) {
-                    ByteBuffer longBuf = ByteBuffer.allocate(8);
-                    longBuf.position(0);
-                    while (this.clientChannel.read(longBuf) > 0) {
-                        longBuf.position(0);
-                        task.add(longBuf.getLong());
-                    }
-                }
-                System.out.println("Client: I got task:" + task.toString());
-                size = -1;
-                this.performTask(task);
+                bytes.add(sizeBuf);
+            } else if (res == -1) {
+                this.clientChannel.close();
+                break;
             }
+        }
+        return bytes;
+    }
 
+    public ArrayList<Long> parseBytes(ArrayList<ByteBuffer> bytes) {
+        ArrayList<Long> task = new ArrayList<>();
+
+        ByteBuffer sizeBuf = ByteBuffer.allocate(4);
+        sizeBuf.position(0);
+
+        for (int i = 0; i < 4; i++) {
+            sizeBuf.put(bytes.get(i).get());
         }
 
+        sizeBuf.position(0);
+        int size = sizeBuf.getInt();
 
+        assert size >= 0;
+
+        for (int i = 0; i < size; i++) {
+            ByteBuffer longBuf = ByteBuffer.allocate(8);
+            longBuf.position(0);
+            for (int j = 0; j < 8; j++) {
+                longBuf.put(bytes.get(4 + i*8 + j).get());
+            }
+            longBuf.position(0);
+            task.add(longBuf.getLong());
+        }
+        System.out.println(task);
+        return task;
     }
+
 
     /**
      * Выполняем задание сервера.
@@ -79,10 +98,10 @@ public class Client {
      * @param task Задание, здесь именно список лонгов,
      *             а не структура таск потому что сервер передаёт клиенту числа по одному.
      */
-    public void performTask(ArrayList<Long> task) throws IOException {
+    public boolean performTask(ArrayList<Long> task) throws IOException {
         boolean answer = task.stream().anyMatch(x -> !isPrime(x));
         task.clear();
-        sendAnswer(answer);
+        return answer;
     }
 
     /**

@@ -1,4 +1,4 @@
-package org.example;
+package org.solver;
 
 import java.util.ArrayList;
 
