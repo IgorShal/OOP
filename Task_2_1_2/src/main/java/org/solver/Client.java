@@ -1,9 +1,7 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.StandardSocketOptions;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
@@ -27,17 +25,7 @@ public class Client {
         this.clientChannel.configureBlocking(false);
         this.port = port;
     }
-
-    public void connect() throws IOException {
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.bind(new InetSocketAddress("localhost", 5000));
-        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
-        ByteBuffer buffer = ByteBuffer.allocate(100);
-        buffer.position(0);
-        while (true){
-            datagramChannel.receive(buffer);
-            break;
-        }
+    public InetSocketAddress getAddressByBuffer(ByteBuffer buffer) throws UnknownHostException {
         buffer.flip();
         byte[] bytes = new byte[buffer.remaining()];
         buffer.get(bytes);
@@ -46,13 +34,28 @@ public class Client {
         String stringPort = msg.split(":")[1];
         String stringAdds = msg.split(":")[0].split("/")[1];
 
-        int port = Integer.parseInt(stringPort);
+        int serverPort = Integer.parseInt(stringPort);
         System.out.println(stringAdds);
         InetAddress address = InetAddress.getByName(stringAdds);
-
+        return new InetSocketAddress(address,serverPort);
+    }
+    public void connect() throws IOException {
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        try {
+            datagramChannel.bind(new InetSocketAddress("127.0.0.2", this.port));
+        } catch (IOException e){
+            datagramChannel.bind(new InetSocketAddress("127.0.0.3", this.port));
+        }
+        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
+        ByteBuffer buffer = ByteBuffer.allocate(100);
+        buffer.position(0);
+        while (true){
+            datagramChannel.receive(buffer);
+            break;
+        }
+        SocketAddress address = getAddressByBuffer(buffer);
         datagramChannel.close();
-
-        this.clientChannel.connect(new InetSocketAddress(address,port));
+        this.clientChannel.connect(address);
         while (!this.clientChannel.finishConnect()) {
             System.out.println("still connecting");
         }
@@ -65,10 +68,17 @@ public class Client {
      *
      * @param time Время.
      */
-    public void getTask(long time) throws IOException {
-        ArrayList<Long> task = parseBytes(getInfoFromServer(time));
-        boolean answer = this.performTask(task);
-        this.sendAnswer(answer);
+    public int getTask(long time) throws IOException {
+        try {
+            ArrayList<Long> task = parseBytes(getInfoFromServer(time));
+            boolean answer = this.performTask(task);
+            this.sendAnswer(answer);
+            return 0;
+        } catch (Exception e){
+            return -1;
+        }
+
+
     }
 
     public ArrayList<ByteBuffer> getInfoFromServer(long time) throws IOException {

@@ -8,7 +8,11 @@ public class ClientMain {
             int port = Integer.parseInt(args[0]);
             Client client = new Client(port);
             client.connect();
-            client.getTask(10000);
+            int res = 0;
+            while (res == 0){
+                res = client.getTask(10000);
+            }
+
         } else {
             throw new RuntimeException("No port specified");
         }

@@ -98,6 +98,7 @@ public class TaskGiver {
         }
         if (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer))) {
+            this.tasks.stream().peek(x -> x.setDone(true));
             throw new Exception("No workers left, tasks weren't done");
 
 

@@ -18,6 +18,7 @@ public class Server {
     Selector selector;
     public Thread serverThread;
     ArrayList<Task> tasks;
+    int port;
     ArrayList<InetWorker> workers;
     SelectionKey serverKey;
 
@@ -28,7 +29,7 @@ public class Server {
      */
     public Server(int port) throws IOException {
         this.serverChannel = ServerSocketChannel.open();
-
+        this.port = port;
         this.serverChannel.configureBlocking(false);
         serverChannel.socket().bind(new InetSocketAddress("localhost", port));
         System.out.println("Start server on localhost with port " + port);
@@ -46,7 +47,12 @@ public class Server {
             }
         });
     }
-
+    public DatagramChannel getBroadcastChannel() throws IOException {
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        datagramChannel.bind(new InetSocketAddress("localhost",port));
+        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
+        return  datagramChannel;
+    }
     /**
      * В течение определённого времени ждём клиентов для работы.
      *
@@ -55,23 +61,16 @@ public class Server {
      */
     public ArrayList<InetWorker> findWorkers(int time) throws IOException {
         long start = System.currentTimeMillis();
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.bind(new InetSocketAddress("localhost", 5001));
-        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
 
+        DatagramChannel datagramChannel = getBroadcastChannel();
         String message = this.serverChannel.getLocalAddress().toString();
         ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
-
-        System.out.println(datagramChannel.getLocalAddress());
-
-
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
                 datagramChannel.send(
-                    buffer, new InetSocketAddress(InetAddress.getByName("255.255.255.255"), 5000)
+                    buffer, new InetSocketAddress(InetAddress.getByName("255.255.255.255"), this.port)
                 );
                 buffer.position(0);
-
                 this.selector.wakeup();
                 if (this.selector.select() == 0) {
                     System.out.println("no Actions");
@@ -83,10 +82,11 @@ public class Server {
                         addConnection();
                     }
                 }
-
                 selectedKeys.clear();
             }
         }
+        datagramChannel.close();
+        this.serverChannel.close();
         System.out.println("Found workers: " + this.workers.size());
         return this.workers;
     }
@@ -98,12 +98,12 @@ public class Server {
         System.out.println("Check channels started");
         while (!(tasks.stream().allMatch(Task::isDone)
             || tasks.stream().anyMatch(Task::getAnswer))) {
+            this.selector.wakeup();
             Set<SelectionKey> keys = this.selector.keys();
             if (keys.stream().allMatch(x -> !x.isValid())) {
                 break;
             }
             if (this.selector.select() == 0) {
-                System.out.println("no Actions");
                 continue;
             }
 
@@ -187,11 +187,7 @@ public class Server {
         message.position(0);
         int answer = message.getInt();
         System.out.println("Server: i answer : " + answer);
-        if (answer > 0) {
-            task.setAnswer(true);
-        } else {
-            task.setAnswer(false);
-        }
+        task.setAnswer(answer > 0);
         task.setDone(true);
 
     }

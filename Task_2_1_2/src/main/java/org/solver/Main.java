@@ -15,7 +15,7 @@ public class Main {
         TaskGiver taskGiver = new TaskGiver();
         long[] arr = new long[]{
             1, 2, 3, 5, 7, 11,
-            13, 17, 19, 24, 29, 31};
+            13, 17, 19,  9223372036854775643L, 9223372036854775643L};
         int port = 6000;
         Server server = new Server(port);
         ArrayList<InetWorker> workers = server.findWorkers(10000);
@@ -23,5 +23,6 @@ public class Main {
             taskGiver.addWorker(worker);
         }
         System.out.println(taskGiver.solve(arr));
+
     }
 }
