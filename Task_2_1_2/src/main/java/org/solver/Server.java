@@ -1,13 +1,12 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
+import java.net.*;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -29,6 +28,7 @@ public class Server {
      */
     public Server(int port) throws IOException {
         this.serverChannel = ServerSocketChannel.open();
+
         this.serverChannel.configureBlocking(false);
         serverChannel.socket().bind(new InetSocketAddress("localhost", port));
         System.out.println("Start server on localhost with port " + port);
@@ -55,18 +55,37 @@ public class Server {
      */
     public ArrayList<InetWorker> findWorkers(int time) throws IOException {
         long start = System.currentTimeMillis();
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        datagramChannel.bind(new InetSocketAddress("localhost", 5001));
+        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
+
+        String message = this.serverChannel.getLocalAddress().toString();
+        ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+
+        System.out.println(datagramChannel.getLocalAddress());
+
+
         while (System.currentTimeMillis() - start < time) {
-            if (this.selector.select() == 0) {
-                System.out.println("no Actions");
-                continue;
-            }
-            Set<SelectionKey> selectedKeys = this.selector.selectedKeys();
-            for (SelectionKey key : selectedKeys) {
-                if (key.isAcceptable()) {
-                    addConnection();
+            if (System.currentTimeMillis() % 100 == 0) {
+                datagramChannel.send(
+                    buffer, new InetSocketAddress(InetAddress.getByName("255.255.255.255"), 5000)
+                );
+                buffer.position(0);
+
+                this.selector.wakeup();
+                if (this.selector.select() == 0) {
+                    System.out.println("no Actions");
+                    continue;
                 }
+                Set<SelectionKey> selectedKeys = this.selector.selectedKeys();
+                for (SelectionKey key : selectedKeys) {
+                    if (key.isAcceptable()) {
+                        addConnection();
+                    }
+                }
+
+                selectedKeys.clear();
             }
-            selectedKeys.clear();
         }
         System.out.println("Found workers: " + this.workers.size());
         return this.workers;
@@ -133,23 +152,30 @@ public class Server {
      * Даём задания клиенту.
      */
     public void giveTask(SocketChannel channel, Task task) throws IOException {
-        ByteBuffer send = ByteBuffer.allocate(4);
-        send.position(0);
-        send.putInt(task.getArr().size());
-        send.position(0);
-        channel.write(send);
-
-        send = ByteBuffer.allocate(task.getArr().size() * 8);
-        send.position(0);
-        for (Long num : task.getArr()) {
-            send.putLong(num);
+        ArrayList<ByteBuffer> bytes = getBytesFromTask(task);
+        int wrote = 0;
+        for (ByteBuffer buffer : bytes) {
+            wrote += channel.write(buffer);
         }
-        send.position(0);
-
-        int wrote = channel.write(send);
         System.out.println("Server: i send client " + wrote);
+    }
 
+    public ArrayList<ByteBuffer> getBytesFromTask(Task task) {
+        ArrayList<ByteBuffer> res = new ArrayList<>();
+        ByteBuffer size = ByteBuffer.allocate(4);
+        size.position(0);
+        size.putInt(task.getArr().size());
+        size.position(0);
+        res.add(size);
 
+        for (Long num : task.getArr()) {
+            ByteBuffer send = ByteBuffer.allocate(8);
+            send.position(0);
+            send.putLong(num);
+            send.position(0);
+            res.add(send);
+        }
+        return res;
     }
 
     /**
@@ -157,11 +183,10 @@ public class Server {
      */
     public void getAnswer(SocketChannel channel, Task task) throws IOException {
         ByteBuffer message = ByteBuffer.allocate(4);
-
         channel.read(message);
         message.position(0);
         int answer = message.getInt();
-        System.out.println("Sever: i answer : " + answer);
+        System.out.println("Server: i answer : " + answer);
         if (answer > 0) {
             task.setAnswer(true);
         } else {

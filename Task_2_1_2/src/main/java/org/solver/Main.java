@@ -18,21 +18,10 @@ public class Main {
             13, 17, 19, 24, 29, 31};
         int port = 6000;
         Server server = new Server(port);
-        Thread clientTh2 = new Thread(() -> {
-            try {
-                Client client = new Client(port);
-                client.connect();
-                client.getTask(2000);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        clientTh2.start();
-        ArrayList<InetWorker> workers = server.findWorkers(1000);
+        ArrayList<InetWorker> workers = server.findWorkers(10000);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
         System.out.println(taskGiver.solve(arr));
-        clientTh2.join();
     }
 }

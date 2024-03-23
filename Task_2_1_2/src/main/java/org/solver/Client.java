@@ -1,8 +1,11 @@
 package org.solver;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
@@ -26,7 +29,30 @@ public class Client {
     }
 
     public void connect() throws IOException {
-        this.clientChannel.connect(new InetSocketAddress("localhost", this.port));
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        datagramChannel.bind(new InetSocketAddress("localhost", 5000));
+        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
+        ByteBuffer buffer = ByteBuffer.allocate(100);
+        buffer.position(0);
+        while (true){
+            datagramChannel.receive(buffer);
+            break;
+        }
+        buffer.flip();
+        byte[] bytes = new byte[buffer.remaining()];
+        buffer.get(bytes);
+
+        String msg = new String(bytes);
+        String stringPort = msg.split(":")[1];
+        String stringAdds = msg.split(":")[0].split("/")[1];
+
+        int port = Integer.parseInt(stringPort);
+        System.out.println(stringAdds);
+        InetAddress address = InetAddress.getByName(stringAdds);
+
+        datagramChannel.close();
+
+        this.clientChannel.connect(new InetSocketAddress(address,port));
         while (!this.clientChannel.finishConnect()) {
             System.out.println("still connecting");
         }
