@@ -68,7 +68,7 @@ public class Client {
      *
      * @param time Время.
      */
-    public int getTask(long time) throws IOException {
+    public int getAndSolveTasks(long time) throws IOException {
         try {
             ArrayList<Long> task = parseBytes(getInfoFromServer(time));
             boolean answer = this.performTask(task);
@@ -124,6 +124,7 @@ public class Client {
             task.add(longBuf.getLong());
         }
         System.out.println(task);
+        assert task.size() == size;
         return task;
     }
 

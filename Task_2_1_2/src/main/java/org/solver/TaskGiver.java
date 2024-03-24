@@ -38,7 +38,16 @@ public class TaskGiver {
                 return task;
             }
         }
-        throw new RuntimeException("No free task!");
+        return null;
+    }
+
+    void interuptWorkers() {
+        for (Worker worker : this.workersList) {
+            if (worker.getStatus() != Worker.WorkerStatus.READY
+                || worker.getStatus() != Worker.WorkerStatus.DELETED) {
+                worker.interrupt();
+            }
+        }
     }
 
     /**
@@ -57,54 +66,38 @@ public class TaskGiver {
         while (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer)
             || this.workersList.stream().allMatch(
-                x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
+            x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
             for (Worker worker : workersList) {
                 if (worker.getStatus() == Worker.WorkerStatus.DEAD) {
                     Task deadTask = getTaskByWorker(worker);
-                    if (!deadTask.isDone()) {
+                    if (deadTask != null && !deadTask.isDone()) {
                         deadTask.setWorkerNumber(-1);
                     }
                     worker.setStatus(Worker.WorkerStatus.DELETED);
 
                 } else if (worker.getStatus() == Worker.WorkerStatus.READY) {
-                    try {
-                        if (getTaskByWorker(worker).isDone()) {
-                            Task free = getFreeTask();
-                            free.setWorkerNumber(worker.getWorkerNumber());
-                            worker.setTaskNumber(free.getTaskNumber());
-                            worker.solveTask(free);
-                        }
-                    } catch (RuntimeException e) {
-                        try {
-                            Task free = getFreeTask();
-                            free.setWorkerNumber(worker.getWorkerNumber());
-                            worker.setTaskNumber(free.getTaskNumber());
-                            worker.solveTask(free);
-                        } catch (Exception ignored) {
+                    Task workersTask = getTaskByWorker(worker);
+                    if (workersTask == null || workersTask.isDone()) {
+                        Task free = getFreeTask();
+                        if (free == null) {
                             continue;
                         }
-
+                        free.setWorkerNumber(worker.getWorkerNumber());
+                        worker.setTaskNumber(free.getTaskNumber());
+                        worker.solveTask(free);
                     }
                 }
             }
 
-
         }
-        for (Worker worker : workersList) {
-            if (worker.getStatus() != Worker.WorkerStatus.READY
-                || worker.getStatus() != Worker.WorkerStatus.DELETED) {
-                worker.interrupt();
-            }
-        }
+        interuptWorkers();
         if (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer))) {
-            this.tasks.stream().peek(x -> x.setDone(true));
             throw new Exception("No workers left, tasks weren't done");
 
-
         }
-        this.workersList.clear();
         boolean answer = this.tasks.stream().anyMatch(Task::getAnswer);
+        this.workersList.clear();
         this.tasks.clear();
         return answer;
     }
@@ -143,6 +136,6 @@ public class TaskGiver {
                 return task;
             }
         }
-        throw new RuntimeException("No task with such worker number");
+        return null;
     }
 }

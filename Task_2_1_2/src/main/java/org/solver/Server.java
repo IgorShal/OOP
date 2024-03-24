@@ -47,12 +47,14 @@ public class Server {
             }
         });
     }
+
     public DatagramChannel getBroadcastChannel() throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.bind(new InetSocketAddress("localhost",port));
+        datagramChannel.bind(new InetSocketAddress("localhost", port));
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
-        return  datagramChannel;
+        return datagramChannel;
     }
+
     /**
      * В течение определённого времени ждём клиентов для работы.
      *
@@ -100,7 +102,7 @@ public class Server {
             || tasks.stream().anyMatch(Task::getAnswer))) {
             this.selector.wakeup();
             Set<SelectionKey> keys = this.selector.keys();
-            if (keys.stream().allMatch(x -> !x.isValid())) {
+            if (keys.stream().noneMatch(SelectionKey::isValid)) {
                 break;
             }
             if (this.selector.select() == 0) {
@@ -109,41 +111,34 @@ public class Server {
 
             Set<SelectionKey> selectedKeys = this.selector.selectedKeys();
             for (SelectionKey key : selectedKeys) {
-                Worker curr = (Worker) key.attachment();
-                if (!key.isValid()) {
-                    deleteWorker(curr);
-                    key.channel().close();
-                }
-                if (key.isValid() && key.isWritable()) {
-                    try {
-                        if (curr.getStatus() == Worker.WorkerStatus.READY) {
-                            Task task = getTaskByWorker(curr);
+                Worker currWorker = (Worker) key.attachment();
+                try {
+                    if (!key.isValid()) {
+                        deleteWorker(currWorker);
+                        key.channel().close();
+                        continue;
+                    }
+                    if (key.isWritable()) {
+                        if (currWorker.getStatus() == Worker.WorkerStatus.READY) {
+                            Task task = getTaskByWorker(currWorker);
                             if (!task.isDone()) {
-                                curr.setStatus(Worker.WorkerStatus.WORKING);
+                                currWorker.setStatus(Worker.WorkerStatus.WORKING);
                                 giveTask((SocketChannel) key.channel(), task);
                                 key.interestOps(SelectionKey.OP_READ);
                             }
-
                         }
-                    } catch (IOException e) {
-                        deleteWorker(curr);
-                        key.channel().close();
-                    }
-                } else if (key.isValid() && key.isReadable()) {
-                    try {
-                        getAnswer((SocketChannel) key.channel(), getTaskByWorker(curr));
-                        curr.setStatus(Worker.WorkerStatus.READY);
+                    } else if (key.isReadable()) {
+                        getAnswer((SocketChannel) key.channel(), getTaskByWorker(currWorker));
+                        currWorker.setStatus(Worker.WorkerStatus.READY);
                         key.interestOps(SelectionKey.OP_WRITE);
-
-                    } catch (IOException e) {
-                        deleteWorker(curr);
-                        key.channel().close();
                     }
+                } catch (IOException e) {
+                    deleteWorker(currWorker);
+                    key.channel().close();
                 }
             }
             selectedKeys.clear();
         }
-
         System.out.println("Check channels ended, tasks count = " + this.tasks.size());
         endConnection();
     }
@@ -160,6 +155,12 @@ public class Server {
         System.out.println("Server: i send client " + wrote);
     }
 
+    /**
+     * Метод сериализации задачи.
+     *
+     * @param task задача.
+     * @return массив байтов.
+     */
     public ArrayList<ByteBuffer> getBytesFromTask(Task task) {
         ArrayList<ByteBuffer> res = new ArrayList<>();
         ByteBuffer size = ByteBuffer.allocate(4);

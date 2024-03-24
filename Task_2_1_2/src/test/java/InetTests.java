@@ -65,7 +65,7 @@ public class InetTests {
             try {
                 Client client = new Client(this.port);
                 client.connect();
-                client.getTask(1000);
+                client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -91,7 +91,7 @@ public class InetTests {
             try {
                 Client client = new Client(this.port);
                 client.connect();
-                client.getTask(1000);
+                client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -100,7 +100,7 @@ public class InetTests {
             try {
                 Client client = new Client(this.port);
                 client.connect();
-                client.getTask(1000);
+                client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -148,7 +148,7 @@ public class InetTests {
             try {
                 Client client = new Client(this.port);
                 client.connect();
-                client.getTask(1000);
+                client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -158,7 +158,7 @@ public class InetTests {
                 Client client = new Client(this.port);
                 client.clientChannel.close();
                 client.connect();
-                client.getTask(1000);
+                client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
