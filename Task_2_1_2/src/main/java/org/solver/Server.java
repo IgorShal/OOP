@@ -68,7 +68,7 @@ public class Server {
      * @param time Время.
      * @return Список готовых рабочих.
      */
-    public ArrayList<InetWorker> findWorkers(int time) throws IOException {
+    public ArrayList<InetWorker> findWorkers(int time,ArrayList<Integer> ports) throws IOException {
         long start = System.currentTimeMillis();
 
         DatagramChannel datagramChannel = getBroadcastChannel();
@@ -76,11 +76,14 @@ public class Server {
         ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
-                datagramChannel.send(
-                    buffer, new InetSocketAddress(
-                        InetAddress.getByName("255.255.255.255"), this.port)
-                );
-                buffer.position(0);
+                for (int port:ports){
+                    datagramChannel.send(
+                        buffer, new InetSocketAddress(
+                            InetAddress.getByName("255.255.255.255"), port)
+                    );
+                    buffer.position(0);
+                }
+
                 this.selector.wakeup();
                 if (this.selector.select() == 0) {
                     continue;

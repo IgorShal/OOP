@@ -13,7 +13,7 @@ public class ClientMain {
         if (args.length > 0) {
             int port = Integer.parseInt(args[0]);
             Client client = new Client(port);
-            client.connect();
+            client.connect(port);
             int res = 0;
             while (res == 0) {
                 res = client.getAndSolveTasks(500);

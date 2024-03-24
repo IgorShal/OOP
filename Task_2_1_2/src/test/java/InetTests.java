@@ -63,16 +63,18 @@ public class InetTests {
     @MethodSource("provideArgues")
     void oneClientTest(long[] arr, boolean value) throws Exception {
         this.server = new Server(port);
+        ArrayList<Integer> ports = new ArrayList<>();
+        ports.add(6001);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port + ""};
+                String[] args = new String[]{6001 + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         clientTh2.start();
-        ArrayList<InetWorker> workers = this.server.findWorkers(500);
+        ArrayList<InetWorker> workers = this.server.findWorkers(500,ports);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -88,9 +90,12 @@ public class InetTests {
     @MethodSource("provideArgues")
     void twoClientTest(long[] arr, boolean value) throws Exception {
         this.server = new Server(port);
+        ArrayList<Integer> ports = new ArrayList<>();
+        ports.add(6001);
+        ports.add(6002);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port + ""};
+                String[] args = new String[]{6001 + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -98,7 +103,7 @@ public class InetTests {
         });
         Thread clientTh3 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port + ""};
+                String[] args = new String[]{6002 + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -106,7 +111,7 @@ public class InetTests {
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(500);
+        ArrayList<InetWorker> workers = server.findWorkers(500,ports);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -143,9 +148,12 @@ public class InetTests {
     @MethodSource("provideArgues")
     void twoClientTestOneDead(long[] arr, boolean value) throws Exception {
         this.server = new Server(port);
+        ArrayList<Integer> ports = new ArrayList<>();
+        ports.add(6001);
+        ports.add(6002);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port + ""};
+                String[] args = new String[]{6001 + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -154,7 +162,7 @@ public class InetTests {
         Thread clientTh3 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.connect();
+                client.connect(6002);
                 client.clientChannel.close();
                 client.getAndSolveTasks(10000);
             } catch (IOException e) {
@@ -163,7 +171,7 @@ public class InetTests {
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(500);
+        ArrayList<InetWorker> workers = server.findWorkers(500,ports);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
