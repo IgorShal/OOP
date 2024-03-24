@@ -72,7 +72,7 @@ public class InetTests {
             }
         });
         clientTh2.start();
-        ArrayList<InetWorker> workers = this.server.findWorkers(5000);
+        ArrayList<InetWorker> workers = this.server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -106,7 +106,7 @@ public class InetTests {
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(5000);
+        ArrayList<InetWorker> workers = server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -163,7 +163,7 @@ public class InetTests {
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(5000);
+        ArrayList<InetWorker> workers = server.findWorkers(500);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
