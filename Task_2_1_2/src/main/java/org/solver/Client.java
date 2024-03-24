@@ -54,9 +54,9 @@ public class Client {
     public void connect() throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
         try {
-            datagramChannel.bind(new InetSocketAddress("1.0.0.2", this.port));
+            datagramChannel.bind(new InetSocketAddress("127.0.0.2", this.port));
         } catch (IOException e) {
-            datagramChannel.bind(new InetSocketAddress("0.0.0.3", this.port));
+            throw new UnknownHostException();
         }
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         ByteBuffer buffer = ByteBuffer.allocate(100);
