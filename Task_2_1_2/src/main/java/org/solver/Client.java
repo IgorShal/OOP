@@ -53,8 +53,12 @@ public class Client {
      */
     public void connect(int port) throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
+        try {
+            datagramChannel.bind(new InetSocketAddress("127.0.0.2", port));
 
-        datagramChannel.bind(new InetSocketAddress("localhost", port));
+        }catch (java.io.IOException e){
+            datagramChannel.bind(new InetSocketAddress("127.0.0.3", port));
+        }
 
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         ByteBuffer buffer = ByteBuffer.allocate(100);
