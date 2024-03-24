@@ -64,12 +64,14 @@ public class Client {
         datagramChannel.receive(buffer);
         SocketAddress address = getAddressByBuffer(buffer);
         datagramChannel.close();
+        System.out.println(address);
         this.clientChannel.connect(address);
+
         while (!this.clientChannel.finishConnect()) {
             System.out.println("still connecting");
         }
         System.out.println("client connected");
-        throw new UnknownHostException();
+
     }
 
     /**
