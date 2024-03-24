@@ -1,14 +1,17 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Класс сервера, отвечает за общение с клиентами - рабочими.
@@ -48,24 +51,7 @@ public class Server {
             }
         });
     }
-    List<InetAddress> listAllBroadcastAddresses() throws SocketException {
-        List<InetAddress> broadcastList = new ArrayList<>();
-        Enumeration<NetworkInterface> interfaces
-            = NetworkInterface.getNetworkInterfaces();
-        while (interfaces.hasMoreElements()) {
-            NetworkInterface networkInterface = interfaces.nextElement();
 
-            if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-                continue;
-            }
-
-            networkInterface.getInterfaceAddresses().stream()
-                .map(a -> a.getBroadcast())
-                .filter(Objects::nonNull)
-                .forEach(broadcastList::add);
-        }
-        return broadcastList;
-    }
     /**
      * Создаём канал для броадкаста.
      */
@@ -82,25 +68,22 @@ public class Server {
      * @param time Время.
      * @return Список готовых рабочих.
      */
-    public ArrayList<InetWorker> findWorkers(int time) throws IOException {
+    public ArrayList<InetWorker> findWorkers(int time,ArrayList<Integer> ports) throws IOException {
         long start = System.currentTimeMillis();
 
         DatagramChannel datagramChannel = getBroadcastChannel();
         String message = this.serverChannel.getLocalAddress().toString();
-        List<InetAddress> allBroadcast = listAllBroadcastAddresses();
-        System.out.println(allBroadcast);
         ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
-                for (InetAddress addr:allBroadcast){
-                    System.out.println(addr.getCanonicalHostName());
+                for (int port:ports){
                     datagramChannel.send(
                         buffer, new InetSocketAddress(
-                            addr, this.port)
+                            InetAddress.getByName("255.255.255.255"), port)
                     );
+                    buffer.position(0);
                 }
-                ;
-                buffer.position(0);
+
                 this.selector.wakeup();
                 if (this.selector.select() == 0) {
                     continue;

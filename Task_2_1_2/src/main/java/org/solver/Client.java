@@ -51,24 +51,25 @@ public class Client {
     /**
      * Коннект к серверу.
      */
-    public void connect() throws IOException {
+    public void connect(int port) throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
-        try {
-            datagramChannel.bind(new InetSocketAddress("127.0.0.2", this.port));
-        } catch (IOException e) {
-            datagramChannel.bind(new InetSocketAddress("127.0.0.3", this.port));
-        }
+
+        datagramChannel.bind(new InetSocketAddress("localhost", port));
+
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         ByteBuffer buffer = ByteBuffer.allocate(100);
         buffer.position(0);
         datagramChannel.receive(buffer);
         SocketAddress address = getAddressByBuffer(buffer);
         datagramChannel.close();
+        System.out.println(address);
         this.clientChannel.connect(address);
+
         while (!this.clientChannel.finishConnect()) {
             System.out.println("still connecting");
         }
         System.out.println("client connected");
+
     }
 
     /**
