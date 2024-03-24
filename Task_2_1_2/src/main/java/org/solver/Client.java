@@ -1,13 +1,13 @@
 package org.solver;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.MulticastSocket;
 import java.net.SocketAddress;
-import java.net.StandardSocketOptions;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 
@@ -33,12 +33,10 @@ public class Client {
     /**
      * Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.
      */
-    public InetSocketAddress getAddressByBuffer(ByteBuffer buffer) throws UnknownHostException {
-        buffer.flip();
-        byte[] bytes = new byte[buffer.remaining()];
-        buffer.get(bytes);
+    public InetSocketAddress getAddressByBuffer(byte[] bytes) throws UnknownHostException {
 
-        String msg = new String(bytes);
+
+        String msg = new String(bytes).split("\n")[0];
         String stringPort = msg.split(":")[1];
         String stringAdds = msg.split(":")[0].split("/")[1];
 
@@ -52,20 +50,17 @@ public class Client {
      * Коннект к серверу.
      */
     public void connect(int port) throws IOException {
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        try {
-            datagramChannel.bind(new InetSocketAddress("127.0.0.2", port));
+        MulticastSocket socket = new MulticastSocket(port);
+        InetAddress group = InetAddress.getByName("230.0.0.0");
+        socket.joinGroup(group);
+        byte[] buf = new byte[100];
+        DatagramPacket packet = new DatagramPacket(buf, buf.length);
+        socket.receive(packet);
 
-        }catch (java.io.IOException e){
-            datagramChannel.bind(new InetSocketAddress("127.0.0.3", port));
-        }
 
-        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
-        ByteBuffer buffer = ByteBuffer.allocate(100);
-        buffer.position(0);
-        datagramChannel.receive(buffer);
-        SocketAddress address = getAddressByBuffer(buffer);
-        datagramChannel.close();
+        SocketAddress address = getAddressByBuffer(packet.getData());
+
+
         System.out.println(address);
         this.clientChannel.connect(address);
 

@@ -1,7 +1,11 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
@@ -58,24 +62,8 @@ public class Server {
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         return datagramChannel;
     }
-    List<InetAddress> listAllBroadcastAddresses() throws SocketException {
-        List<InetAddress> broadcastList = new ArrayList<>();
-        Enumeration<NetworkInterface> interfaces
-            = NetworkInterface.getNetworkInterfaces();
-        while (((Enumeration<?>) interfaces).hasMoreElements()) {
-            NetworkInterface networkInterface = interfaces.nextElement();
 
-            if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-                continue;
-            }
 
-            networkInterface.getInterfaceAddresses().stream()
-                .map(a -> a.getBroadcast())
-                .filter(Objects::nonNull)
-                .forEach(broadcastList::add);
-        }
-        return broadcastList;
-    }
     /**
      * В течение определённого времени ждём клиентов для работы.
      *
@@ -85,20 +73,19 @@ public class Server {
     public ArrayList<InetWorker> findWorkers(int time) throws IOException {
         long start = System.currentTimeMillis();
 
-        DatagramChannel datagramChannel = getBroadcastChannel();
-        String message = this.serverChannel.getLocalAddress().toString();
-        List<InetAddress> broadcastlist = listAllBroadcastAddresses();
-        ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+        DatagramSocket socket = new DatagramSocket();
+        String message = this.serverChannel.getLocalAddress().toString() + "\n";
+
+
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
-                for (InetAddress add: broadcastlist){
+                InetAddress group = InetAddress.getByName("230.0.0.0");
+                byte[] buf = message.getBytes();
 
-                    datagramChannel.send(
-                        buffer, new InetSocketAddress(
-                            add, port));
+                DatagramPacket packet
+                    = new DatagramPacket(buf, buf.length, group, port);
+                socket.send(packet);
 
-                    buffer.position(0);
-                }
 
                 this.selector.wakeup();
                 if (this.selector.select() == 0) {
@@ -113,7 +100,7 @@ public class Server {
                 selectedKeys.clear();
             }
         }
-        datagramChannel.close();
+        socket.close();
         this.serverChannel.close();
         System.out.println("Found workers: " + this.workers.size());
         return this.workers;
