@@ -1,7 +1,5 @@
 package org.solver;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +12,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         TaskGiver taskGiver = new TaskGiver();
         long[] arr = new long[]{
-            1, 2, 3, 5, 7, 11,
-            13, 17, 19,  6, 9223372036854775643L,6,9223372036854775643L,6,9223372036854775643L};
+            1, 2, 3, 4, 7, 6, 11};
         int port = 6000;
         Server server = new Server(port);
         ArrayList<InetWorker> workers = server.findWorkers(10000);
@@ -23,6 +20,5 @@ public class Main {
             taskGiver.addWorker(worker);
         }
         System.out.println(taskGiver.solve(arr));
-
     }
 }

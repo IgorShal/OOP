@@ -1,12 +1,16 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.DatagramChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -48,6 +52,9 @@ public class Server {
         });
     }
 
+    /**
+     * Создаём канал для броадкаста.
+     */
     public DatagramChannel getBroadcastChannel() throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
         datagramChannel.bind(new InetSocketAddress("localhost", port));
@@ -115,6 +122,7 @@ public class Server {
                 try {
                     if (!key.isValid()) {
                         deleteWorker(currWorker);
+                        System.out.println("Worker dead:" + currWorker.getWorkerNumber());
                         key.channel().close();
                         continue;
                     }
@@ -148,11 +156,10 @@ public class Server {
      */
     public void giveTask(SocketChannel channel, Task task) throws IOException {
         ArrayList<ByteBuffer> bytes = getBytesFromTask(task);
-        int wrote = 0;
         for (ByteBuffer buffer : bytes) {
-            wrote += channel.write(buffer);
+            channel.write(buffer);
         }
-        System.out.println("Server: i send client " + wrote);
+        System.out.println("Server: I send to worker " + task.getWorkerNumber());
     }
 
     /**
@@ -187,7 +194,7 @@ public class Server {
         channel.read(message);
         message.position(0);
         int answer = message.getInt();
-        System.out.println("Server: i answer : " + answer);
+        System.out.println("Server: I get answer from " + task.getWorkerNumber());
         task.setAnswer(answer > 0);
         task.setDone(true);
 

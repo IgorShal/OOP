@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Класс распределителя задач.
  */
 public class TaskGiver {
-    private ArrayList<Worker> workersList;
+    private final ArrayList<Worker> workersList;
     private ArrayList<Task> tasks;
 
     /**

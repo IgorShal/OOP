@@ -1,7 +1,11 @@
 package org.solver;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.net.StandardSocketOptions;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SocketChannel;
@@ -25,6 +29,10 @@ public class Client {
         this.clientChannel.configureBlocking(false);
         this.port = port;
     }
+
+    /**
+     * Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.
+     */
     public InetSocketAddress getAddressByBuffer(ByteBuffer buffer) throws UnknownHostException {
         buffer.flip();
         byte[] bytes = new byte[buffer.remaining()];
@@ -37,22 +45,23 @@ public class Client {
         int serverPort = Integer.parseInt(stringPort);
         System.out.println(stringAdds);
         InetAddress address = InetAddress.getByName(stringAdds);
-        return new InetSocketAddress(address,serverPort);
+        return new InetSocketAddress(address, serverPort);
     }
+
+    /**
+     * Коннект к серверу.
+     */
     public void connect() throws IOException {
         DatagramChannel datagramChannel = DatagramChannel.open();
         try {
             datagramChannel.bind(new InetSocketAddress("127.0.0.2", this.port));
-        } catch (IOException e){
+        } catch (IOException e) {
             datagramChannel.bind(new InetSocketAddress("127.0.0.3", this.port));
         }
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         ByteBuffer buffer = ByteBuffer.allocate(100);
         buffer.position(0);
-        while (true){
-            datagramChannel.receive(buffer);
-            break;
-        }
+        datagramChannel.receive(buffer);
         SocketAddress address = getAddressByBuffer(buffer);
         datagramChannel.close();
         this.clientChannel.connect(address);
@@ -74,13 +83,16 @@ public class Client {
             boolean answer = this.performTask(task);
             this.sendAnswer(answer);
             return 0;
-        } catch (Exception e){
+        } catch (Exception e) {
             return -1;
         }
 
 
     }
 
+    /**
+     * Получаем данные от сервера.
+     */
     public ArrayList<ByteBuffer> getInfoFromServer(long time) throws IOException {
         long start = System.currentTimeMillis();
         ArrayList<ByteBuffer> bytes = new ArrayList<>();
@@ -99,6 +111,9 @@ public class Client {
         return bytes;
     }
 
+    /**
+     * Десериализуем данные массив байтов в массив чисел.
+     */
     public ArrayList<Long> parseBytes(ArrayList<ByteBuffer> bytes) {
         ArrayList<Long> task = new ArrayList<>();
 
@@ -118,7 +133,7 @@ public class Client {
             ByteBuffer longBuf = ByteBuffer.allocate(8);
             longBuf.position(0);
             for (int j = 0; j < 8; j++) {
-                longBuf.put(bytes.get(4 + i*8 + j).get());
+                longBuf.put(bytes.get(4 + i * 8 + j).get());
             }
             longBuf.position(0);
             task.add(longBuf.getLong());

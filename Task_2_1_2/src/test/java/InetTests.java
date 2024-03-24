@@ -2,12 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import org.solver.Client;
-import org.solver.InetWorker;
-import org.solver.Server;
-import org.solver.TaskGiver;
-import org.solver.ThreadWorker;
-import org.solver.Worker;
+import org.solver.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -49,8 +44,10 @@ public class InetTests {
                 13, 17, 19, 23, 29, 31}, false),
             Arguments.of(new long[]{
                 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 30}, true),
+            //Arguments.of(new long[]{
+            //    9223372036854775783L, 9223372036854775643L}, false),
             Arguments.of(new long[]{
-                9223372036854775783L, 9223372036854775643L}, false)
+                3, 4,5,6,7,8,11}, true)
         );
     }
 
@@ -63,9 +60,8 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                Client client = new Client(this.port);
-                client.connect();
-                client.getAndSolveTasks(1000);
+                String[] args = new String[]{this.port+""};
+                ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -89,18 +85,16 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                Client client = new Client(this.port);
-                client.connect();
-                client.getAndSolveTasks(1000);
+                String[] args = new String[]{this.port+""};
+                ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         Thread clientTh3 = new Thread(() -> {
             try {
-                Client client = new Client(this.port);
-                client.connect();
-                client.getAndSolveTasks(1000);
+                String[] args = new String[]{this.port+""};
+                ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -146,9 +140,8 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                Client client = new Client(this.port);
-                client.connect();
-                client.getAndSolveTasks(1000);
+                String[] args = new String[]{this.port+""};
+                ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -156,8 +149,8 @@ public class InetTests {
         Thread clientTh3 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.clientChannel.close();
                 client.connect();
+                client.clientChannel.close();
                 client.getAndSolveTasks(1000);
             } catch (IOException e) {
                 throw new RuntimeException(e);

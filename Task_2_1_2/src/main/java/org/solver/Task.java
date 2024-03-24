@@ -11,7 +11,7 @@ public class Task {
     private boolean done;
     private int workerNumber;
     private int taskNumber;
-    private ArrayList<Long> arr;
+    private final ArrayList<Long> arr;
 
     /**
      * Конструктор.
