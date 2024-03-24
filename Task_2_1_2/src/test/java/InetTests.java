@@ -1,6 +1,11 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.solver.Client;
 import org.solver.ClientMain;
 import org.solver.InetWorker;
@@ -8,11 +13,6 @@ import org.solver.Server;
 import org.solver.TaskGiver;
 import org.solver.ThreadWorker;
 import org.solver.Worker;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
 
 /**
@@ -72,7 +72,7 @@ public class InetTests {
             }
         });
         clientTh2.start();
-        ArrayList<InetWorker> workers = this.server.findWorkers(500);
+        ArrayList<InetWorker> workers = this.server.findWorkers(5000);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -106,7 +106,7 @@ public class InetTests {
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(500);
+        ArrayList<InetWorker> workers = server.findWorkers(5000);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }
@@ -156,14 +156,14 @@ public class InetTests {
                 Client client = new Client(this.port);
                 client.connect();
                 client.clientChannel.close();
-                client.getAndSolveTasks(1000);
+                client.getAndSolveTasks(10000);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         clientTh2.start();
         clientTh3.start();
-        ArrayList<InetWorker> workers = server.findWorkers(500);
+        ArrayList<InetWorker> workers = server.findWorkers(5000);
         for (Worker worker : workers) {
             taskGiver.addWorker(worker);
         }

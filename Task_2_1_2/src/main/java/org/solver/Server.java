@@ -83,7 +83,6 @@ public class Server {
                 buffer.position(0);
                 this.selector.wakeup();
                 if (this.selector.select() == 0) {
-                    System.out.println("no Actions");
                     continue;
                 }
                 Set<SelectionKey> selectedKeys = this.selector.selectedKeys();
