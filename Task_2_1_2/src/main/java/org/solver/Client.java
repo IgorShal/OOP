@@ -56,7 +56,7 @@ public class Client {
         try {
             datagramChannel.bind(new InetSocketAddress("127.0.0.2", this.port));
         } catch (IOException e) {
-            throw new UnknownHostException();
+            datagramChannel.bind(new InetSocketAddress("127.0.0.3", this.port));
         }
         datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
         ByteBuffer buffer = ByteBuffer.allocate(100);
@@ -69,6 +69,7 @@ public class Client {
             System.out.println("still connecting");
         }
         System.out.println("client connected");
+        throw new UnknownHostException();
     }
 
     /**
