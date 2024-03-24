@@ -1,8 +1,13 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-
-import org.solver.*;
+import org.solver.Client;
+import org.solver.ClientMain;
+import org.solver.InetWorker;
+import org.solver.Server;
+import org.solver.TaskGiver;
+import org.solver.ThreadWorker;
+import org.solver.Worker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,7 +52,7 @@ public class InetTests {
             //Arguments.of(new long[]{
             //    9223372036854775783L, 9223372036854775643L}, false),
             Arguments.of(new long[]{
-                3, 4,5,6,7,8,11}, true)
+                3, 4, 5, 6, 7, 8, 11}, true)
         );
     }
 
@@ -60,7 +65,7 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port+""};
+                String[] args = new String[]{this.port + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -85,7 +90,7 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port+""};
+                String[] args = new String[]{this.port + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -93,7 +98,7 @@ public class InetTests {
         });
         Thread clientTh3 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port+""};
+                String[] args = new String[]{this.port + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -140,7 +145,7 @@ public class InetTests {
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {
-                String[] args = new String[]{this.port+""};
+                String[] args = new String[]{this.port + ""};
                 ClientMain.main(args);
             } catch (IOException e) {
                 throw new RuntimeException(e);

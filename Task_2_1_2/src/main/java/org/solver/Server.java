@@ -77,7 +77,8 @@ public class Server {
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
                 datagramChannel.send(
-                    buffer, new InetSocketAddress(InetAddress.getByName("255.255.255.255"), this.port)
+                    buffer, new InetSocketAddress(
+                        InetAddress.getByName("255.255.255.255"), this.port)
                 );
                 buffer.position(0);
                 this.selector.wakeup();
@@ -169,11 +170,12 @@ public class Server {
      * @return массив байтов.
      */
     public ArrayList<ByteBuffer> getBytesFromTask(Task task) {
-        ArrayList<ByteBuffer> res = new ArrayList<>();
+
         ByteBuffer size = ByteBuffer.allocate(4);
         size.position(0);
         size.putInt(task.getArr().size());
         size.position(0);
+        ArrayList<ByteBuffer> res = new ArrayList<>();
         res.add(size);
 
         for (Long num : task.getArr()) {
@@ -232,6 +234,7 @@ public class Server {
         for (SelectionKey key : set) {
             key.channel().close();
         }
+
         this.selector.close();
         this.serverChannel.socket().close();
         for (Worker worker : this.workers) {

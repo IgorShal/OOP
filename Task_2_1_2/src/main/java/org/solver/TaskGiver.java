@@ -66,7 +66,7 @@ public class TaskGiver {
         while (!(this.tasks.stream().allMatch(Task::isDone)
             || this.tasks.stream().anyMatch(Task::getAnswer)
             || this.workersList.stream().allMatch(
-            x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
+                x -> x.getStatus() == Worker.WorkerStatus.DELETED))) {
             for (Worker worker : workersList) {
                 if (worker.getStatus() == Worker.WorkerStatus.DEAD) {
                     Task deadTask = getTaskByWorker(worker);

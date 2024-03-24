@@ -16,7 +16,7 @@ public class ClientMain {
             client.connect();
             int res = 0;
             while (res == 0) {
-                res = client.getAndSolveTasks(1000);
+                res = client.getAndSolveTasks(500);
             }
         } else {
             throw new RuntimeException("No port specified");
