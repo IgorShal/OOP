@@ -130,7 +130,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="org/solver/ClientMain.html#%3Cinit%3E()">ClientMain()</a></span> - Constructor for class org.solver.<a href="org/solver/ClientMain.html" title="class in org.solver">ClientMain</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/solver/Client.html#connect(int)">connect(int)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
+<dt><span class="memberNameLink"><a href="org/solver/Client.html#connect()">connect()</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
 <div class="block">Коннект к серверу.</div>
 </dd>
@@ -147,6 +147,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/solver/Server.html#deleteWorker(org.solver.Worker)">deleteWorker(Worker)</a></span> - Method in class org.solver.<a href="org/solver/Server.html" title="class in org.solver">Server</a></dt>
 <dd>
 <div class="block">Меняем статус на мертвого для отключённых рабочих.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#deserializeTaskIntoLongArr(java.util.ArrayList)">deserializeTaskIntoLongArr(ArrayList&lt;ByteBuffer&gt;)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Десериализуем данные массив байтов в массив чисел.</div>
 </dd>
 </dl>
 <a id="I:E">
@@ -174,7 +178,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">G</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/solver/Client.html#getAddressByBuffer(byte%5B%5D)">getAddressByBuffer(byte[])</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#getAddressByBuffer(byte%5B%5D)">getAddressByBuffer(byte[])</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
 <dd>
 <div class="block">Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.</div>
 </dd>
@@ -194,23 +198,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Геттер.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/solver/Server.html#getBroadcastChannel()">getBroadcastChannel()</a></span> - Method in class org.solver.<a href="org/solver/Server.html" title="class in org.solver">Server</a></dt>
-<dd>
-<div class="block">Создаём канал для броадкаста.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/solver/Server.html#getBytesFromTask(org.solver.Task)">getBytesFromTask(Task)</a></span> - Method in class org.solver.<a href="org/solver/Server.html" title="class in org.solver">Server</a></dt>
-<dd>
-<div class="block">Метод сериализации задачи.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/solver/Client.html#getInfoFromServer(long)">getInfoFromServer(long)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
 <div class="block">Получаем данные от сервера.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/solver/Worker.html#getNumber()">getNumber()</a></span> - Method in class org.solver.<a href="org/solver/Worker.html" title="class in org.solver">Worker</a></dt>
+<dt><span class="memberNameLink"><a href="org/solver/Client.html#getMulticastDatagram()">getMulticastDatagram()</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
-<div class="block">Геттер.</div>
+<div class="block">Метод для получения датаграммы из мультикаста.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/solver/InetWorker.html#getServer()">getServer()</a></span> - Method in class org.solver.<a href="org/solver/InetWorker.html" title="class in org.solver">InetWorker</a></dt>
+<dt><span class="memberNameLink"><a href="org/solver/Worker.html#getNumber()">getNumber()</a></span> - Method in class org.solver.<a href="org/solver/Worker.html" title="class in org.solver">Worker</a></dt>
 <dd>
 <div class="block">Геттер.</div>
 </dd>
@@ -305,10 +301,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">P</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/solver/Client.html#parseBytes(java.util.ArrayList)">parseBytes(ArrayList&lt;ByteBuffer&gt;)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
-<dd>
-<div class="block">Десериализуем данные массив байтов в массив чисел.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/solver/Client.html#performTask(java.util.ArrayList)">performTask(ArrayList&lt;Long&gt;)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
 <div class="block">Выполняем задание сервера.</div>
@@ -332,6 +324,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="org/solver/Client.html#sendAnswer(boolean)">sendAnswer(boolean)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
 <div class="block">Отправляем ответ серверу.</div>
+</dd>
+<dt><a href="org/solver/Serializer.html" title="class in org.solver"><span class="typeNameLink">Serializer</span></a> - Class in <a href="org/solver/package-summary.html">org.solver</a></dt>
+<dd>
+<div class="block">Класс для сериализация и десериализации.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#%3Cinit%3E()">Serializer()</a></span> - Constructor for class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#serializeTask(org.solver.Task)">serializeTask(Task)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Метод сериализации задачи.</div>
 </dd>
 <dt><a href="org/solver/Server.html" title="class in org.solver"><span class="typeNameLink">Server</span></a> - Class in <a href="org/solver/package-summary.html">org.solver</a></dt>
 <dd>
