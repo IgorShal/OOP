@@ -31,6 +31,7 @@ public class Client {
 
     /**
      * Метод для получения датаграммы из мультикаста.
+     *
      * @return Датаграмма.
      */
     public DatagramPacket getMulticastDatagram() throws IOException {

@@ -1,8 +1,8 @@
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,10 +11,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.solver.Client;
 import org.solver.ClientMain;
 import org.solver.InetWorker;
+import org.solver.Serializer;
 import org.solver.Server;
+import org.solver.Task;
 import org.solver.TaskGiver;
 import org.solver.ThreadWorker;
 import org.solver.Worker;
+
 
 
 /**
@@ -192,6 +195,31 @@ public class InetTests {
         ArrayList<Long> arrayList = new ArrayList<>();
         Arrays.stream(arr).forEach(arrayList::add);
         Assertions.assertEquals(client.performTask(arrayList), value);
+    }
+
+    /**
+     * Тест сериализации.
+     */
+    @ParameterizedTest
+    @MethodSource("provideArgues")
+    void serializeTest(long[] arr, boolean value) {
+        ArrayList<Long> arrayList = new ArrayList<>();
+        Arrays.stream(arr).forEach(arrayList::add);
+        Task task1 = new Task(arrayList, 0);
+        ArrayList<ByteBuffer> list = Serializer.serializeTask(task1);
+        ArrayList<ByteBuffer> byteFlow = new ArrayList<>();
+        for (ByteBuffer buf : list) {
+            while (buf.position() != buf.limit()) {
+                ByteBuffer newBuf = ByteBuffer.allocate(1);
+                newBuf.put(buf.get());
+                newBuf.position(0);
+                byteFlow.add(newBuf);
+            }
+        }
+        Assertions.assertEquals(
+            arrayList,
+            Serializer.deserializeTaskIntoLongArr(byteFlow)
+        );
     }
 
 }
