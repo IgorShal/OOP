@@ -150,6 +150,7 @@ public class InetTests {
     @ParameterizedTest
     @MethodSource("provideArgues")
     void twoClientTestOneDead(long[] arr, boolean value) throws Exception {
+        System.out.println("One dead test");
         this.server = new Server(port);
         Thread clientTh2 = new Thread(() -> {
             try {

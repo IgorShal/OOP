@@ -135,6 +135,7 @@ public class Server {
                         key.interestOps(SelectionKey.OP_WRITE);
                     }
                 } catch (IOException e) {
+                    System.out.println("Worker dead:" + currWorker.getWorkerNumber());
                     deleteWorker(currWorker);
                     key.channel().close();
                 }
@@ -160,9 +161,11 @@ public class Server {
      */
     public void getAnswer(SocketChannel channel, Task task) throws IOException {
         ByteBuffer message = ByteBuffer.allocate(4);
-        channel.read(message);
+        if (channel.read(message) == -1) {
+            throw new IOException("Worker dead");
+        }
         boolean answer = Serializer.deserializeAnswer(message.array());
-        System.out.println("Server: I get answer from " + task.getWorkerNumber());
+        System.out.println("Server: I get " + answer + " from " + task.getWorkerNumber());
         task.setAnswer(answer);
         task.setDone(true);
 
