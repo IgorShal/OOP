@@ -148,7 +148,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Меняем статус на мертвого для отключённых рабочих.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#deserializeTaskIntoLongArr(java.util.ArrayList)">deserializeTaskIntoLongArr(ArrayList&lt;ByteBuffer&gt;)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#deserializeAddress(byte%5B%5D)">deserializeAddress(byte[])</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#deserializeAnswer(byte%5B%5D)">deserializeAnswer(byte[])</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Метод десериализации ответа.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#deserializeTaskIntoLongArr(byte%5B%5D)">deserializeTaskIntoLongArr(byte[])</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
 <dd>
 <div class="block">Десериализуем данные массив байтов в массив чисел.</div>
 </dd>
@@ -178,10 +186,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">G</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#getAddressByBuffer(byte%5B%5D)">getAddressByBuffer(byte[])</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
-<dd>
-<div class="block">Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/solver/Client.html#getAndSolveTasks(long)">getAndSolveTasks(long)</a></span> - Method in class org.solver.<a href="org/solver/Client.html" title="class in org.solver">Client</a></dt>
 <dd>
 <div class="block">Получаем задание от сервера в течение времени.</div>
@@ -325,12 +329,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Отправляем ответ серверу.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#serializeAddress(java.lang.String)">serializeAddress(String)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Метод для сериализация адреса.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#serializeAnswer(boolean)">serializeAnswer(boolean)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
+<dd>
+<div class="block">Метод сериализации ответа.</div>
+</dd>
 <dt><a href="org/solver/Serializer.html" title="class in org.solver"><span class="typeNameLink">Serializer</span></a> - Class in <a href="org/solver/package-summary.html">org.solver</a></dt>
 <dd>
 <div class="block">Класс для сериализация и десериализации.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/solver/Serializer.html#%3Cinit%3E()">Serializer()</a></span> - Constructor for class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/solver/Serializer.html#serializeTask(org.solver.Task)">serializeTask(Task)</a></span> - Static method in class org.solver.<a href="org/solver/Serializer.html" title="class in org.solver">Serializer</a></dt>
 <dd>
 <div class="block">Метод сериализации задачи.</div>
