@@ -62,16 +62,16 @@ public class Server {
         long start = System.currentTimeMillis();
 
         DatagramSocket socket = new DatagramSocket();
-        String message = this.serverChannel.getLocalAddress().toString() + "\n";
+        String address = this.serverChannel.getLocalAddress().toString() + "\n";
 
 
         while (System.currentTimeMillis() - start < time) {
             if (System.currentTimeMillis() % 100 == 0) {
                 InetAddress group = InetAddress.getByName("230.0.0.0");
-                byte[] buf = message.getBytes();
 
+                byte[] message = Serializer.serializeAddress(address);
                 DatagramPacket packet
-                    = new DatagramPacket(buf, buf.length, group, port);
+                    = new DatagramPacket(message, message.length, group, port);
                 socket.send(packet);
 
 
@@ -149,10 +149,8 @@ public class Server {
      * Даём задания клиенту.
      */
     public void giveTask(SocketChannel channel, Task task) throws IOException {
-        ArrayList<ByteBuffer> bytes = Serializer.serializeTask(task);
-        for (ByteBuffer buffer : bytes) {
-            channel.write(buffer);
-        }
+        byte[] bytes = Serializer.serializeTask(task);
+        channel.write(ByteBuffer.wrap(bytes));
         System.out.println("Server: I send to worker " + task.getWorkerNumber());
     }
 
@@ -163,10 +161,9 @@ public class Server {
     public void getAnswer(SocketChannel channel, Task task) throws IOException {
         ByteBuffer message = ByteBuffer.allocate(4);
         channel.read(message);
-        message.position(0);
-        int answer = message.getInt();
+        boolean answer = Serializer.deserializeAnswer(message.array());
         System.out.println("Server: I get answer from " + task.getWorkerNumber());
-        task.setAnswer(answer > 0);
+        task.setAnswer(answer);
         task.setDone(true);
 
     }

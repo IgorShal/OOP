@@ -1,5 +1,6 @@
 package org.solver;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -50,7 +51,7 @@ public class Client {
      */
     public void connect() throws IOException {
         DatagramPacket packet = getMulticastDatagram();
-        SocketAddress address = Serializer.getAddressByBuffer(packet.getData());
+        SocketAddress address = Serializer.deserializeAddress(packet.getData());
 
         this.clientChannel.connect(address);
 
@@ -69,7 +70,8 @@ public class Client {
      */
     public int getAndSolveTasks(long time) throws IOException {
         try {
-            ArrayList<Long> task = Serializer.deserializeTaskIntoLongArr(getInfoFromServer(time));
+            byte[] info = getInfoFromServer(time);
+            ArrayList<Long> task = Serializer.deserializeTaskIntoLongArr(info);
             boolean answer = this.performTask(task);
             this.sendAnswer(answer);
             return 0;
@@ -83,22 +85,23 @@ public class Client {
     /**
      * Получаем данные от сервера.
      */
-    public ArrayList<ByteBuffer> getInfoFromServer(long time) throws IOException {
+    public byte[] getInfoFromServer(long time) throws IOException {
         long start = System.currentTimeMillis();
-        ArrayList<ByteBuffer> bytes = new ArrayList<>();
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         while (System.currentTimeMillis() - start < time) {
-            ByteBuffer sizeBuf = ByteBuffer.allocate(1);
-            sizeBuf.position(0);
-            int res = this.clientChannel.read(sizeBuf);
+            ByteBuffer oneByte = ByteBuffer.allocate(1);
+            oneByte.position(0);
+            int res = this.clientChannel.read(oneByte);
             if (res > 0) {
-                sizeBuf.position(0);
-                bytes.add(sizeBuf);
+                oneByte.position(0);
+                byte cur = oneByte.get();
+                bytes.write(cur);
             } else if (res == -1) {
                 this.clientChannel.close();
                 break;
             }
         }
-        return bytes;
+        return bytes.toByteArray();
     }
 
     /**
@@ -119,13 +122,9 @@ public class Client {
      * @param answer Ответ.
      */
     public void sendAnswer(boolean answer) throws IOException {
-        ByteBuffer ansBuffer = ByteBuffer.allocate(4);
-        if (answer) {
-            ansBuffer.putInt(1);
-        }
-        ansBuffer.position(0);
+        byte[] ansBuffer = Serializer.serializeAnswer(answer);
         System.out.println("Client: i send to server"
-            + this.clientChannel.write(ansBuffer));
+            + this.clientChannel.write(ByteBuffer.wrap(ansBuffer)));
     }
 
     /**
