@@ -48,12 +48,12 @@ public class Serializer {
      * @return массив байтов.
      */
     public static byte[] serializeTask(Task task) throws IOException {
-        ByteArrayOutputStream bytes =  new ByteArrayOutputStream();
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         ByteBuffer sizeBuf = ByteBuffer.allocate(4);
         int size = task.getArr().size();
         sizeBuf.putInt(size);
         bytes.write(sizeBuf.array());
-        for (Long num : task.getArr()){
+        for (Long num : task.getArr()) {
             ByteBuffer buf = ByteBuffer.allocate(8);
             buf.position(0);
             buf.putLong(num);
@@ -62,6 +62,7 @@ public class Serializer {
         }
         return bytes.toByteArray();
     }
+
     /**
      * Десериализуем данные массив байтов в массив чисел.
      */
@@ -80,6 +81,9 @@ public class Serializer {
         return task;
     }
 
+    /**
+     * Метод сериализации ответа.
+     */
     public static byte[] serializeAnswer(boolean answer) {
         ByteBuffer ansBuffer = ByteBuffer.allocate(4);
         if (answer) {
@@ -89,6 +93,9 @@ public class Serializer {
         return ansBuffer.array();
     }
 
+    /**
+     * Метод десериализации ответа.
+     */
     public static boolean deserializeAnswer(byte[] bytes) {
         ByteBuffer buf = ByteBuffer.wrap(bytes);
         buf.position(0);

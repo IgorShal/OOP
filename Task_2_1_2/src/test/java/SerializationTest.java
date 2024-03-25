@@ -1,10 +1,3 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.solver.Serializer;
-import org.solver.Task;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -12,6 +5,14 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.solver.Serializer;
+import org.solver.Task;
+
 
 public class SerializationTest {
     /**
@@ -97,7 +98,7 @@ public class SerializationTest {
      * Тест для проверки работы сериализации ответа.
      */
     @Test
-    void serializeAnswerTest(){
+    void serializeAnswerTest() {
         boolean answer = true;
         Assertions.assertEquals(
             answer,

@@ -164,7 +164,7 @@ public class InetTests {
                 Client client = new Client(this.port);
                 client.connect();
                 client.clientChannel.close();
-                client.getAndSolveTasks(10000);
+                client.getAndSolveTasks(500);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
