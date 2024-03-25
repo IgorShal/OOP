@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -52,7 +54,14 @@ public class InetTests {
             //Arguments.of(new long[]{
             //    9223372036854775783L, 9223372036854775643L}, false),
             Arguments.of(new long[]{
-                3, 4, 5, 6, 7, 8, 11}, true)
+                3, 4, 5, 6, 7, 8, 11}, true),
+            Arguments.of(new long[]{
+                2}, false),
+            Arguments.of(new long[]{
+                3}, false),
+            Arguments.of(new long[]{
+                4}, true)
+
         );
     }
 
@@ -155,7 +164,7 @@ public class InetTests {
         Thread clientTh3 = new Thread(() -> {
             try {
                 Client client = new Client(this.port);
-                client.connect(6000);
+                client.connect();
                 client.clientChannel.close();
                 client.getAndSolveTasks(10000);
             } catch (IOException e) {
@@ -172,5 +181,18 @@ public class InetTests {
         clientTh2.join();
         clientTh3.join();
     }
+
+    /**
+     * Тест проверки корректности isPrime и performTask.
+     */
+    @ParameterizedTest
+    @MethodSource("provideArgues")
+    void algorithmCorrectnessTest(long[] arr, boolean value) throws IOException {
+        Client client = new Client(this.port);
+        ArrayList<Long> arrayList = new ArrayList<>();
+        Arrays.stream(arr).forEach(arrayList::add);
+        Assertions.assertEquals(client.performTask(arrayList), value);
+    }
+
 }
 

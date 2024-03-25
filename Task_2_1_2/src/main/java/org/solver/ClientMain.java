@@ -9,17 +9,19 @@ public class ClientMain {
     /**
      * Мейн метод, принимаем порт, конектимся и решаем задачу.
      */
-    public static void main(String[] args) throws IOException {
+    public static int main(String[] args) throws IOException {
         if (args.length > 0) {
             int port = Integer.parseInt(args[0]);
             Client client = new Client(port);
-            client.connect(port);
+            client.connect();
             int res = 0;
             while (res == 0) {
                 res = client.getAndSolveTasks(500);
             }
+            return 0;
         } else {
-            throw new RuntimeException("No port specified");
+            System.err.println("No port specified");
+            return 1;
         }
 
     }

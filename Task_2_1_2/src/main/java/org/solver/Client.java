@@ -3,13 +3,12 @@ package org.solver;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
+
 
 /**
  * Класс клиента.
@@ -31,37 +30,27 @@ public class Client {
     }
 
     /**
-     * Обрабатываем полученные данные из пакета броадкаста и получаем адрес сервера.
+     * Метод для получения датаграммы из мультикаста.
+     * @return Датаграмма.
      */
-    public InetSocketAddress getAddressByBuffer(byte[] bytes) throws UnknownHostException {
-
-
-        String msg = new String(bytes).split("\n")[0];
-        String stringPort = msg.split(":")[1];
-        String stringAdds = msg.split(":")[0].split("/")[1];
-
-        int serverPort = Integer.parseInt(stringPort);
-        System.out.println(stringAdds);
-        InetAddress address = InetAddress.getByName(stringAdds);
-        return new InetSocketAddress(address, serverPort);
-    }
-
-    /**
-     * Коннект к серверу.
-     */
-    public void connect(int port) throws IOException {
-        MulticastSocket socket = new MulticastSocket(port);
+    public DatagramPacket getMulticastDatagram() throws IOException {
+        MulticastSocket socket = new MulticastSocket(this.port);
         InetAddress group = InetAddress.getByName("230.0.0.0");
         socket.joinGroup(group);
         byte[] buf = new byte[100];
         DatagramPacket packet = new DatagramPacket(buf, buf.length);
         socket.receive(packet);
+        socket.close();
+        return packet;
+    }
 
+    /**
+     * Коннект к серверу.
+     */
+    public void connect() throws IOException {
+        DatagramPacket packet = getMulticastDatagram();
+        SocketAddress address = Serializer.getAddressByBuffer(packet.getData());
 
-        SocketAddress address = getAddressByBuffer(packet.getData());
-
-
-        System.out.println(address);
         this.clientChannel.connect(address);
 
         while (!this.clientChannel.finishConnect()) {
@@ -79,7 +68,7 @@ public class Client {
      */
     public int getAndSolveTasks(long time) throws IOException {
         try {
-            ArrayList<Long> task = parseBytes(getInfoFromServer(time));
+            ArrayList<Long> task = Serializer.deserializeTaskIntoLongArr(getInfoFromServer(time));
             boolean answer = this.performTask(task);
             this.sendAnswer(answer);
             return 0;
@@ -112,45 +101,12 @@ public class Client {
     }
 
     /**
-     * Десериализуем данные массив байтов в массив чисел.
-     */
-    public ArrayList<Long> parseBytes(ArrayList<ByteBuffer> bytes) {
-        ArrayList<Long> task = new ArrayList<>();
-
-        ByteBuffer sizeBuf = ByteBuffer.allocate(4);
-        sizeBuf.position(0);
-
-        for (int i = 0; i < 4; i++) {
-            sizeBuf.put(bytes.get(i).get());
-        }
-
-        sizeBuf.position(0);
-        int size = sizeBuf.getInt();
-
-        assert size >= 0;
-
-        for (int i = 0; i < size; i++) {
-            ByteBuffer longBuf = ByteBuffer.allocate(8);
-            longBuf.position(0);
-            for (int j = 0; j < 8; j++) {
-                longBuf.put(bytes.get(4 + i * 8 + j).get());
-            }
-            longBuf.position(0);
-            task.add(longBuf.getLong());
-        }
-        System.out.println(task);
-        assert task.size() == size;
-        return task;
-    }
-
-
-    /**
      * Выполняем задание сервера.
      *
      * @param task Задание, здесь именно список лонгов,
      *             а не структура таск потому что сервер передаёт клиенту числа по одному.
      */
-    public boolean performTask(ArrayList<Long> task) throws IOException {
+    public boolean performTask(ArrayList<Long> task) {
         boolean answer = task.stream().anyMatch(x -> !isPrime(x));
         task.clear();
         return answer;

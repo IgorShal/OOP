@@ -5,9 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -53,17 +51,6 @@ public class Server {
             }
         });
     }
-
-    /**
-     * Создаём канал для броадкаста.
-     */
-    public DatagramChannel getBroadcastChannel() throws IOException {
-        DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.bind(new InetSocketAddress("localhost", port));
-        datagramChannel.setOption(StandardSocketOptions.SO_BROADCAST, true);
-        return datagramChannel;
-    }
-
 
     /**
      * В течение определённого времени ждём клиентов для работы.
@@ -162,37 +149,13 @@ public class Server {
      * Даём задания клиенту.
      */
     public void giveTask(SocketChannel channel, Task task) throws IOException {
-        ArrayList<ByteBuffer> bytes = getBytesFromTask(task);
+        ArrayList<ByteBuffer> bytes = Serializer.serializeTask(task);
         for (ByteBuffer buffer : bytes) {
             channel.write(buffer);
         }
         System.out.println("Server: I send to worker " + task.getWorkerNumber());
     }
 
-    /**
-     * Метод сериализации задачи.
-     *
-     * @param task задача.
-     * @return массив байтов.
-     */
-    public ArrayList<ByteBuffer> getBytesFromTask(Task task) {
-
-        ByteBuffer size = ByteBuffer.allocate(4);
-        size.position(0);
-        size.putInt(task.getArr().size());
-        size.position(0);
-        ArrayList<ByteBuffer> res = new ArrayList<>();
-        res.add(size);
-
-        for (Long num : task.getArr()) {
-            ByteBuffer send = ByteBuffer.allocate(8);
-            send.position(0);
-            send.putLong(num);
-            send.position(0);
-            res.add(send);
-        }
-        return res;
-    }
 
     /**
      * Получаем ответ от клиента.

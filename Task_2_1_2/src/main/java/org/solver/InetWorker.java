@@ -39,10 +39,4 @@ public class InetWorker extends Worker {
         this.server = server;
     }
 
-    /**
-     * Геттер.
-     */
-    public Server getServer() {
-        return server;
-    }
 }
